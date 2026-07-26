@@ -1,0 +1,275 @@
+{
+  "templateName": "Recibo de Descargo Trabajadora Doméstica",
+  "variableMappingNote": "Chat/schema keys (below) differ from Handlebars PDF keys in Recibo de Descargo Trabajadora Doméstica.hbs. Date fields use pdfKeys; domesticEmployerGender uses derivesPdfKeys. Server expands canonical dates into PDF fragments on save and before preview.",
+  "groups": [
+    {
+      "id": "declarantInfo",
+      "label": "Datos de la trabajadora doméstica",
+      "variables": [
+        {
+          "key": "declarantFullName",
+          "label": "Nombre legal completo de la trabajadora doméstica",
+          "type": "text",
+          "required": true,
+          "example": "MARÍA PÉREZ CRUZ"
+        },
+        {
+          "key": "declarantNationality",
+          "label": "Nacionalidad de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "declarantIdType",
+          "label": "Tipo de documento de identidad de la trabajadora",
+          "type": "dropdown",
+          "options": [
+            "de la Cédula de Identidad y Electoral",
+            "del Pasaporte"
+          ],
+          "required": true,
+          "example": "de la Cédula de Identidad y Electoral"
+        },
+        {
+          "key": "declarantIdNumber",
+          "label": "Número de cédula o pasaporte de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "declarantAddress",
+          "label": "Dirección completa de domicilio de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "Calle Los Ríos No. 5, Villa Consuelo, Santo Domingo, D.N."
+        }
+      ]
+    },
+    {
+      "id": "employerInfo",
+      "label": "Datos del empleador(a)",
+      "variables": [
+        {
+          "key": "employerFullName",
+          "label": "Nombre legal completo del empleador(a)",
+          "type": "text",
+          "required": true,
+          "example": "JULIA MARTÍNEZ LÓPEZ"
+        },
+        {
+          "key": "domesticEmployerGender",
+          "label": "La persona que te empleaba en el hogar es",
+          "type": "choice",
+          "options": ["Mujer", "Hombre"],
+          "required": true,
+          "example": "Mujer",
+          "derivesPdfKeys": ["employerReference", "payerReference", "employerReferenceShort"]
+        },
+        {
+          "key": "employerNationality",
+          "label": "Nacionalidad del empleador(a)",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "employerIdType",
+          "label": "Tipo de documento de identidad del empleador(a)",
+          "type": "dropdown",
+          "options": [
+            "de la Cédula de Identidad y Electoral",
+            "del Pasaporte"
+          ],
+          "required": true,
+          "example": "de la Cédula de Identidad y Electoral"
+        },
+        {
+          "key": "employerIdNumber",
+          "label": "Número de cédula o pasaporte del empleador(a)",
+          "type": "text",
+          "required": true,
+          "example": "001-9876543-2"
+        },
+        {
+          "key": "workplaceDescription",
+          "label": "Cómo se describía el hogar donde trabajabas (breve, p. ej. «de la señora», «del señor» o «de la familia»)",
+          "type": "text",
+          "required": true,
+          "example": "de la señora"
+        }
+      ]
+    },
+    {
+      "id": "employmentDates",
+      "label": "Fechas de la relación laboral",
+      "variables": [
+        {
+          "key": "employmentStartDate",
+          "label": "Fecha en que comenzó el trabajo en el hogar (día, mes y año en un solo dato; ej. 15 de enero de 2023, 15/1/2023)",
+          "type": "date",
+          "required": true,
+          "example": "15 de enero de 2023",
+          "pdfKeys": [
+            "startDayLetters",
+            "startDayNumbers",
+            "startMonthLetters",
+            "startYearLetters",
+            "startYearNumbers"
+          ]
+        },
+        {
+          "key": "employmentEndDate",
+          "label": "Fecha en que terminó el trabajo (día, mes y año)",
+          "type": "date",
+          "required": true,
+          "example": "30 de diciembre de 2025",
+          "pdfKeys": [
+            "endDayLetters",
+            "endDayNumbers",
+            "endMonthLetters",
+            "endYearLetters",
+            "endYearNumbers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paymentInfo",
+      "label": "Pagos recibidos",
+      "variables": [
+        {
+          "key": "navidadAmountInWords",
+          "label": "Regalía pascual (navidad): monto en letras para el PDF (el usuario puede dar solo cifras — el sistema completa esta forma)",
+          "type": "text",
+          "required": true,
+          "example": "Diez Mil Pesos Dominicanos"
+        },
+        {
+          "key": "navidadAmountInNumbers",
+          "label": "Regalía pascual (navidad): monto en cifras sin 'RD$' para el PDF (el usuario puede dar solo palabras — el sistema completa esta forma)",
+          "type": "text",
+          "required": true,
+          "example": "10,000.00"
+        },
+        {
+          "key": "salaryAmountInWords",
+          "label": "Último salario: monto en letras para el PDF (el usuario puede dar solo cifras — el sistema completa esta forma)",
+          "type": "text",
+          "required": true,
+          "example": "Quince Mil Pesos Dominicanos"
+        },
+        {
+          "key": "salaryAmountInNumbers",
+          "label": "Último salario: monto en cifras sin 'RD$' para el PDF (el usuario puede dar solo palabras — el sistema completa esta forma)",
+          "type": "text",
+          "required": true,
+          "example": "15,000.00"
+        },
+        {
+          "key": "lastSalaryPeriodDate",
+          "label": "Fecha o periodo al que corresponde el último salario (cualquier día de ese mes sirve; el documento usa solo mes y año; ej. 30 de diciembre de 2025 o 1/12/2025 para diciembre 2025)",
+          "type": "date",
+          "required": true,
+          "example": "30 de diciembre de 2025",
+          "pdfKeys": ["salaryMonthLetters", "salaryYearLetters", "salaryYearNumbers"]
+        }
+      ]
+    },
+    {
+      "id": "terminationInfo",
+      "label": "Terminación del contrato",
+      "variables": [
+        {
+          "key": "terminationReason",
+          "label": "Razón de terminación del contrato",
+          "type": "dropdown",
+          "options": [
+            "por MI DECISIÓN UNILATERAL DE RENUNCIAR AL PUESTO DE TRABAJO",
+            "por MUTUO ACUERDO entre las partes",
+            "por DECISIÓN UNILATERAL DEL EMPLEADOR"
+          ],
+          "required": true,
+          "example": "por MI DECISIÓN UNILATERAL DE RENUNCIAR AL PUESTO DE TRABAJO"
+        },
+        {
+          "key": "contractTerminationDate",
+          "label": "Fecha efectiva de terminación del contrato (día, mes y año en un solo dato)",
+          "type": "date",
+          "required": true,
+          "example": "30 de diciembre de 2025",
+          "pdfKeys": [
+            "terminationDayLetters",
+            "terminationDayNumbers",
+            "terminationMonthLetters",
+            "terminationYearLetters",
+            "terminationYearNumbers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vacationInfo",
+      "label": "Reconocimiento de vacaciones",
+      "variables": [
+        {
+          "key": "vacationCoverageThroughDate",
+          "label": "Hasta qué fecha o año cubren las vacaciones ya tomadas (cualquier día y mes; el documento usa solo el año; ej. 31 de diciembre de 2025)",
+          "type": "date",
+          "required": true,
+          "example": "31 de diciembre de 2025",
+          "pdfKeys": ["vacationYearLetters", "vacationYearNumbers"]
+        }
+      ]
+    },
+    {
+      "id": "signingInfo",
+      "label": "Lugar, fecha de firma y notaría",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad donde se firma el documento",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia donde se firma el documento (y, salvo que indiques otra abajo, jurisdicción del notario)",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "documentSigningDate",
+          "label": "Fecha de firma de este recibo (día, mes y año en un solo dato)",
+          "type": "date",
+          "required": true,
+          "example": "5 de enero de 2026",
+          "pdfKeys": [
+            "signingDayLetters",
+            "signingDayNumbers",
+            "signingMonthLetters",
+            "signingYearLetters",
+            "signingYearNumbers"
+          ]
+        },
+        {
+          "key": "notaryJurisdiction",
+          "label": "Solo si el Notario Público actúa en otra jurisdicción distinta de la provincia de firma (ej. Santiago); si firman en la misma provincia, omite — el sistema usa la provincia de firma",
+          "type": "text",
+          "required": false,
+          "example": "Santiago"
+        }
+      ]
+    }
+  ]
+}

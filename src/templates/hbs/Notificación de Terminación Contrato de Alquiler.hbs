@@ -1,0 +1,37 @@
+<p style="text-align:left">{{noticeCity}}, República Dominicana</p>
+
+<p style="text-align:left">{{noticeDateLong}}</p>
+
+<p style="text-align:left">Dirigido a:</p>
+<p style="text-align:left"><strong>{{tenantFullName}}</strong></p>
+<p style="text-align:left">{{tenantAddress}}</p>
+
+<p style="text-align:left"><strong>ASUNTO: Terminación de Addendum de Contrato de Alquiler por {{terminationCause}}</strong></p>
+
+<p style="text-align:justify">{{#eq tenantGender "Femenino"}}Estimada Señora{{else}}{{#eq tenantGender "Masculino"}}Estimado Señor{{else}}Estimado(a) señor(a){{/eq}}{{/eq}} {{tenantLastName}}:</p>
+
+<p style="text-align:justify">Por medio de la presente, quien suscribe, <strong>{{senderFullName}}</strong>, {{senderNationality}}, mayor de edad, titular de {{senderIdType}} no. {{senderIdNumber}}, con domicilio y residencia en {{senderAddress}}, en mi calidad de {{senderCapacity}} del inmueble ubicado en {{propertyFullAddress}}, le comunico formalmente mi decisión de dar por terminado el Contrato de Alquiler suscrito entre ambas partes en fecha {{contractExecutionDate}}, terminación que se hizo efectiva en fecha {{terminationEffectiveDate}}, en virtud de {{terminationCauseDetail}}.</p>
+
+<p style="text-align:justify">Reconozco que, tras la inspección realizada, {{inspectionResultText}}. En consecuencia, en fecha {{depositReturnDate}} procedí a {{depositActionText}} el depósito de garantía {{depositReturnMethodText}}, a cuyos fines {{attachmentReferenceText}}. Esto de conformidad con lo establecido en el referido Contrato de Alquiler y en virtud de lo dispuesto por las leyes de la República Dominicana.</p>
+
+<p style="text-align:justify">Agradezco la buena disposición mostrada durante el tiempo de vigencia del Contrato y quedo a su orden para coordinar los detalles de la entrega formal del inmueble.</p>
+
+<p style="text-align:justify">Sin más, me suscribo,</p>
+
+<p style="text-align:left">Atentamente,</p>
+
+<p style="text-align:left">&nbsp;</p>
+<p style="text-align:left">__________________________________</p>
+<p style="text-align:left"><strong>{{senderFullName}}</strong></p>
+<p style="text-align:left">{{signatureCapacityLine}}</p>
+
+{{#eq hasAttachments "Sí"}}
+<p style="text-align:left">&nbsp;</p>
+<p style="text-align:left">Anexo(s): {{attachmentsList}}</p>
+{{/eq}}
+
+<p style="text-align:left">&nbsp;</p>
+<p style="text-align:left">Recibido conforme:</p>
+<p style="text-align:left">&nbsp;</p>
+<p style="text-align:left">__________________________________</p>
+<p style="text-align:left"><strong>{{tenantFullName}}</strong></p>

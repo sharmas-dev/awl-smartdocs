@@ -1,0 +1,51 @@
+# Dependencies & build
+node_modules/
+.cache/
+/dist
+/build
+/coverage
+/logs
+/temp
+/cache
+/backup
+/archive
+/old
+/trash
+
+# Compiled / artifacts
+*.class
+*.py[cod]
+*.jar
+target/
+
+# Environment / secrets
+.env
+.env.*
+
+# IDE
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Session files (dev)
+templates/output/.sessions/
+
+# Test / misc
+*.log
+TEST*.xml
+*.app
+*.exe
+*.war
+
+# Large media
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+/src/widgets/.next
+/scripts
+/real time extracted documents

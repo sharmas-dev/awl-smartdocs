@@ -1,0 +1,680 @@
+{
+  "templateName": "Contrato de Compraventa Vehículo",
+  "displayName": "Contrato de Compraventa de Vehículo de Motor",
+  "description": "Formulario para completar las variables del Contrato de Compraventa de Vehículo de Motor (vendedor, comprador, vehículo, precio, documentos y firma).",
+  "groups": [
+    {
+      "id": "seller",
+      "label": "A. EL VENDEDOR",
+      "variables": [
+        {
+          "key": "sellerIsCompany",
+          "label": "¿El vendedor es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"]
+        },
+        {
+          "key": "sellerTypeLabel",
+          "label": "Tipo de vendedor (texto que aparece en el contrato; se asigna automáticamente cuando corresponde)",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la sociedad", "el señor", "la señora"]
+        },
+        {
+          "key": "sellerGender",
+          "label": "Género del vendedor (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Persona física" },
+          "options": ["Hombre", "Mujer"]
+        },
+        {
+          "key": "sellerLegalName",
+          "label": "Nombre completo del vendedor (nombre y apellidos, o razón social)",
+          "type": "text",
+          "required": true,
+          "example": "Constructora ABC, S.A. / Juan Pérez Gómez"
+        },
+        {
+          "key": "sellerJurisdiction",
+          "label": "País o estado de constitución (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "sellerCompanyOrigin",
+          "label": "Origen de la sociedad (solo empresa)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "options": ["Nacional", "Extranjera"]
+        },
+        {
+          "key": "sellerHasDominicanRnc",
+          "label": "¿La sociedad extranjera tiene RNC dominicano?",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerCompanyOrigin", "equals": "Extranjera" },
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "sellerIncludeRncInContract",
+          "label": "Incluir cláusula de RNC en el contrato (calculado)",
+          "type": "dropdown",
+          "required": false,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "sellerRnc",
+          "label": "RNC de la empresa vendedora (9 dígitos, formato XXX-XXXXX-X)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIncludeRncInContract", "equals": "Sí" },
+          "example": "1-01-23456-7"
+        },
+        {
+          "key": "sellerFullAddress",
+          "label": "Dirección completa del vendedor",
+          "type": "text",
+          "required": true,
+          "example": "Av. Churchill 123, Piantini, Santo Domingo"
+        },
+        {
+          "key": "sellerRepTitle",
+          "label": "Cargo del representante (opcional: Gerente, Presidente, Secretario)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "Presidente"
+        },
+        {
+          "key": "sellerRepFullName",
+          "label": "Nombre completo del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "Carlos Rodríguez"
+        },
+        {
+          "key": "sellerRepNationality",
+          "label": "Nacionalidad del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "dominicano"
+        },
+        {
+          "key": "sellerRepIdType",
+          "label": "Tipo de ID del representante (solo empresa)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "sellerRepIdNumber",
+          "label": "Número de cédula o pasaporte del representante legal del vendedor (cédula de 11 dígitos o pasaporte)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "sellerRepFullAddress",
+          "label": "Dirección del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "Santo Domingo, DN"
+        },
+        {
+          "key": "sellerNationality",
+          "label": "Nacionalidad del vendedor (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Persona física" },
+          "example": "dominicano"
+        },
+        {
+          "key": "sellerMaritalStatus",
+          "label": "Estado civil del vendedor (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Persona física" },
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "sellerHasCommunityProperty",
+          "label": "¿Casado bajo comunidad de bienes?",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerMaritalStatus", "equals": "casado(a)" },
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "sellerIdType",
+          "label": "Tipo de ID del vendedor (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Persona física" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "sellerIdNumber",
+          "label": "Número de ID del vendedor (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Persona física" },
+          "example": "001-9876543-2"
+        },
+        {
+          "key": "sellerSpouseFullName",
+          "label": "Nombre completo del cónyuge del vendedor",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerHasCommunityProperty", "equals": "Sí" },
+          "example": "María López"
+        },
+        {
+          "key": "sellerSpouseNationality",
+          "label": "Nacionalidad del cónyuge del vendedor",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerHasCommunityProperty", "equals": "Sí" },
+          "example": "dominicana"
+        },
+        {
+          "key": "sellerSpouseIdType",
+          "label": "Tipo de ID del cónyuge del vendedor",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "sellerHasCommunityProperty", "equals": "Sí" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "sellerSpouseIdNumber",
+          "label": "Número de ID del cónyuge del vendedor",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerHasCommunityProperty", "equals": "Sí" },
+          "example": "001-5555555-6"
+        },
+        {
+          "key": "sellerSpouseAddress",
+          "label": "Dirección del cónyuge del vendedor",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerHasCommunityProperty", "equals": "Sí" },
+          "example": "Av. Churchill 123, Piantini, Santo Domingo"
+        }
+      ]
+    },
+    {
+      "id": "buyer",
+      "label": "B. EL COMPRADOR",
+      "variables": [
+        {
+          "key": "buyerIsCompany",
+          "label": "¿El comprador es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"]
+        },
+        {
+          "key": "buyerTypeLabel",
+          "label": "Tipo de comprador (texto que aparece en el contrato; se asigna automáticamente cuando corresponde)",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la sociedad", "el señor", "la señora"]
+        },
+        {
+          "key": "buyerGender",
+          "label": "Género del comprador (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Persona física" },
+          "options": ["Hombre", "Mujer"]
+        },
+        {
+          "key": "buyerLegalName",
+          "label": "Nombre completo del comprador (nombre y apellidos, o razón social)",
+          "type": "text",
+          "required": true,
+          "example": "Proveedora XYZ, S.R.L. / María López"
+        },
+        {
+          "key": "buyerJurisdiction",
+          "label": "País o estado de constitución (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "buyerCompanyOrigin",
+          "label": "Origen de la sociedad (solo empresa)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "options": ["Nacional", "Extranjera"]
+        },
+        {
+          "key": "buyerHasDominicanRnc",
+          "label": "¿La sociedad extranjera tiene RNC dominicano?",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerCompanyOrigin", "equals": "Extranjera" },
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "buyerIncludeRncInContract",
+          "label": "Incluir cláusula de RNC en el contrato (calculado)",
+          "type": "dropdown",
+          "required": false,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "buyerRnc",
+          "label": "RNC de la empresa compradora (9 dígitos, formato XXX-XXXXX-X)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIncludeRncInContract", "equals": "Sí" },
+          "example": "1-31-45678-9"
+        },
+        {
+          "key": "buyerFullAddress",
+          "label": "Dirección completa del comprador",
+          "type": "text",
+          "required": true,
+          "example": "Calle Principal 456, Santiago"
+        },
+        {
+          "key": "buyerRepTitle",
+          "label": "Cargo del representante (opcional: Gerente, Presidente, Secretario)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "example": "Gerente General"
+        },
+        {
+          "key": "buyerRepFullName",
+          "label": "Nombre completo del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "example": "Ana García"
+        },
+        {
+          "key": "buyerRepNationality",
+          "label": "Nacionalidad del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "example": "dominicana"
+        },
+        {
+          "key": "buyerRepIdType",
+          "label": "Tipo de ID del representante (solo empresa)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "buyerRepIdNumber",
+          "label": "Número de cédula o pasaporte del representante legal del comprador (cédula de 11 dígitos o pasaporte)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "example": "001-2222222-3"
+        },
+        {
+          "key": "buyerRepFullAddress",
+          "label": "Dirección del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Empresa" },
+          "example": "Santiago, Santiago"
+        },
+        {
+          "key": "buyerNationality",
+          "label": "Nacionalidad del comprador (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Persona física" },
+          "example": "dominicano"
+        },
+        {
+          "key": "buyerMaritalStatus",
+          "label": "Estado civil del comprador (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Persona física" },
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "buyerHasCommunityProperty",
+          "label": "¿Casado bajo comunidad de bienes?",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerMaritalStatus", "equals": "casado(a)" },
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "buyerIdType",
+          "label": "Tipo de ID del comprador (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Persona física" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "buyerIdNumber",
+          "label": "Número de ID del comprador (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerIsCompany", "equals": "Persona física" },
+          "example": "001-8888888-9"
+        },
+        {
+          "key": "buyerSpouseFullName",
+          "label": "Nombre completo del cónyuge del comprador",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerHasCommunityProperty", "equals": "Sí" },
+          "example": "Pedro Martínez"
+        },
+        {
+          "key": "buyerSpouseNationality",
+          "label": "Nacionalidad del cónyuge del comprador",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerHasCommunityProperty", "equals": "Sí" },
+          "example": "dominicano"
+        },
+        {
+          "key": "buyerSpouseIdType",
+          "label": "Tipo de ID del cónyuge del comprador",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "buyerHasCommunityProperty", "equals": "Sí" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "buyerSpouseIdNumber",
+          "label": "Número de ID del cónyuge del comprador",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerHasCommunityProperty", "equals": "Sí" },
+          "example": "001-7777777-8"
+        },
+        {
+          "key": "buyerSpouseAddress",
+          "label": "Dirección del cónyuge del comprador",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "buyerHasCommunityProperty", "equals": "Sí" },
+          "example": "Calle Principal 456, Santiago"
+        }
+      ]
+    },
+    {
+      "id": "vehicle",
+      "label": "C. DATOS DEL VEHÍCULO",
+      "variables": [
+        {
+          "key": "vehicleChasisNo",
+          "label": "Número de chasis (como aparece en la Matrícula)",
+          "type": "text",
+          "required": true,
+          "example": "3GNAXUEV0NL123456"
+        },
+        {
+          "key": "certificateOfTitleNo",
+          "label": "Número de Matrícula (Certificado de Título)",
+          "type": "text",
+          "required": true,
+          "example": "01-0012345"
+        },
+        {
+          "key": "certificateOfTitleIssueDate",
+          "label": "Fecha de emisión de la Matrícula",
+          "type": "date",
+          "required": true,
+          "example": "15 de enero de 2024"
+        },
+        {
+          "key": "vehicleBrand",
+          "label": "Marca del vehículo",
+          "type": "text",
+          "required": true,
+          "example": "Toyota"
+        },
+        {
+          "key": "vehicleModel",
+          "label": "Modelo del vehículo (como en la Matrícula)",
+          "type": "text",
+          "required": true,
+          "example": "Corolla 2023"
+        },
+        {
+          "key": "vehicleMotorDescription",
+          "label": "Motor o número de serie (como en la Matrícula)",
+          "type": "text",
+          "required": true,
+          "example": "2ZR-FE 1234567"
+        },
+        {
+          "key": "vehicleLicensePlate",
+          "label": "Placa oficial del vehículo",
+          "type": "text",
+          "required": true,
+          "example": "A123456"
+        },
+        {
+          "key": "vehicleColor",
+          "label": "Color del vehículo (como en la Matrícula)",
+          "type": "text",
+          "required": true,
+          "example": "Blanco"
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "label": "D. PRECIO Y FORMA DE PAGO",
+      "variables": [
+        {
+          "key": "totalAmountInWords",
+          "label": "Monto total en letras",
+          "type": "text",
+          "required": true,
+          "example": "Dos Cientos Mil Pesos Dominicanos con 00/100"
+        },
+        {
+          "key": "totalAmountWithCurrency",
+          "label": "Monto total con moneda (cifras)",
+          "type": "text",
+          "required": true,
+          "example": "RD$200,000.00"
+        },
+        {
+          "key": "paymentDatesList",
+          "label": "Fecha(s) de pago",
+          "type": "text",
+          "required": true,
+          "example": "15 de marzo de 2026"
+        },
+        {
+          "key": "paymentMethod",
+          "label": "Método de pago",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Transferencia bancaria", "Cheque"]
+        },
+        {
+          "key": "accountNumber",
+          "label": "Número de cuenta bancaria (solo transferencia)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "paymentMethod", "equals": "Transferencia bancaria" },
+          "example": "123-456789-0"
+        },
+        {
+          "key": "bankName",
+          "label": "Nombre del banco",
+          "type": "text",
+          "required": true,
+          "example": "Banco Popular Dominicano"
+        },
+        {
+          "key": "checkNumber",
+          "label": "Número de cheque (solo cheque)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "paymentMethod", "equals": "Cheque" },
+          "example": "001234"
+        },
+        {
+          "key": "paymentDate",
+          "label": "Fecha del comprobante de pago",
+          "type": "date",
+          "required": true,
+          "example": "15 de marzo de 2026"
+        },
+        {
+          "key": "annexLabel",
+          "label": "Etiqueta del anexo de soportes de pago",
+          "type": "text",
+          "required": true,
+          "example": "Anexo A"
+        }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "E. DOCUMENTOS Y PLAZOS",
+      "variables": [
+        {
+          "key": "registryOfficeJurisdiction",
+          "label": "Jurisdicción de la Cámara de Comercio (solo si vendedor es empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "Santo Domingo"
+        },
+        {
+          "key": "authorizationIssueDate",
+          "label": "Fecha de la Carta de Autorización corporativa al representante (solo si vendedor es empresa)",
+          "type": "date",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "10 de marzo de 2026"
+        },
+        {
+          "key": "invoiceNo",
+          "label": "Número de factura de venta (solo si vendedor es empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "001234"
+        },
+        {
+          "key": "invoiceIssueDate",
+          "label": "Fecha de emisión de la factura (solo si vendedor es empresa)",
+          "type": "date",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "15 de marzo de 2026"
+        },
+        {
+          "key": "invoiceNcf",
+          "label": "Número de Comprobante Fiscal — NCF (solo si vendedor es empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "sellerIsCompany", "equals": "Empresa" },
+          "example": "B0100000123"
+        },
+        {
+          "key": "filingDeadlineDaysLetters",
+          "label": "Plazo para depositar documentos ante la DGII (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "treinta"
+        },
+        {
+          "key": "filingDeadlineDaysNumbers",
+          "label": "Plazo para depositar documentos ante la DGII (en números, días)",
+          "type": "number",
+          "required": true,
+          "example": "30"
+        }
+      ]
+    },
+    {
+      "id": "signing",
+      "label": "F. FIRMA",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad de firma",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia o estado",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "signingDateLetters",
+          "label": "Día de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "veinticuatro"
+        },
+        {
+          "key": "signingDateNumbers",
+          "label": "Día de firma en números",
+          "type": "number",
+          "required": true,
+          "example": "24"
+        },
+        {
+          "key": "signingMonthLetters",
+          "label": "Mes de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "marzo"
+        },
+        {
+          "key": "signingYearLetters",
+          "label": "Año de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "dos mil veintiséis"
+        },
+        {
+          "key": "signingYearNumbers",
+          "label": "Año de firma en números",
+          "type": "number",
+          "required": true,
+          "example": "2026"
+        }
+      ]
+    }
+  ]
+}

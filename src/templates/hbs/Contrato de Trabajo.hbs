@@ -1,0 +1,197 @@
+<p style="text-align:center"><strong>CONTRATO DE TRABAJO</strong></p>
+
+<p style="text-align:justify"><strong>De una primera parte</strong>, <strong>{{employerLegalName}}</strong>, {{#eq employerIsCompany "Empresa"}}sociedad constituida de conformidad con las leyes de {{employerJurisdiction}}, inscrita en el Registro Nacional de Contribuyentes (RNC) bajo el número {{employerRnc}}, y Registro Mercantil No. {{employerMercantileRegistryNumber}}, con domicilio social en {{employerFullAddress}}; debidamente representada por su {{employerRepTitle}}, <strong>{{employerRepFullName}}</strong>, {{employerRepNationality}}, mayor de edad, titular {{employerRepIdType}} No. {{employerRepIdNumber}}, con domicilio en {{employerRepAddress}}; razón social{{else}}{{employerNationality}}, mayor de edad, {{employerMaritalStatus}}, {{employerOccupation}}, titular {{employerIdType}} No. {{employerIdNumber}}, con domicilio y residencia en {{employerFullAddress}}; persona{{/eq}}, que en lo adelante será denominada como <strong>"EL EMPLEADOR"</strong>; y</p>
+
+<p style="text-align:justify"><strong>De una segunda parte</strong>, <strong>{{employeeFullName}}</strong>, {{employeeNationality}}, mayor de edad, {{employeeMaritalStatus}}, {{employeeOccupation}}, titular {{employeeIdType}} No. {{employeeIdNumber}}, con domicilio y residencia en {{employeeFullAddress}}, República Dominicana; quien en lo adelante se denominará <strong>"EL TRABAJADOR"</strong>.</p>
+
+<p style="text-align:justify">Cuando se haga referencia a <strong>EL EMPLEADOR</strong> y <strong>EL TRABAJADOR</strong> de forma conjunta, ambas se denominarán como las <strong>"Partes"</strong>.</p>
+
+<p style="text-align:center"><strong>PREÁMBULO</strong></p>
+
+<p style="text-align:justify"><strong>POR CUANTO (I):</strong> EL EMPLEADOR requiere los servicios de una persona que pueda desempeñar las funciones de {{positionTitle}}. EL TRABAJADOR declara tener la capacidad, disposición e interés en ofrecer los servicios requeridos por EL EMPLEADOR.</p>
+
+<p style="text-align:justify"><strong>POR CUANTO (II):</strong> Es interés de las <strong>Partes</strong> documentar los términos generales y acuerdos mutuos, así como los derechos y obligaciones asumidos por cada una de ellas durante su relación laboral, y a tal fin, suscriben el presente Contrato.</p>
+
+<p style="text-align:justify"><strong>POR TANTO</strong>, y entendiendo que el preámbulo forma parte integral del presente Contrato, Las Partes, libre y voluntariamente,</p>
+
+<p style="text-align:center"><strong>HAN CONVENIDO Y PACTADO LO SIGUIENTE:</strong></p>
+
+<p style="text-align:justify"><strong>PRIMERO: OBJETO.</strong> EL TRABAJADOR se compromete a prestar sus servicios personales a EL EMPLEADOR, en calidad de <strong>{{positionTitle}}</strong>, con efectividad al día {{startDay}} de {{startMonth}} de {{startYear}}, con eficiencia, intensidad, ética, esmero y dedicación.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO I: DURACIÓN.</strong> El presente Contrato se realiza {{contractDuration}}.</p>
+
+{{#eq hasProbationPeriod "Sí"}}
+<p style="text-align:justify">Las Partes acuerdan un período de prueba de <strong>{{probationPeriod}}</strong>, durante el cual cualquiera de Las Partes podrá dar por terminada la relación laboral sin responsabilidad para ninguna de ellas, conforme a lo establecido en el Código de Trabajo de la República Dominicana.</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>PÁRRAFO II: FUNCIONES Y RESPONSABILIDADES DEL TRABAJADOR.</strong> EL TRABAJADOR tendrá, entre otras, las siguientes responsabilidades y obligaciones:</p>
+
+<p style="text-align:justify"><strong>a)</strong> Realizar las funciones propias del cargo de {{positionTitle}}, incluyendo {{specificDuties}};</p>
+
+<p style="text-align:justify"><strong>b)</strong> Reportarse directamente a su supervisor inmediato y coordinar con este todas sus actividades;</p>
+
+<p style="text-align:justify"><strong>c)</strong> Cumplir las directrices de sus superiores y hacerlas cumplir al personal a sus órdenes si fuere el caso, asumiendo la explicación y promoción de la escala de valores, técnicos y operativos de EL EMPLEADOR;</p>
+
+<p style="text-align:justify"><strong>d)</strong> Informar a sus superiores de manera veraz y puntual sobre la realidad de su área de competencia y sobre cuantos asuntos lleguen a su conocimiento que pudieran comprometer los intereses y afectar las actividades de EL EMPLEADOR;</p>
+
+<p style="text-align:justify"><strong>e)</strong> Abstenerse de provocar daños a cualquier bien propiedad de EL EMPLEADOR y velar por los mejores intereses de la empresa;</p>
+
+<p style="text-align:justify"><strong>f)</strong> Cumplir con su horario de trabajo de manera puntual, evitando faltas y tardanzas, y debiendo informar a su superior inmediatamente se presente una situación de fuerza mayor que se lo impida;</p>
+
+<p style="text-align:justify"><strong>g)</strong> Cumplir con todas las obligaciones que la ley laboral, los manuales y políticas de EL EMPLEADOR, así como las buenas prácticas del área de su competencia, pongan a su cargo;</p>
+
+{{#eq hasAdditionalResponsibilities "Sí"}}
+<p style="text-align:justify">{{additionalResponsibilities}}</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>SEGUNDO: LUGAR DE TRABAJO.</strong> EL TRABAJADOR prestará sus servicios asistiendo a las instalaciones de EL EMPLEADOR, ubicadas en <strong>{{workplaceAddress}}</strong>, {{workplaceCity}}, {{workplaceProvince}}, República Dominicana.</p>
+
+<p style="text-align:justify">EL EMPLEADOR podrá decidir unilateralmente el traslado de EL TRABAJADOR a otras localidades en que requiera sus servicios, bajo previo aviso en un plazo razonable, conforme a lo establecido en el Código de Trabajo.</p>
+
+{{#eq hasRemoteWork "Sí"}}
+<p style="text-align:justify">Las Partes acuerdan que EL TRABAJADOR podrá realizar sus funciones {{remoteWorkArrangement}}, sujeto a las políticas de trabajo remoto establecidas por EL EMPLEADOR.</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>TERCERO: HORARIO Y JORNADA LABORAL.</strong> EL TRABAJADOR tendrá un horario de <strong>{{workSchedule}}</strong>, con un descanso de <strong>{{lunchBreakDuration}}</strong> para el almuerzo, y deberá cumplir con el turno que EL EMPLEADOR disponga conveniente, atendiendo a las necesidades operacionales.</p>
+
+<p style="text-align:justify">La jornada laboral semanal será de <strong>{{weeklyHours}}</strong> horas semanales, conforme a lo establecido en el Código de Trabajo de la República Dominicana.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO I: PUNTUALIDAD Y ASISTENCIA.</strong> EL TRABAJADOR reconoce que su obligación de cumplimiento del horario acordado es esencial, por lo que las tardanzas o ausencias sin previo aviso pueden dar lugar a su despido justificado, conforme a las disposiciones del Código de Trabajo.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO II: HORAS EXTRAORDINARIAS.</strong> {{overtimePolicy}}.</p>
+
+<p style="text-align:justify"><strong>CUARTO: SALARIO Y FORMA DE PAGO.</strong> EL TRABAJADOR devengará un salario bruto de <strong>{{salaryInWords}} ({{salaryAmountWithCurrency}})</strong> {{paymentFrequency}}, que será pagado {{paymentSchedule}}.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO I: DEDUCCIONES LEGALES.</strong> EL TRABAJADOR reconoce que EL EMPLEADOR hará las deducciones a su salario establecidas en la ley, correspondientes al Impuesto Sobre la Renta (ISR), aportes al Seguro Familiar de Salud (SFS), aportes al Seguro de Riesgos Laborales (SRL), aportes al Fondo de Pensiones, y cualesquiera otras que en el presente o futuro estén a su cargo como empleador, conforme a la Ley No. 87-01 del Sistema Dominicano de Seguridad Social y sus modificaciones.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO II: EXCLUSIÓN DE BENEFICIOS NO SALARIALES.</strong> Las Partes acuerdan que toda prestación, subsidio o beneficio que llegue a recibir EL TRABAJADOR, en dinero o en cualquier especie, que exceda en cualquier forma el salario anteriormente indicado, no constituyen salario, y en consecuencia, no será tenido en cuenta para calcular cualquier derecho adquirido u otra acreencia de carácter laboral a que tenga derecho EL TRABAJADOR.</p>
+
+{{#eq hasAdditionalBenefits "Sí"}}
+<p style="text-align:justify"><strong>PÁRRAFO III: BENEFICIOS ADICIONALES.</strong> Además del salario establecido, EL TRABAJADOR tendrá derecho a los siguientes beneficios: <strong>a)</strong> {{benefit1}}; <strong>b)</strong> {{benefit2}}; <strong>c)</strong> {{benefit3}}; <strong>d)</strong> {{benefit4}}. Estos beneficios no constituyen salario y son discrecionales por parte de EL EMPLEADOR.</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>QUINTO: OBLIGACIONES DEL EMPLEADOR.</strong> EL EMPLEADOR se compromete frente a EL TRABAJADOR a:</p>
+
+<p style="text-align:justify"><strong>a)</strong> Dar cumplimiento a las obligaciones que se deriven del presente Contrato y las que impone el Código de Trabajo de la República Dominicana;</p>
+
+<p style="text-align:justify"><strong>b)</strong> Pagar el salario acordado en las fechas establecidas;</p>
+
+<p style="text-align:justify"><strong>c)</strong> Otorgar las prestaciones laborales establecidas por la ley, incluyendo vacaciones, salario de Navidad (regalía pascual), participación en los beneficios de la empresa, y preaviso y cesantía en caso de terminación del contrato;</p>
+
+<p style="text-align:justify"><strong>d)</strong> Afiliar a EL TRABAJADOR al Sistema Dominicano de Seguridad Social y realizar los aportes correspondientes conforme a la Ley No. 87-01;</p>
+
+<p style="text-align:justify"><strong>e)</strong> Garantizar condiciones de trabajo seguras y saludables, conforme a la Ley No. 522-06 sobre Riesgos Laborales;</p>
+
+<p style="text-align:justify"><strong>f)</strong> Respetar los derechos fundamentales de EL TRABAJADOR y abstenerse de cualquier forma de discriminación o acoso laboral.</p>
+
+<p style="text-align:justify"><strong>SEXTO: PRÉSTAMOS Y ADELANTOS DE SALARIO.</strong> Las Partes declaran que EL EMPLEADOR podrá, de manera discrecional y a solicitud de EL TRABAJADOR, otorgarle un avance de su salario o préstamo, si así lo considera procedente.</p>
+
+<p style="text-align:justify">En tal caso, EL TRABAJADOR autoriza expresamente por esta vía a EL EMPLEADOR a realizar los descuentos a su salario correspondientes a las cuotas que hayan acordado para el saldo de dichos avances o préstamos, pudiendo ser dicho descuento aplicable a las posibles prestaciones laborales y derechos adquiridos que le pudieran corresponder en un futuro, sin necesidad de firmar ningún documento adicional.</p>
+
+<p style="text-align:justify"><strong>SÉPTIMO: CONSENTIMIENTO PARA TRATAMIENTO DE DATOS PERSONALES.</strong></p>
+
+<p style="text-align:justify">EL TRABAJADOR autoriza a EL EMPLEADOR, sus agentes designados y representantes, para que obtengan, manejen, archiven y usen la información personal de EL TRABAJADOR, conforme a lo establecido en la Ley No. 172-13 sobre Protección de Datos de Carácter Personal de la República Dominicana.</p>
+
+<p style="text-align:justify">Esta autorización incluye para EL EMPLEADOR la posibilidad de almacenar y transferir dicha información dentro y fuera de la República Dominicana, siempre respetando los principios de confidencialidad y seguridad establecidos en la ley.</p>
+
+<p style="text-align:justify"><strong>OCTAVO: ACUERDO DE CONFIDENCIALIDAD.</strong> EL TRABAJADOR reconoce que toda información, diseño, proceso, método o experticia, software, análisis o reportes, aparatos o equipos, planeación, investigación, operaciones, servicios, productos, prototipos, fórmulas, información y estrategias financieras, de negocios, de producción, de mercadeo, precios, ventas, clientes existentes o potenciales, proveedores, suplidores, contactos, etc., a que tuviere acceso en razón de sus labores para EL EMPLEADOR, constituyen información privilegiada y confidencial, propiedad exclusiva de EL EMPLEADOR, siendo esta lista enunciativa, no limitativa.</p>
+
+<p style="text-align:justify">EL TRABAJADOR se compromete a no revelar o permitir que sea revelada dicha información a ningún tercero, directa o indirectamente, mientras esté vigente el presente Contrato de Trabajo y aún después de su terminación, de manera indefinida, en el entendido de que la violación de la presente disposición conllevará a la inmediata terminación del presente Contrato por despido justificado, con responsabilidad para EL TRABAJADOR, sin desmedro de la responsabilidad civil y penal en que pudiere incurrir.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO I: AUTORIZACIÓN PREVIA PARA USO DE INFORMACIÓN.</strong> En caso de que EL TRABAJADOR tenga dudas sobre la revelación o uso de dichas informaciones privilegiadas y confidenciales, debe obtener instrucciones y autorizaciones específicas y por escrito de EL EMPLEADOR antes de proceder a revelarla o utilizarla.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO II: USO DE HERRAMIENTAS TECNOLÓGICAS.</strong> Se entiende que las computadoras, cuentas de correo electrónico, teléfonos móviles y cualquier otro aparato electrónico asignados a EL TRABAJADOR son herramientas de trabajo que deben usarse exclusivamente para propósitos laborales, y por lo tanto, la información que circule en ellos será material clasificado de propiedad de EL EMPLEADOR, quien podrá acceder a dichos medios para constatar el contenido de los mismos cuando así lo considere.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO III: DEVOLUCIÓN DE MATERIALES.</strong> Una vez terminado el presente Contrato o en cualquier momento a solicitud de EL EMPLEADOR, EL TRABAJADOR acuerda entregar un informe sobre su trabajo, así como los diseños, gráficas, documentación, notas y todo otro tipo de material, original o copia, relacionados con las labores prestadas bajo este Contrato y que se encontrare en su poder, control o custodia, comprometiéndose a no realizar o retener copias de ellos.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO IV: PROTECCIÓN DE LA IMAGEN CORPORATIVA.</strong> EL TRABAJADOR se compromete a no realizar ninguna acción o declaración frente a terceros, de manera directa o indirecta y por cualquier medio, que pueda afectar negativamente la imagen de EL EMPLEADOR, sus filiales, directiva y vinculados, aun después de la terminación del presente Contrato, por tiempo indefinido.</p>
+
+<p style="text-align:justify"><strong>NOVENO: CONVENIO DE NO COMPETENCIA Y NO INTERFERENCIA.</strong> EL TRABAJADOR acuerda que mientras esté en horario de trabajo dedicará todo su tiempo y atención a las actividades desarrolladas en favor de EL EMPLEADOR. Además, acuerda que durante el período de duración de su Contrato de Trabajo no podrá dedicarse a ninguna actividad que directa o indirectamente compita con EL EMPLEADOR o produzca conflictos de intereses o compita con los derechos y obligaciones acordadas en el presente Contrato a favor de EL EMPLEADOR, o interfiera directa o indirectamente con la administración de EL EMPLEADOR y sus operaciones diarias, ni aún en su tiempo libre.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO I: NO UTILIZACIÓN DE CONTACTOS COMERCIALES.</strong> EL TRABAJADOR se compromete a no utilizar, directa ni indirectamente, los contactos, clientes, proveedores, aliados comerciales, proyectos u oportunidades de negocio a los que tenga acceso como resultado de su relación laboral con EL EMPLEADOR para beneficio propio o de terceros vinculados a él, sin autorización previa y por escrito de la empresa.</p>
+
+<p style="text-align:justify">Asimismo, se compromete a no realizar gestiones, transacciones, acuerdos o negociaciones con dichas personas o entidades al margen de EL EMPLEADOR, en violación de esta obligación, durante la vigencia del presente Contrato y por un período de <strong>{{nonCompetePeriod}}</strong> posteriores a la terminación de la relación laboral, sin importar la causa de dicha terminación.</p>
+
+<p style="text-align:justify">El incumplimiento de esta cláusula dará lugar a la obligación de indemnizar a EL EMPLEADOR por los daños y perjuicios que tal violación le pudieran ocasionar, sin perjuicio de las demás acciones legales que correspondan.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO: PROPIEDAD INTELECTUAL.</strong> Las invenciones, diseños, desarrollos intelectuales, descubrimientos, obras, software, marcas, nombres comerciales, patentes, y cualquier otro derecho de propiedad intelectual realizados por EL TRABAJADOR durante la prestación de sus servicios a EL EMPLEADOR y relacionados con el trabajo, pertenecerán a EL EMPLEADOR.</p>
+
+<p style="text-align:justify">EL TRABAJADOR se compromete a ceder todos los derechos de propiedad intelectual a EL EMPLEADOR sin compensación adicional, reconociendo que dicha cesión está contemplada dentro de su salario.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO I: CONFLICTO DE INTERESES.</strong> EL TRABAJADOR se compromete a desempeñar sus funciones con objetividad e independencia, evitando que intereses personales o familiares influyan en la toma de decisiones, debiendo informar a su superior jerárquico sobre cualquier situación en la que se aprecie concurrencia de intereses antes de tomar una decisión.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO PRIMERO: PRESTACIONES LABORALES.</strong> EL TRABAJADOR tendrá derecho a las prestaciones laborales establecidas en el Código de Trabajo de la República Dominicana, incluyendo:</p>
+
+<p style="text-align:justify"><strong>a)</strong> <strong>Vacaciones:</strong> {{vacationPolicy}};</p>
+
+<p style="text-align:justify"><strong>b)</strong> <strong>Salario de Navidad (Regalía Pascual):</strong> Un mes de salario ordinario pagadero en el mes de diciembre de cada año, conforme al artículo 219 del Código de Trabajo;</p>
+
+<p style="text-align:justify"><strong>c)</strong> <strong>Participación en los Beneficios de la Empresa:</strong> Conforme a lo establecido en el artículo 223 del Código de Trabajo, EL TRABAJADOR participará en los beneficios netos de EL EMPLEADOR en la proporción que establece la ley;</p>
+
+<p style="text-align:justify"><strong>d)</strong> <strong>Preaviso y Auxilio de Cesantía:</strong> En caso de terminación del Contrato sin justa causa, EL TRABAJADOR tendrá derecho a recibir el preaviso y auxilio de cesantía conforme a los artículos 75 y 80 del Código de Trabajo, según la antigüedad en el servicio.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO SEGUNDO: TERMINACIÓN DEL CONTRATO.</strong> Las Partes reconocen que el presente Contrato podrá finalizar por cualquiera de las causas previstas en el Código de Trabajo de la República Dominicana, incluyendo:</p>
+
+<p style="text-align:justify"><strong>a)</strong> <strong>Mutuo consentimiento</strong> de Las Partes, expresado por escrito;</p>
+
+<p style="text-align:justify"><strong>b)</strong> <strong>Terminación del término acordado</strong>, en caso de contratos a tiempo definido;</p>
+
+<p style="text-align:justify"><strong>c)</strong> <strong>Despido justificado</strong> por parte de EL EMPLEADOR, conforme a las causales establecidas en el artículo 88 del Código de Trabajo;</p>
+
+<p style="text-align:justify"><strong>d)</strong> <strong>Renuncia voluntaria</strong> de EL TRABAJADOR, notificada con antelación conforme a lo establecido en la ley;</p>
+
+<p style="text-align:justify"><strong>e)</strong> <strong>Muerte</strong> de EL TRABAJADOR;</p>
+
+<p style="text-align:justify"><strong>f)</strong> <strong>Incapacidad permanente</strong> de EL TRABAJADOR para desempeñar sus funciones.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO I: PREAVISO.</strong> En caso de terminación del Contrato sin justa causa, La Parte que decida dar por terminada la relación laboral deberá notificar a la otra con la antelación establecida en el artículo 75 del Código de Trabajo, o pagar la compensación correspondiente al preaviso.</p>
+
+<p style="text-align:justify"><strong>PÁRRAFO II: LIQUIDACIÓN FINAL.</strong> Al momento de la terminación del Contrato, EL EMPLEADOR procederá a liquidar todas las prestaciones laborales, salarios pendientes, vacaciones no disfrutadas, salario de Navidad proporcional, y cualquier otra acreencia que corresponda a EL TRABAJADOR conforme a la ley.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO TERCERO: MODIFICACIONES DE LAS CONDICIONES LABORALES.</strong> EL TRABAJADOR acepta que EL EMPLEADOR podrá implementar modificaciones a sus condiciones laborales, en ejercicio de su poder subordinante, tales como turnos y jornadas de trabajo, el lugar de prestación del servicio, el cargo u oficio o funciones, siempre y cuando dichas modificaciones no impliquen una desmejora sustancial de las condiciones de trabajo y se realicen conforme a lo establecido en el Código de Trabajo.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO CUARTO: LEY APLICABLE Y SOLUCIÓN DE CONFLICTOS.</strong> El presente Contrato se regirá por las leyes de la República Dominicana, en particular por el Código de Trabajo de la República Dominicana (Ley No. 16-92) y sus modificaciones, y la Ley No. 87-01 del Sistema Dominicano de Seguridad Social.</p>
+
+<p style="text-align:justify">Las Partes realizarán sus mejores esfuerzos para resolver de forma amigable todo diferendo que surja en conexión con la relación laboral que las une. En caso de no arribar a un acuerdo amigable, reconocen que su conflicto será sometido ante los tribunales laborales competentes de la República Dominicana.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO QUINTO: DOMICILIO Y NOTIFICACIONES.</strong> Para todos los fines y consecuencias del presente Contrato, Las Partes eligen domicilio en los indicados al inicio del presente documento.</p>
+
+<p style="text-align:justify">Todas las notificaciones relacionadas con este Contrato deberán ser realizadas por escrito y dirigidas a las direcciones indicadas, o mediante acto de alguacil, o cualquier otro medio que garantice la recepción efectiva de la comunicación.</p>
+
+<p style="text-align:justify">Cualquier cambio de domicilio deberá ser notificado por escrito a la otra Parte dentro de los {{notificationPeriod}} días hábiles siguientes al cambio.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO SEXTO: CONTRATO INTEGRAL.</strong></p>
+
+<p style="text-align:justify">El presente Contrato y sus anexos, si los hubiere, constituyen el acuerdo completo entre Las Partes en relación con la materia objeto del mismo, y sustituyen y dejan sin efecto cualesquiera acuerdos, negociaciones, representaciones o compromisos anteriores, ya sean verbales o escritos, que puedan existir entre Las Partes.</p>
+
+<p style="text-align:justify"><strong>HECHO Y FIRMADO</strong> de buena fe, en {{numberOfOriginals}} ejemplares originales de un mismo tenor y efectos, en la ciudad de {{signingCity}}, {{signingProvince}}, {{signingCountry}}, el día {{signingDayLetters}} ({{signingDayNumbers}}) del mes de {{signingMonthLetters}} del año {{signingYearLetters}} ({{signingYearNumbers}}).</p>
+
+<table style="width:100%">
+<tr>
+<td style="width:50%">
+<p style="text-align:center">EL EMPLEADOR:</p>
+<p style="text-align:center">&nbsp;</p>
+<p style="text-align:center">___________________________________</p>
+{{#eq employerIsCompany "Empresa"}}
+<p style="text-align:center"><strong>{{employerRepFullName}}</strong></p>
+<p style="text-align:center">Por sí y en representación de</p>
+<p style="text-align:center"><strong>{{employerLegalName}}</strong></p>
+{{else}}
+<p style="text-align:center"><strong>{{employerLegalName}}</strong></p>
+{{/eq}}
+</td>
+<td style="width:50%">
+<p style="text-align:center">EL TRABAJADOR:</p>
+<p style="text-align:center">&nbsp;</p>
+<p style="text-align:center">___________________________________</p>
+<p style="text-align:center"><strong>{{employeeFullName}}</strong></p>
+</td>
+</tr>
+</table>
+
+<p>&nbsp;</p>
+<p style="text-align:justify"><strong>Yo, _____________________________________</strong>, Abogado Notario Público de los del Número para el {{notaryJurisdiction}}, portador de la Matrícula del Colegio Dominicano de Notarios Públicos, Inc. No. <strong>__________</strong>, con estudio profesional abierto en {{notaryOfficeAddress}}, <strong>CERTIFICO Y DOY FE:</strong> que las firmas que anteceden fueron puestas ante mí, por <strong>{{employerOrRepFullName}}</strong> y <strong>{{employeeFullName}}</strong>, quienes declaran que esas son las firmas que acostumbran a usar en todos los actos, tanto públicos como privados, por lo que se les puede dar entera fe y crédito. En la ciudad de {{signingCity}}, {{signingProvince}}, {{signingCountry}}, el día {{signingDayLetters}} ({{signingDayNumbers}}) del mes de {{signingMonthLetters}} del año {{signingYearLetters}} ({{signingYearNumbers}}).</p>
+
+<p style="text-align:center">&nbsp;</p>
+<p style="text-align:center"><strong>________________________________________</strong></p>
+<p style="text-align:center"><strong>Notario Público</strong></p>

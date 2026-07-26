@@ -1,0 +1,48 @@
+{
+  "name": "doc-assistant-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Document assistant using AI MCP servers",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "identify-variables": "node scripts/identify-docx-variables.mjs",
+    "docx-to-hbs": "node scripts/docx-to-hbs.mjs",
+    "fill-and-export-pdf": "node scripts/fill-and-export-pdf.mjs",
+    "postinstall": "echo 'Setup complete'"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "map",
+    "widgets"
+  ],
+  "author": "Sharma S S",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1011.0",
+    "@aws-sdk/s3-request-presigner": "^3.1015.0",
+    "@nitrostack/core": "^1",
+    "dotenv": "^16.3.1",
+    "handlebars": "^4.7.8",
+    "html-to-pdfmake": "^2.5.33",
+    "jsdom": "^24.1.3",
+    "lru-cache": "^11.2.7",
+    "mammoth": "^1.11.0",
+    "mongodb": "^7.1.1",
+    "pdfmake": "^0.3.7",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1",
+    "@types/jsdom": "^28.0.1",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.9.3"
+  }
+}

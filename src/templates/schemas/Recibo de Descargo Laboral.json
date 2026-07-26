@@ -1,0 +1,256 @@
+{
+  "templateName": "Recibo de Descargo Laboral",
+  "groups": [
+    {
+      "id": "declarantInfo",
+      "label": "Datos del trabajador(a)",
+      "variables": [
+        {
+          "key": "declarantFullName",
+          "label": "Nombre legal completo del trabajador(a)",
+          "type": "text",
+          "required": true,
+          "example": "MARÍA PÉREZ CRUZ"
+        },
+        {
+          "key": "declarantNationality",
+          "label": "Nacionalidad del trabajador(a)",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "declarantIdType",
+          "label": "Tipo de documento de identidad del trabajador(a)",
+          "type": "dropdown",
+          "options": [
+            "de la Cédula de Identidad y Electoral",
+            "del Pasaporte"
+          ],
+          "required": true,
+          "example": "de la Cédula de Identidad y Electoral"
+        },
+        {
+          "key": "declarantIdNumber",
+          "label": "Número de cédula o pasaporte del trabajador(a)",
+          "type": "text",
+          "required": true,
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "declarantAddress",
+          "label": "Dirección completa de domicilio del trabajador(a)",
+          "type": "text",
+          "required": true,
+          "example": "Calle Juan Sánchez No. 10, Ens. Naco, Santo Domingo, D.N."
+        }
+      ]
+    },
+    {
+      "id": "employerInfo",
+      "label": "Datos del ex empleador",
+      "variables": [
+        {
+          "key": "employerFullName",
+          "label": "Nombre legal completo del ex empleador (razón social o nombre de persona física)",
+          "type": "text",
+          "required": true,
+          "example": "COMERCIAL ABC, S.R.L."
+        },
+        {
+          "key": "employerIdBlock",
+          "label": "Bloque de identificación del empleador: si es empresa, escribir ', con el Registro Nacional de Contribuyentes (RNC) número [RNC]'; si es persona física, ', titular de la Cédula de Identidad y Electoral número [número]'",
+          "type": "text",
+          "required": true,
+          "example": ", con el Registro Nacional de Contribuyentes (RNC) número 1-01-23456-7"
+        }
+      ]
+    },
+    {
+      "id": "employmentDates",
+      "label": "Fechas de la relación laboral",
+      "variables": [
+        {
+          "key": "employmentStartDate",
+          "label": "Fecha en que comenzó la relación laboral (indica día, mes y año en un solo dato; ej. 25 de abril de 2026, 25/4/2026)",
+          "type": "date",
+          "required": true,
+          "example": "1 de marzo de 2023"
+        },
+        {
+          "key": "employmentEndDate",
+          "label": "Fecha en que terminó la relación laboral (día, mes y año)",
+          "type": "date",
+          "required": true,
+          "example": "15 de febrero de 2026"
+        }
+      ]
+    },
+    {
+      "id": "paymentInfo",
+      "label": "Datos del pago recibido",
+      "variables": [
+        {
+          "key": "totalAmountInWords",
+          "label": "Monto total recibido (en letras en el PDF; basta UNA respuesta del usuario en cifras o en palabras — el sistema completa la otra)",
+          "type": "text",
+          "required": true,
+          "example": "Cincuenta Mil Pesos Dominicanos con 00/100"
+        },
+        {
+          "key": "totalAmountWithCurrency",
+          "label": "Monto total recibido (en cifras con moneda en el PDF; basta UNA respuesta del usuario en cifras o en palabras — el sistema completa la otra)",
+          "type": "text",
+          "required": true,
+          "example": "RD$50,000.00"
+        },
+        {
+          "key": "paymentMethod",
+          "label": "Forma de pago (indicar si fue transferencia bancaria con banco y número de cuenta, o cheque con número, banco y fecha)",
+          "type": "text",
+          "required": true,
+          "example": "transferencia bancaria a la cuenta número 123456789 del Banco Popular"
+        }
+      ]
+    },
+    {
+      "id": "breakdownToggle",
+      "label": "Desglose de prestaciones",
+      "variables": [
+        {
+          "key": "hasDetailedBreakdown",
+          "label": "¿Quieres incluir en el recibo un desglose que separa el total por cada concepto? (solo indica Sí o No aquí; si es Sí, los montos por línea se piden en el siguiente paso, una sola vez)",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "example": "Sí"
+        }
+      ]
+    },
+    {
+      "id": "breakdownAmounts",
+      "label": "Montos del desglose de prestaciones",
+      "condition": { "field": "hasDetailedBreakdown", "equals": "Sí" },
+      "variables": [
+        {
+          "key": "preavisoAmount",
+          "label": "Monto por concepto de Preaviso",
+          "type": "text",
+          "required": true,
+          "example": "RD$10,000.00"
+        },
+        {
+          "key": "cesantiaAmount",
+          "label": "Monto por concepto de Auxilio de Cesantía",
+          "type": "text",
+          "required": true,
+          "example": "RD$25,000.00"
+        },
+        {
+          "key": "navidadAmount",
+          "label": "Monto por concepto de Navidad (regalía pascual)",
+          "type": "text",
+          "required": true,
+          "example": "RD$8,000.00"
+        },
+        {
+          "key": "vacacionesAmount",
+          "label": "Monto por concepto de Vacaciones",
+          "type": "text",
+          "required": true,
+          "example": "RD$7,000.00"
+        },
+        {
+          "key": "hasAdditionalConcept1",
+          "label": "¿Desea agregar un concepto adicional al desglose?",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "example": "No"
+        },
+        {
+          "key": "additionalConcept1Label",
+          "label": "Nombre del concepto adicional 1",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalConcept1", "equals": "Sí" },
+          "example": "Comisiones pendientes"
+        },
+        {
+          "key": "additionalConcept1Amount",
+          "label": "Monto del concepto adicional 1",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalConcept1", "equals": "Sí" },
+          "example": "RD$5,000.00"
+        },
+        {
+          "key": "hasAdditionalConcept2",
+          "label": "¿Desea agregar un segundo concepto adicional?",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "condition": { "field": "hasAdditionalConcept1", "equals": "Sí" },
+          "example": "No"
+        },
+        {
+          "key": "additionalConcept2Label",
+          "label": "Nombre del concepto adicional 2",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalConcept2", "equals": "Sí" },
+          "example": "Bono de productividad"
+        },
+        {
+          "key": "additionalConcept2Amount",
+          "label": "Monto del concepto adicional 2",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalConcept2", "equals": "Sí" },
+          "example": "RD$3,000.00"
+        }
+      ]
+    },
+    {
+      "id": "signingInfo",
+      "label": "Lugar, fecha de firma y notaría",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad donde se firma el documento",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia donde se firma el documento (y, salvo que indiques otra abajo, provincia del notario)",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "documentSigningDate",
+          "label": "Fecha de firma de este recibo: un solo dato con día, mes y año (incluido el año; no se pide el año en un mensaje aparte)",
+          "type": "date",
+          "required": true,
+          "example": "5 de enero de 2026"
+        },
+        {
+          "key": "notaryProvince",
+          "label": "Solo si el Notario Público actúa en otra provincia distinta de donde se firma; si es la misma, omite — el sistema usa la provincia de firma",
+          "type": "text",
+          "required": false,
+          "example": "Santiago"
+        }
+      ]
+    }
+  ]
+}

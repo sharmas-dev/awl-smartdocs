@@ -1,0 +1,253 @@
+{
+  "templateName": "Poder de Representación Signos Distintivos",
+  "displayName": "Poder de Representación ante ONAPI (Signos Distintivos)",
+  "description": "Formulario para completar las variables del Poder de Representación para trámites de signos distintivos ante la Oficina Nacional de la Propiedad Industrial (ONAPI).",
+  "groups": [
+    {
+      "id": "principal",
+      "label": "A. EL PODERDANTE",
+      "variables": [
+        {
+          "key": "principalIsCompany",
+          "label": "¿El poderdante es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"]
+        },
+        {
+          "key": "principalLegalName",
+          "label": "Nombre legal completo del poderdante",
+          "type": "text",
+          "required": true,
+          "example": "MAD, S.R.L. / Juan Pérez Gómez"
+        },
+        {
+          "key": "principalJurisdiction",
+          "label": "Jurisdicción de constitución (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "principalRnc",
+          "label": "RNC de la empresa poderdante (9 dígitos, formato XXX-XXXXX-X)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "example": "1-01-23456-7"
+        },
+        {
+          "key": "principalFullAddress",
+          "label": "Dirección completa del poderdante",
+          "type": "text",
+          "required": true,
+          "example": "Av. Winston Churchill #100, Santo Domingo"
+        },
+        {
+          "key": "principalRepTitle",
+          "label": "Cargo del representante legal (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "example": "Gerente General"
+        },
+        {
+          "key": "principalRepFullName",
+          "label": "Nombre completo del representante legal (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "example": "María Gómez Reyes"
+        },
+        {
+          "key": "principalRepNationality",
+          "label": "Nacionalidad del representante legal (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "example": "dominicana"
+        },
+        {
+          "key": "principalRepIdType",
+          "label": "Tipo de ID del representante legal (solo empresa)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "options": ["de la Cédula de Identidad y Electoral", "del Pasaporte"]
+        },
+        {
+          "key": "principalRepIdNumber",
+          "label": "Número de cédula o pasaporte del representante legal del poderdante (cédula de 11 dígitos o pasaporte)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "principalRepAddress",
+          "label": "Dirección del representante legal (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Empresa" },
+          "example": "Santo Domingo, DN"
+        },
+        {
+          "key": "principalNationality",
+          "label": "Nacionalidad del poderdante (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Persona física" },
+          "example": "dominicano"
+        },
+        {
+          "key": "principalOccupation",
+          "label": "Ocupación del poderdante (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Persona física" },
+          "example": "empleado privado"
+        },
+        {
+          "key": "principalIdType",
+          "label": "Tipo de ID del poderdante (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Persona física" },
+          "options": ["la Cédula de Identidad y Electoral", "el Pasaporte"]
+        },
+        {
+          "key": "principalIdNumber",
+          "label": "Número de ID del poderdante (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "principalIsCompany", "equals": "Persona física" },
+          "example": "001-1857372-4"
+        }
+      ]
+    },
+    {
+      "id": "proxy",
+      "label": "B. EL APODERADO",
+      "variables": [
+        {
+          "key": "proxyFullName",
+          "label": "Nombre completo del apoderado",
+          "type": "text",
+          "required": true,
+          "example": "Ana Laura Méndez"
+        },
+        {
+          "key": "proxyNationality",
+          "label": "Nacionalidad del apoderado",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "proxyIdType",
+          "label": "Tipo de documento de identidad del apoderado",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la Cédula de Identidad y Electoral", "el Pasaporte"]
+        },
+        {
+          "key": "proxyIdNumber",
+          "label": "Número de documento de identidad del apoderado",
+          "type": "text",
+          "required": true,
+          "example": "001-2222222-2"
+        },
+        {
+          "key": "proxyAddress",
+          "label": "Dirección completa del apoderado",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo, República Dominicana"
+        }
+      ]
+    },
+    {
+      "id": "sign",
+      "label": "C. SIGNO DISTINTIVO",
+      "variables": [
+        {
+          "key": "distinctiveSignType",
+          "label": "Tipo de signo distintivo a registrar",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la marca", "el nombre comercial", "el lema comercial"]
+        },
+        {
+          "key": "signName",
+          "label": "Nombre del signo distintivo (marca, nombre o lema)",
+          "type": "text",
+          "required": true,
+          "example": "MADCORP"
+        }
+      ]
+    },
+    {
+      "id": "signing",
+      "label": "D. FIRMA",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad de firma",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia de firma",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "signingDayLetters",
+          "label": "Día de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "nueve"
+        },
+        {
+          "key": "signingDayNumbers",
+          "label": "Día de firma en números",
+          "type": "text",
+          "required": true,
+          "example": "9"
+        },
+        {
+          "key": "signingMonthLetters",
+          "label": "Mes de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "febrero"
+        },
+        {
+          "key": "signingYearLetters",
+          "label": "Año de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "dos mil veintiséis"
+        },
+        {
+          "key": "signingYearNumbers",
+          "label": "Año de firma en números",
+          "type": "text",
+          "required": true,
+          "example": "2026"
+        }
+      ]
+    }
+  ]
+}

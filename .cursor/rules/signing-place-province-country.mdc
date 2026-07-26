@@ -1,0 +1,31 @@
+---
+description: RULE 5q — LLM must resolve signing province/country from city; never hardcode or hallucinate
+globs: src/modules/doc-assistant/**/*.{ts,js},src/templates/schemas/**/*.json
+alwaysApply: false
+---
+
+# Signing place: province & country (RULE 5q)
+
+## Product rule (AWLi runtime)
+
+When the user gives a **signing city**, the model must:
+
+1. Ask only for **city** (+ signing date).
+2. Resolve **province** and **country** itself and submit them via `submit_group_answers`.
+3. If unsure → ask the user **only** for the missing province/country.
+4. **Never** invent, guess, default to República Dominicana, or copy city → province.
+
+Canonical prompt text: `RULE 5q` in `src/modules/doc-assistant/doc-assistant.prompt.ts`.  
+Tool echo: `SIGNING_PLACE_LLM_INFER_HINT` + `submit_group_answers` description in `doc-assistant.tools.ts`.
+
+## Forbidden PDF outcome
+
+`En la ciudad de Santo Domingo, Santo Domingo, República Dominicana...`  
+Correct capital (after RULE 5o): **Santo Domingo de Guzmán**, **Distrito Nacional**, **República Dominicana**.
+
+## When editing this codebase
+
+- Do **not** remove or weaken RULE 5q / RULE 0F / signing groupHints.
+- Do **not** add server hardcoding that silently overwrites LLM-submitted `signingProvince` / `signingCountry` unless the user explicitly requests that product change.
+- Do **not** reintroduce prompt text that tells AWLi to routinely ask the user for provincia on signing groups.
+- Keep RULE 5o (Santo Domingo municipality clarification) before submitting bare "Santo Domingo".

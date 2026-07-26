@@ -1,0 +1,266 @@
+{
+  "templateName": "Términos de Uso Página Web",
+  "displayName": "Términos y Condiciones de Uso del Sitio Web",
+  "description": "Formulario para completar los Términos y Condiciones de Uso de un sitio web (empresa, servicios, registro, privacidad, contacto y notificaciones).",
+  "groups": [
+    {
+      "id": "companyInfo",
+      "label": "Información de la Empresa",
+      "variables": [
+        {
+          "key": "companyLegalName",
+          "label": "Nombre legal completo de la empresa (tal como aparece en el registro mercantil)",
+          "type": "text",
+          "required": true,
+          "example": "Soluciones Digitales, S.R.L."
+        },
+        {
+          "key": "companyRnc",
+          "label": "Registro Nacional de Contribuyentes (RNC) de la empresa",
+          "type": "text",
+          "required": true,
+          "example": "1-31-12345-6"
+        },
+        {
+          "key": "companyAddress",
+          "label": "Dirección completa y estructurada de la empresa (calle/avenida y número o local, sector, ciudad y provincia)",
+          "type": "text",
+          "required": true,
+          "example": "Av. Abraham Lincoln No. 502, Torre Empresarial, Piso 8, Piantini, Santo Domingo de Guzmán, Distrito Nacional"
+        }
+      ]
+    },
+    {
+      "id": "websiteBasics",
+      "label": "Datos del Sitio Web",
+      "variables": [
+        {
+          "key": "websiteName",
+          "label": "Nombre comercial del sitio web",
+          "type": "text",
+          "required": true,
+          "example": "MiTienda Online"
+        },
+        {
+          "key": "websiteUrl",
+          "label": "URL completa del sitio web (incluyendo www o dominio)",
+          "type": "text",
+          "required": true,
+          "example": "www.mitiendaonline.com.do"
+        },
+        {
+          "key": "updateDate",
+          "label": "Fecha de última actualización de los términos en formato textual en español (día de mes de año, sin formato numérico ni abreviaturas)",
+          "type": "date",
+          "required": true,
+          "example": "31 de marzo de 2026"
+        },
+        {
+          "key": "minimumAge",
+          "label": "Edad mínima requerida para usar el sitio web (escrita en letras y números)",
+          "type": "text",
+          "required": true,
+          "example": "dieciocho (18)"
+        }
+      ]
+    },
+    {
+      "id": "serviceConfig",
+      "label": "Configuración de Servicios",
+      "variables": [
+        {
+          "key": "serviceDescription",
+          "label": "Descripción general de lo que ofrece el sitio web (qué información o productos presenta)",
+          "type": "text",
+          "required": true,
+          "example": "información sobre nuestros productos y servicios financieros"
+        },
+        {
+          "key": "serviceFunctionalities",
+          "label": "Funcionalidades específicas que el sitio permite al usuario realizar",
+          "type": "text",
+          "required": true,
+          "example": "conocer nuestros productos, realizar consultas y solicitar información"
+        },
+        {
+          "key": "hasSpecificServices",
+          "label": "¿El sitio web ofrece servicios específicos enumerables que deben listarse en los términos?",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "example": "Sí"
+        },
+        {
+          "key": "servicesList",
+          "label": "Lista de servicios específicos del sitio web. Proporcione cada servicio por separado en términos claros y concisos; el sistema los numerará automáticamente. Sepárelos con punto y coma (;). No es necesario un número fijo de servicios.",
+          "type": "text",
+          "required": true,
+          "condition": {
+            "field": "hasSpecificServices",
+            "equals": "Sí"
+          },
+          "example": "Acceso a catálogo de productos y servicios; Formularios de contacto y solicitud de información; Descarga de recursos educativos; Registro de cuenta y área de usuario"
+        },
+        {
+          "key": "hasCommercialLicense",
+          "label": "¿El sitio otorga al usuario una licencia para usos comerciales legítimos (además del uso personal)?",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "example": "No"
+        },
+        {
+          "key": "commercialLicenseScope",
+          "label": "Descripción del uso comercial legítimo que se permite al usuario",
+          "type": "text",
+          "required": true,
+          "condition": {
+            "field": "hasCommercialLicense",
+            "equals": "Sí"
+          },
+          "example": "la distribución y reventa de los productos adquiridos en la plataforma"
+        }
+      ]
+    },
+    {
+      "id": "siteFeatures",
+      "label": "Características del Sitio",
+      "variables": [
+        {
+          "key": "hasRegistration",
+          "label": "¿El sitio web requiere que los usuarios creen una cuenta o se registren?",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "example": "No"
+        },
+        {
+          "key": "hasOptionalContactForms",
+          "label": "¿El sitio web cuenta con formularios opcionales (como de contacto) que soliciten datos personales (ej. nombre o correo electrónico) sin necesidad de registro?",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "condition": {
+            "field": "hasRegistration",
+            "equals": "No"
+          },
+          "example": "Sí"
+        },
+        {
+          "key": "hasUserContent",
+          "label": "¿Los usuarios pueden publicar, cargar o compartir contenido propio en el sitio web (comentarios, reseñas, archivos, etc.)?",
+          "type": "dropdown",
+          "options": ["Sí", "No"],
+          "required": true,
+          "example": "No"
+        }
+      ]
+    },
+    {
+      "id": "registrationDetails",
+      "label": "Detalles de Registro de Usuarios",
+      "condition": {
+        "field": "hasRegistration",
+        "equals": "Sí"
+      },
+      "variables": [
+        {
+          "key": "additionalRegistrationFields",
+          "label": "Campos adicionales que se solicitan al usuario durante el registro (además de nombre, correo y contraseña)",
+          "type": "text",
+          "required": false,
+          "example": "Número de teléfono, fecha de nacimiento"
+        },
+        {
+          "key": "contactMethod",
+          "label": "Medio de contacto que el usuario debe usar para solicitar la cancelación de su cuenta",
+          "type": "text",
+          "required": true,
+          "example": "nuestro correo electrónico info@empresa.com o el formulario de contacto disponible en el Sitio Web"
+        }
+      ]
+    },
+    {
+      "id": "userContentLicense",
+      "label": "Licencia sobre Contenido de Usuarios",
+      "condition": {
+        "field": "hasUserContent",
+        "equals": "Sí"
+      },
+      "variables": [
+        {
+          "key": "userContentLicenseScope",
+          "label": "Alcance de la licencia que el usuario otorga a la empresa sobre el contenido que publique",
+          "type": "text",
+          "required": true,
+          "example": "mundial, no exclusiva, libre de regalías, sublicenciable y transferible"
+        }
+      ]
+    },
+    {
+      "id": "privacyUrls",
+      "label": "URLs de Políticas",
+      "variables": [
+        {
+          "key": "privacyPolicyUrl",
+          "label": "URL completa donde se encuentra la Política de Privacidad del sitio web",
+          "type": "text",
+          "required": true,
+          "example": "www.mitiendaonline.com.do/politica-de-privacidad"
+        }
+      ]
+    },
+    {
+      "id": "contactInfo",
+      "label": "Información de Contacto",
+      "variables": [
+        {
+          "key": "contactEmail",
+          "label": "Correo electrónico institucional de contacto para los usuarios",
+          "type": "text",
+          "required": true,
+          "example": "info@mitiendaonline.com.do"
+        },
+        {
+          "key": "contactPhone",
+          "label": "Número de teléfono de contacto, con código de país o de área (formato institucional uniforme)",
+          "type": "text",
+          "required": true,
+          "example": "+1 809-555-1234"
+        },
+        {
+          "key": "businessHours",
+          "label": "Horario de atención al usuario",
+          "type": "text",
+          "required": true,
+          "example": "Lunes a viernes, de 8:00 a.m. a 5:00 p.m."
+        },
+        {
+          "key": "notificationMethod",
+          "label": "Método por el cual la empresa envía notificaciones a los usuarios (debe ser coherente con si el sitio requiere registro de usuario)",
+          "type": "dropdown",
+          "options": [
+            "al correo electrónico proporcionado por el Usuario durante el registro",
+            "mediante publicación en el Sitio Web",
+            "por cualquier medio razonable"
+          ],
+          "required": true,
+          "example": "mediante publicación en el Sitio Web"
+        }
+      ]
+    },
+    {
+      "id": "additionalDetails",
+      "label": "Detalles Adicionales",
+      "variables": [
+        {
+          "key": "additionalTerminationGrounds",
+          "label": "Causales adicionales por las que la empresa puede suspender o cancelar el acceso del usuario (si aplican, además de las estándar)",
+          "type": "text",
+          "required": false,
+          "example": "Realice publicaciones que promuevan actividades ilegales o dañinas para terceros"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<p style="text-align:center"><strong>PODER DE REPRESENTACIÓN</strong></p>
+
+<p style="text-align:justify">Quien suscribe, <strong>{{principalLegalName}}</strong>, {{#eq principalIsCompany "Empresa"}}sociedad organizada de acuerdo a las leyes de {{principalJurisdiction}}, inscrita en el Registro Nacional de Contribuyentes (RNC) bajo el número {{principalRnc}}, con domicilio social en {{principalFullAddress}}; debidamente representada por su {{principalRepTitle}}, <strong>{{principalRepFullName}}</strong>, {{principalRepNationality}}, mayor de edad, titular {{principalRepIdType}} No. {{principalRepIdNumber}}, con domicilio y residencia en {{principalRepAddress}}; entidad{{else}}{{principalNationality}}, mayor de edad, {{principalOccupation}}, titular de {{principalIdType}} No. {{principalIdNumber}}, con domicilio y residencia en {{principalFullAddress}}; persona{{/eq}} en lo adelante <strong>"PODERDANTE"</strong>.</p>
+
+<p style="text-align:justify">Libre y voluntariamente, <strong>OTORGA PODER Y MANDATO ESPECIAL</strong>, tan amplio como en derecho fuere menester, a favor de <strong>{{proxyFullName}}</strong>, {{proxyNationality}}, mayor de edad, titular de {{proxyIdType}} No. {{proxyIdNumber}}, con domicilio y residencia en {{proxyAddress}}, quien en lo adelante se denominará <strong>"APODERADO"</strong>; para que, actuando en su nombre y representación, realice por ante la Oficina Nacional de la Propiedad Industrial (ONAPI) todas las diligencias necesarias o pertinentes relacionadas con signos distintivos, incluyendo, sin limitarse a:</p>
+
+<ul style="text-align:justify; padding-left:20px; margin-top:4px; margin-bottom:4px">
+<li style="text-align:justify; margin-bottom:4px">Solicitar, depositar, tramitar y obtener el registro de {{distinctiveSignType}} "<strong>{{signName}}</strong>".</li>
+<li style="text-align:justify; margin-bottom:4px">Firmar solicitudes, formularios, escritos, declaraciones, rectificaciones, desistimientos, oposiciones (si aplica), recursos y cualquier documento requerido por ONAPI.</li>
+<li style="text-align:justify; margin-bottom:4px">Diligenciar, modificar, renovar, corregir, retirar y recibir certificados, notificaciones y comunicaciones; así como pagar tasas y retirar documentos.</li>
+<li style="text-align:justify; margin-bottom:4px">Realizar cualquier gestión accesoria necesaria para completar los trámites anteriores, incluyendo comparecer, dar seguimiento y retirar expedientes, cuando proceda.</li>
+</ul>
+
+<p style="text-align:justify"><strong>HECHO Y FIRMADO</strong> en {{signingCity}}, {{signingProvince}}, {{signingCountry}}, el día {{signingDayLetters}} ({{signingDayNumbers}}) del mes de {{signingMonthLetters}} del año {{signingYearLetters}} ({{signingYearNumbers}}).</p>
+
+<p style="text-align:center">&nbsp;</p>
+<p style="text-align:center"><strong>_________________________________________</strong></p>
+{{#eq principalIsCompany "Empresa"}}
+<p style="text-align:center"><strong>{{principalRepFullName}}</strong></p>
+<p style="text-align:center">Por sí y en representación de</p>
+<p style="text-align:center"><strong>{{principalLegalName}}</strong></p>
+{{else}}
+<p style="text-align:center"><strong>{{principalLegalName}}</strong></p>
+{{/eq}}
+<p style="text-align:center">PODERDANTE</p>

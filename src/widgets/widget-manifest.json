@@ -1,0 +1,40 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/pdf-preview",
+            "name": "PDF Preview",
+            "description": "Preview a generated document and download the PDF",
+            "examples": [
+                {
+                    "name": "Generated Agreement",
+                    "description": "Preview a filled confidentiality agreement",
+                    "data": {
+                        "success": true,
+                        "pdfPath": "templates/output/Acuerdo de Confidencialidad y No-Elusión.pdf",
+                        "htmlContent": "<html><body style='font-family:Georgia,serif;padding:32px;color:#222'><h2>ACUERDO DE CONFIDENCIALIDAD Y NO-ELUSIÓN</h2><p>Este Acuerdo ha sido suscrito por <strong>Constructora ABC, S.A.</strong> y <strong>Juan Pérez Gómez</strong>.</p><p>Firmado en Santo Domingo de Guzmán, el 18 de marzo de 2026.</p></body></html>",
+                        "templateName": "Acuerdo de Confidencialidad y No-Elusión",
+                        "message": "PDF ready. Preview shown in the widget."
+                    }
+                },
+                {
+                    "name": "Error State",
+                    "description": "Widget when generation fails",
+                    "data": {
+                        "success": false,
+                        "pdfPath": "",
+                        "htmlContent": "",
+                        "templateName": "Acuerdo de Confidencialidad y No-Elusión",
+                        "message": "Template not found: Acuerdo.hbs"
+                    }
+                }
+            ],
+            "tags": [
+                "pdf",
+                "document",
+                "preview"
+            ]
+        }
+    ],
+    "generatedAt": "2025-12-03T00:00:00.000Z"
+}

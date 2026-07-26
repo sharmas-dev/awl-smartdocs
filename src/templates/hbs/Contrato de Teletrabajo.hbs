@@ -1,0 +1,156 @@
+<p style="text-align:center"><strong>CONTRATO DE TELETRABAJO</strong></p>
+
+<p style="text-align:justify"><strong>De una parte</strong>, <strong>{{employerLegalName}}</strong>, {{#eq employerIsCompany "Empresa"}}sociedad constituida de conformidad con las leyes de {{employerJurisdiction}}, {{#eq employerIncludeRncMercantileIdentificationInContract "Sí"}}inscrita en el Registro Nacional de Contribuyentes (RNC) bajo el número {{employerRnc}}, y Registro Mercantil número {{employerMercantileRegistryNumber}}, {{/eq}}con domicilio social en {{employerFullAddressStreet}}, {{employerFullAddressCity}}, {{employerFullAddressCountry}}; debidamente representada por su {{employerRepTitle}}, {{employerRepFullName}}, {{employerRepNationality}}, mayor de edad, titular {{employerRepIdType}} no. {{employerRepIdNumber}}, con domicilio en {{employerRepAddressStreet}}, {{employerRepAddressCity}}, {{employerRepAddressCountry}}; razón social{{else}}{{employerNationality}}, mayor de edad, {{employerMaritalStatus}}, {{employerOccupation}}, titular {{employerIdType}} no. {{employerIdNumber}}, con domicilio y residencia en {{employerFullAddressStreet}}, {{employerFullAddressCity}}, {{employerFullAddressCountry}}; persona{{/eq}}, que en lo adelante será denominada como <strong>"EL EMPLEADOR"</strong>; y</p>
+
+<p style="text-align:justify"><strong>De otra parte</strong>, <strong>{{employeeFullName}}</strong>, {{employeeNationality}}, mayor de edad, {{employeeMaritalStatus}}, {{employeeOccupation}}, titular {{employeeIdType}} no. {{employeeIdNumber}}, con domicilio y residencia en {{employeeAddressStreet}}, {{employeeAddressCity}}, {{employeeAddressCountry}}; quien en lo adelante se denominará <strong>"EL TRABAJADOR"</strong>.</p>
+
+<p style="text-align:justify">Cuando se haga referencia a <strong>EL EMPLEADOR</strong> y <strong>EL TRABAJADOR</strong> de forma conjunta, ambos se denominarán como "<strong>LAS PARTES</strong>".</p>
+
+<p style="text-align:center"><strong>PREÁMBULO</strong></p>
+
+<p style="text-align:justify"><strong>POR CUANTO (I):</strong> <strong>EL EMPLEADOR</strong> requiere los servicios de una persona que pueda desempeñar las funciones de {{positionTitle}}, de manera remota. <strong>EL TRABAJADOR</strong> declara tener la capacidad, disposición e interés en ofrecer los servicios requeridos por <strong>EL EMPLEADOR</strong>.</p>
+
+<p style="text-align:justify"><strong>POR CUANTO (II):</strong> <strong>LAS PARTES</strong> desean documentar las reglas y condiciones de su relación laboral bajo modalidad de teletrabajo, y a tal fin, suscriben el presente Contrato.</p>
+
+<p style="text-align:justify"><strong>POR TANTO</strong>, y entendiendo que el preámbulo forma parte integral del presente Contrato, <strong>LAS PARTES</strong>, libre y voluntariamente,</p>
+
+<p style="text-align:center"><strong>HAN CONVENIDO Y PACTADO LO SIGUIENTE:</strong></p>
+
+<p style="text-align:justify"><strong>PRIMERO (1º): OBJETO. EL TRABAJADOR</strong> se compromete a prestar sus servicios personales bajo la modalidad de teletrabajo, a favor de <strong>EL EMPLEADOR</strong>, en calidad de {{positionTitle}}, a partir del día {{startDay}} de {{startMonth}} de {{startYear}}, con eficiencia, intensidad, ética, esmero y dedicación.</p>
+
+<p style="text-align:justify"><strong>SEGUNDO (2º): OBLIGACIONES DEL EMPLEADOR. EL EMPLEADOR</strong> se compromete frente al <strong>TRABAJADOR</strong> a dar cumplimiento a las obligaciones que se deriven del presente Contrato y las que impone el Código de Trabajo de la República Dominicana (en lo adelante, "el Código de Trabajo").</p>
+
+<p style="text-align:justify"><strong>TERCERO (3º): FUNCIONES Y RESPONSABILIDADES DEL TRABAJADOR. EL TRABAJADOR</strong> tendrá, entre otras, las siguientes responsabilidades y obligaciones:</p>
+
+<p style="text-align:justify"><strong>a)</strong> Realizar las funciones propias del cargo de {{positionTitle}}, incluyendo {{specificDuties}};</p>
+
+<p style="text-align:justify"><strong>b)</strong> Reportarse directamente a su supervisor inmediato y coordinar con este todas sus actividades, informándole de manera veraz y puntual sobre la realidad de su área de competencia y sobre cualquier asunto que llegue a su conocimiento que pueda comprometer los intereses y afectar las actividades de <strong>EL EMPLEADOR</strong>;</p>
+
+<p style="text-align:justify"><strong>c)</strong> Cumplir las directrices de sus superiores y hacerlas cumplir al personal a sus órdenes, si fuere el caso;</p>
+
+<p style="text-align:justify"><strong>d)</strong> Abstenerse de provocar daños a cualquier bien propiedad de <strong>EL EMPLEADOR</strong> y velar por los mejores intereses de la empresa;</p>
+
+<p style="text-align:justify"><strong>e)</strong> Cumplir con su horario de trabajo de manera puntual, evitando faltas y tardanzas;</p>
+
+<p style="text-align:justify"><strong>f)</strong> Cumplir con las obligaciones a su cargo indicadas en la ley, los manuales y políticas de <strong>EL EMPLEADOR</strong>, así como las buenas prácticas del área de su competencia;</p>
+
+{{#eq hasAdditionalResponsibilities "Sí"}}
+<p style="text-align:justify">{{additionalResponsibilities}}</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>CUARTO (4º): UNIDAD ORGANIZACIONAL.</strong> <strong>EL TRABAJADOR</strong> estará asignado al Departamento de {{department}}, reportando directamente a la posición de {{supervisorPositionTitle}}, quien será su supervisor inmediato.</p>
+
+<p style="text-align:justify"><strong>4.1. Supervisor.</strong> El supervisor designado podrá ser contactado a través de: {{supervisorContactInfo}}</p>
+
+<p style="text-align:justify"><strong>QUINTO (5º): SALARIO Y FORMA DE PAGO.</strong> EL TRABAJADOR devengará un salario bruto de <strong>{{salaryInWords}}</strong> (<strong>{{salaryAmountWithCurrency}}</strong>) {{paymentFrequency}}, que será pagado {{paymentSchedule}}.</p>
+
+<p style="text-align:justify"><strong>5.1. Descuentos.</strong> Dicho salario estará sujeto a las deducciones impositivas, de seguridad social y cualesquiera otras que disponga la legislación dominicana.</p>
+
+<p style="text-align:justify"><strong>5.2. Exclusión de beneficios no salariales.</strong> Únicamente tendrán carácter salarial las sumas que constituyan retribución directa por los servicios prestados, conforme a lo establecido en el Código de Trabajo. Los beneficios ocasionales, extraordinarios o de mera liberalidad de <strong>EL EMPLEADOR</strong> no se considerarán salario para el cálculo de cualquier derecho, salvo que la ley disponga lo contrario.</p>
+
+<p style="text-align:justify"><strong>5.3. Préstamos y adelantos salariales. EL EMPLEADOR</strong> podrá, de manera discrecional y a solicitud de <strong>EL TRABAJADOR</strong>, otorgarle un avance de su salario o préstamo, si así lo considera procedente. En tal caso, <strong>EL TRABAJADOR</strong> autoriza expresamente por esta vía a <strong>EL EMPLEADOR</strong> a realizar los descuentos a su salario correspondientes a las cuotas que hayan acordado para el saldo de dichos avances o préstamos, pudiendo ser aplicables a las posibles prestaciones laborales y derechos adquiridos que le pudieran corresponder en un futuro, sin necesidad de firmar ningún documento adicional.</p>
+
+<p style="text-align:justify"><strong>SEXTO (6º): BENEFICIOS ADICIONALES.</strong> Además del salario establecido, <strong>EL TRABAJADOR</strong> tendrá derecho a los siguientes beneficios: <strong>a)</strong> Salario de Navidad; {{numberOfAnnualVacationDays}} días de vacaciones pagadas anuales, y demás derechos que le correspondan bajo lo dispuesto en el Código de Trabajo;{{#eq hasAdditionalBenefits "Sí"}} <strong>b)</strong> {{benefit1}}; <strong>c)</strong> {{benefit2}}; <strong>d)</strong> {{benefit3}}; <strong>e)</strong> {{benefit4}}.{{/eq}}</p>
+
+<p style="text-align:justify"><strong>SÉPTIMO (7º): LUGAR DE TRABAJO. EL TRABAJADOR</strong> desempeñará sus funciones bajo la modalidad de teletrabajo, en {{workplaceAddress}}, {{workplaceCity}}, {{workplaceCountry}}.</p>
+
+<p style="text-align:justify"><strong>7.1. Cambio de lugar.</strong> Cualquier cambio de lugar deberá ser previamente notificado y autorizado por <strong>EL EMPLEADOR</strong>, a fin de verificar que el nuevo espacio cumple con condiciones adecuadas de seguridad y conectividad.</p>
+
+<p style="text-align:justify"><strong>7.2. Reuniones virtuales.</strong> Además, <strong>EL TRABAJADOR</strong> consiente libremente realizar reuniones a través de videoconferencias con <strong>EL EMPLEADOR</strong>, sin que en ningún caso se entienda como violación del domicilio privado.</p>
+
+{{#eq hasInPersonDays "Sí"}}
+<p style="text-align:justify"><strong>7.3. Días de trabajo presencial. LAS PARTES</strong> podrán acordar uno o varios días de trabajo presencial en las instalaciones de <strong>EL EMPLEADOR</strong>. Dichos días serán coordinados previamente entre ellas.</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>OCTAVO (8º): CONDICIONES LABORALES EN TELETRABAJO. EL TRABAJADOR</strong> se compromete a cumplir las siguientes condiciones en teletrabajo:</p>
+
+<ol style="text-align:justify; padding-left:20px; margin-top:4px; margin-bottom:4px">
+<li style="text-align:justify; margin-bottom:4px">Elegir espacios de trabajo adecuados para la actividad laboral, conforme las normas de salud y seguridad vigentes.</li>
+<li style="text-align:justify; margin-bottom:4px">Cooperar para la implementación de las medidas de prevención dispuestas por <strong>EL EMPLEADOR</strong> para afrontar los riesgos vinculados al teletrabajo.</li>
+<li style="text-align:justify; margin-bottom:4px">El acceso a los diferentes entornos y sistemas informáticos de <strong>EL EMPLEADOR</strong> será efectuado siempre y en todo momento bajo el control y la responsabilidad de <strong>EL TRABAJADOR</strong>, siguiendo los procedimientos establecidos por <strong>EL EMPLEADOR</strong>.</li>
+</ol>
+
+<p style="text-align:justify"><strong>NOVENO (9º): SUPERVISIÓN. EL EMPLEADOR</strong> podrá implementar mecanismos razonables de supervisión, tales como reportes de gestión, cumplimiento de objetivos, registro de conexión en plataformas corporativas, control de tareas mediante <em>software</em> empresarial u otros medios tecnológicos idóneos.</p>
+
+<p style="text-align:justify"><strong>9.1. Respecto a intimidad.</strong> Todos los mecanismos de supervisión se aplicarán respetando la dignidad, intimidad y privacidad de <strong>EL TRABAJADOR</strong>, en cumplimiento de la legislación laboral vigente. Si por motivos de trabajo fuese necesaria la presencia física de representantes de <strong>EL EMPLEADOR</strong> en el lugar de trabajo de <strong>EL TRABAJADOR</strong>, y este fuera su propio domicilio, se hará siempre previa notificación y consentimiento de este último.</p>
+
+<p style="text-align:justify"><strong>9.2. Verificación de condiciones. EL EMPLEADOR</strong> podrá verificar las condiciones del lugar donde se prestará el servicio, ya sea al inicio de la relación de teletrabajo o durante su ejecución, previa coordinación con <strong>EL TRABAJADOR</strong>, con la finalidad de comprobar condiciones mínimas de seguridad, ergonomía y conectividad. La evaluación de riesgos únicamente alcanzará la zona habilitada para la prestación de servicios, no extendiéndose al resto de zonas del lugar elegido para el desarrollo del teletrabajo.</p>
+
+<p style="text-align:justify"><strong>9.3. Notificación de accidentes. EL TRABAJADOR</strong> deberá notificar inmediatamente cualquier accidente ocurrido durante la jornada laboral en el lugar habilitado para el teletrabajo.</p>
+
+{{#eq hasCostCoverage "Sí"}}
+<p style="text-align:justify"><strong>DÉCIMO (10º): COBERTURA DE COSTOS ADICIONALES.</strong> Los costos adicionales derivados de: <strong>a)</strong> {{cost1}}; <strong>b)</strong> {{cost2}}; <strong>c)</strong> {{cost3}}; <strong>d)</strong> {{cost4}} para la prestación del servicio serán asumidos por {{costResponsible}}. En caso de estipularse compensación por gastos operativos por dichos costos a cargo de <strong>EL EMPLEADOR</strong>, esta será de <strong>{{monthlyAmountInWords}}</strong> (<strong>{{monthlyAmountWithCurrency}}</strong>) mensuales.</p>
+{{else}}
+<p style="text-align:justify"><strong>DÉCIMO (10º): COBERTURA DE COSTOS ADICIONALES.</strong> Los costos adicionales derivados de la prestación del servicio en la modalidad de teletrabajo serán asumidos por {{costResponsible}}.</p>
+{{/eq}}
+
+{{#eq hasWorkTools "Sí"}}
+<p style="text-align:justify"><strong>DÉCIMO PRIMERO (11º): HERRAMIENTAS DE TRABAJO.</strong> Como herramientas de trabajo, <strong>EL TRABAJADOR</strong> tendrá asignados los siguientes bienes, necesarios para que pueda realizar su labor: <strong>a)</strong> {{tool1}}; <strong>b)</strong> {{tool2}}; <strong>c)</strong> {{tool3}}.</p>
+{{else}}
+<p style="text-align:justify"><strong>DÉCIMO PRIMERO (11º): HERRAMIENTAS DE TRABAJO.</strong> Las herramientas de trabajo serán determinadas y entregadas por <strong>EL EMPLEADOR</strong> conforme a las necesidades del servicio.</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>11.1. Cuidado y devolución.</strong> Las herramientas se entregan en condiciones operativas adecuadas, obligándose <strong>EL TRABAJADOR</strong> a utilizarlas diligentemente y a devolverlas al término de la relación laboral o cuando le sean requeridas, de manera inmediata.</p>
+
+<p style="text-align:justify"><strong>11.2. Uso de herramientas.</strong> Se entiende que las computadoras, cuentas de correo electrónico, teléfonos móviles y cualquier otro aparato electrónico asignados a <strong>EL TRABAJADOR</strong> son herramientas de trabajo que deben usarse exclusivamente para propósitos laborales, y por lo tanto, la información que circule en ellos será material clasificado de propiedad de <strong>EL EMPLEADOR</strong>, quien podrá acceder a dichos medios para constatar el contenido de los mismos.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO SEGUNDO (12º): HORARIO Y JORNADA LABORAL. EL TRABAJADOR</strong> tendrá un horario de {{workSchedule}}, con un descanso de {{lunchBreakDuration}} para el almuerzo, y deberá cumplir con el turno que <strong>EL EMPLEADOR</strong> disponga conveniente, atendiendo a las necesidades operativas.</p>
+
+<p style="text-align:justify"><strong>12.1. Interrupción por fuerza mayor.</strong> Cualquier interrupción de la prestación de servicios durante la jornada laboral, por causas de fuerza mayor ajenas a <strong>EL EMPLEADOR</strong>, deberá ser comunicada de manera inmediata por <strong>EL TRABAJADOR</strong> a su supervisor, para definir el plan de acción a seguir, debiendo <strong>EL TRABAJADOR</strong> colaborar en la búsqueda e implementación de soluciones para subsanar la situación en el plazo más corto posible. En caso de que la interrupción dure más de 24 horas sin resolverse, contada a partir de que le fuera comunicada, <strong>EL EMPLEADOR</strong> tendrá derecho a optar por la suspensión o terminación del contrato de trabajo, sin responsabilidad, en virtud de lo dispuesto por el Código de Trabajo dominicano.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO TERCERO (13º): DESCONEXIÓN DIGITAL. EL TRABAJADOR</strong> tendrá derecho a la desconexión digital fuera del tiempo de trabajo establecido en el artículo DÉCIMO SEGUNDO (12º) del presente Contrato, para garantizar el tiempo de descanso efectivo y priorizar el respeto a su intimidad personal y familiar.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO CUARTO (14º): CONSENTIMIENTO PARA TRATAMIENTO DE DATOS PERSONALES.</strong> <strong>EL TRABAJADOR</strong> autoriza a <strong>EL EMPLEADOR</strong>, sus agentes designados y representantes, para que obtengan, manejen, archiven y usen la información personal de <strong>EL TRABAJADOR</strong>, conforme a lo establecido en la Ley no. 172-13, sobre Protección de Datos de Carácter Personal de la República Dominicana. Esta autorización incluye la posibilidad de almacenar y transferir dicha información dentro y fuera de la República Dominicana, respetando los principios de confidencialidad y seguridad establecidos en la ley.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO QUINTO (15º): PROPIEDAD INTELECTUAL.</strong> Las invenciones, diseños, desarrollos intelectuales, descubrimientos, obras, <em>software</em>, marcas, nombres comerciales, patentes, y cualquier otro derecho de propiedad intelectual realizados por <strong>EL TRABAJADOR</strong> durante la prestación de sus servicios a <strong>EL EMPLEADOR</strong>, y relacionados con el trabajo, pertenecerán a <strong>EL EMPLEADOR</strong>. <strong>EL TRABAJADOR</strong> se compromete a ceder todos los derechos de propiedad intelectual a <strong>EL EMPLEADOR</strong> sin compensación adicional, reconociendo que dicha cesión se entiende como parte de su salario.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO SEXTO (16º): CONFIDENCIALIDAD. EL TRABAJADOR</strong> reconoce que toda información, diseño, proceso, método o experticia, <em>software</em>, análisis o reportes, aparatos o equipos, planeación, investigación, operaciones, servicios, productos, prototipos, fórmulas, información y estrategias financieras, de negocios, de producción, de mercadeo, precios, ventas, clientes existentes o potenciales, proveedores, suplidores, contactos, etc., a que tuviere acceso en razón de sus labores para <strong>EL EMPLEADOR</strong>, constituyen información privilegiada y confidencial, protegida en tanto tal por las reglas del secreto comercial, industrial y profesional deducido de las leyes dominicanas vigentes y las mejores prácticas en el tratamiento y gestión de datos confidenciales. Queda entendido entre <strong>LAS PARTES</strong> que las informaciones listadas en la parte capital de este artículo son propiedad exclusiva de <strong>EL EMPLEADOR</strong>, entendiéndose además como catálogo meramente enunciativo y, por ende, no limitativo en relación con otros datos o informaciones que, por su naturaleza y sensibilidad, puedan encajar en esta definición o en aquellas establecidas en las leyes dominicanas.</p>
+
+<p style="text-align:justify"><strong>16.1. No revelación. EL TRABAJADOR</strong> se compromete a no revelar o permitir que sea revelada dicha información a ningún tercero, directa o indirectamente, mientras esté vigente el presente Contrato de Trabajo y aún después de su terminación, de manera indefinida. La violación de la presente disposición podrá conllevar a la inmediata terminación del presente Contrato por despido justificado, con responsabilidad para <strong>EL TRABAJADOR</strong>, sin desmedro de la responsabilidad civil y penal en que pudiere incurrir. Si <strong>EL TRABAJADOR</strong> tuviese dudas sobre la revelación o uso de tales informaciones privilegiadas y confidenciales, debe obtener instrucciones y autorizaciones específicas y por escrito de <strong>EL EMPLEADOR</strong> antes de proceder a revelarla o utilizarla.</p>
+
+<p style="text-align:justify"><strong>16.2. Devolución de materiales.</strong> Una vez terminado el presente Contrato o en cualquier momento a solicitud de <strong>EL EMPLEADOR</strong>, <strong>EL TRABAJADOR</strong> se compromete a entregar un informe detallado sobre su trabajo, así como la documentación, notas y todo otro tipo de material, original o copia, relacionados con las labores prestadas y que se encontrare en su poder, comprometiéndose a no realizar o retener copias de ellos.</p>
+
+<p style="text-align:justify"><strong>16.3. Protección de la imagen. EL TRABAJADOR</strong> se compromete a no realizar ninguna acción o declaración frente a terceros, de manera directa o indirecta y por cualquier medio, que pueda afectar negativamente la imagen de <strong>EL EMPLEADOR</strong>, sus filiales, directiva y vinculados, aun después de la terminación del presente Contrato.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO SÉPTIMO (17º): NO COMPETENCIA Y NO INTERFERENCIA. EL TRABAJADOR</strong> acuerda que, mientras esté en horario de trabajo, dedicará todo su tiempo y atención a las tareas que se les asigne. Además, acuerda que, durante la vigencia de su Contrato de Trabajo, no podrá dedicarse a ninguna actividad que directa o indirectamente compita con <strong>EL EMPLEADOR</strong> o produzca conflictos de intereses, o bien compita con los derechos y obligaciones acordadas en el presente Contrato a favor de <strong>EL EMPLEADOR</strong>, o que interfiera directa o indirectamente con la administración de <strong>EL EMPLEADOR</strong> y sus operaciones diarias, ni aun en su tiempo libre, debiendo informar a su supervisor de cualquier situación en la que aprecie concurrencia de intereses antes de tomar una decisión.</p>
+
+<p style="text-align:justify"><strong>17.1. No utilización de contactos comerciales. EL TRABAJADOR</strong> se compromete a no utilizar, directa ni indirectamente, los contactos, clientes, proveedores, aliados comerciales, proyectos u oportunidades de negocio a los que tenga acceso como resultado de su relación laboral con <strong>EL EMPLEADOR</strong> para beneficio propio o de terceros vinculados a él. Asimismo, se compromete a no realizar gestiones, transacciones, acuerdos o negociaciones con dichas personas o entidades al margen de <strong>EL EMPLEADOR</strong>, en violación de esta obligación, durante la vigencia del presente Contrato y por un período de {{nonCompetePeriod}} posteriores a la terminación de la relación laboral, sin importar la causa de dicha terminación. El incumplimiento de esta cláusula dará lugar a la obligación de indemnizar a <strong>EL EMPLEADOR</strong> por los daños y perjuicios que tal violación le pudieran ocasionar, sin perjuicio de las demás acciones legales que correspondan.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO OCTAVO (18º): DURACIÓN Y TERMINACIÓN DEL CONTRATO.</strong> <strong>El presente Contrato</strong> tendrá vigencia y condiciones de terminación conforme a la siguiente estipulación: {{contractDuration}}. Asimismo, <strong>LAS PARTES</strong> declaran y reconocen que este podrá finalizar por cualquiera de las causas y formas previstas en el Código de Trabajo de la República Dominicana y su normativa complementaria.</p>
+
+<p style="text-align:justify"><strong>DÉCIMO NOVENO (19º): MODIFICACIONES. EL TRABAJADOR</strong> acepta que <strong>EL EMPLEADOR</strong> podrá implementar modificaciones a sus condiciones laborales, en ejercicio de su poder subordinante, tales como turnos y jornadas de trabajo, el lugar de prestación del servicio, el cargo u oficio o funciones, siempre y cuando estas no impliquen una desmejora sustancial de las condiciones de trabajo y se hagan conforme a la normativa laboral vigente en ese momento.</p>
+
+<p style="text-align:justify"><strong>VIGÉSIMO (20º): REVERSIBILIDAD. LAS PARTES</strong> acuerdan que la modalidad de teletrabajo podrá ser modificada o revertida a trabajo presencial, previo acuerdo entre ellas o por decisión justificada de <strong>EL EMPLEADOR</strong>, con notificación previa escrita de {{noticePeriod}} días, salvo causa justificada que amerite un plazo menor. La reversibilidad se formalizará por escrito, mediante adenda al presente Contrato.</p>
+
+<p style="text-align:justify"><strong>VIGÉSIMO PRIMERO (21º): LEY APLICABLE Y SOLUCIÓN DE CONFLICTOS.</strong> El presente Contrato se regirá por las leyes de la República Dominicana. <strong>LAS PARTES</strong> procurarán resolver de forma amigable todo diferendo que surja entre ellas, y en caso de no arribar a un acuerdo, su conflicto será competencia de los tribunales laborales de la República Dominicana.</p>
+
+<p style="text-align:justify"><strong>VIGÉSIMO SEGUNDO (22º): DOMICILIO Y NOTIFICACIONES.</strong> Para los fines de este Contrato, <strong>LAS PARTES</strong> eligen domicilio en los indicados al inicio del presente documento.</p>
+
+<p style="text-align:justify"><strong>22.1. Notificaciones.</strong> Todas las notificaciones relacionadas con este Contrato deberán ser realizadas por escrito y dirigidas a las direcciones indicadas, o mediante acto de alguacil, o cualquier otro medio que garantice la recepción efectiva de la comunicación. Cualquier cambio de domicilio deberá ser notificado por escrito a la otra Parte dentro del plazo de {{notificationPeriod}} contado a partir de la fecha del cambio.</p>
+
+<p style="text-align:justify"><strong>VIGÉSIMO TERCERO (23º): CONTRATO INTEGRAL.</strong> Este Contrato y sus anexos, si los hubiere, constituyen el acuerdo completo entre <strong>LAS PARTES</strong> respecto a su objeto, y sustituyen y dejan sin efecto cualesquiera acuerdos, negociaciones, representaciones o compromisos anteriores, verbales o escritos, que puedan existir entre estas.</p>
+
+<p style="text-align:justify"><strong>HECHO Y FIRMADO</strong> de buena fe, en {{numberOfOriginals}} ejemplares originales de un mismo tenor y efectos, en la ciudad de {{signingCity}}, {{signingProvince}}, {{signingCountry}}, el día {{signingDayLetters}} ({{signingDayNumbers}}) del mes de {{signingMonthLetters}} del año {{signingYearLetters}} ({{signingYearNumbers}}).</p>
+
+<p style="text-align:center">___________________________________</p>
+{{#eq employerIsCompany "Empresa"}}
+<p style="text-align:center"><strong>{{employerRepFullName}}</strong></p>
+<p style="text-align:center">Por sí y en representación de</p>
+<p style="text-align:center"><strong>{{employerLegalName}}</strong></p>
+{{else}}
+<p style="text-align:center"><strong>{{employerLegalName}}</strong></p>
+{{/eq}}
+<p style="text-align:center"><strong>EL EMPLEADOR</strong></p>
+
+<p>&nbsp;</p>
+
+<p style="text-align:center">___________________________________</p>
+<p style="text-align:center"><strong>{{employeeFullName}}</strong></p>
+<p style="text-align:center"><strong>EL TRABAJADOR</strong></p>
+
+<p>&nbsp;</p>
+<p style="text-align:justify">Yo, _____________________________________ , Abogado Notario Público de los del Número para el {{notaryJurisdiction}}, portador de la Matrícula del Colegio Dominicano de Notarios Públicos, Inc. No. __________ , con estudio profesional abierto en {{notaryOfficeAddress}}, CERTIFICO Y DOY FE: que las firmas que anteceden fueron puestas ante mí, por <strong>{{employerOrRepFullName}}</strong> y <strong>{{employeeFullName}}</strong>, quienes declaran que esas son las firmas que acostumbran a usar en todos los actos, tanto públicos como privados, por lo que se les puede dar entera fe y crédito. En la ciudad de {{signingCity}}, {{signingProvince}}, {{signingCountry}}, el día {{signingDayLetters}} ({{signingDayNumbers}}) del mes de {{signingMonthLetters}} del año {{signingYearLetters}} ({{signingYearNumbers}}).</p>
+
+<p style="text-align:center">&nbsp;</p>
+<p style="text-align:center"><strong>________________________________________</strong></p>
+<p style="text-align:center"><strong>Notario Público</strong></p>

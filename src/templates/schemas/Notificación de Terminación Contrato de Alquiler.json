@@ -1,0 +1,220 @@
+{
+  "templateName": "Notificación de Terminación Contrato de Alquiler",
+  "displayName": "Notificación de Terminación de Contrato de Alquiler",
+  "description": "Formulario para completar las variables de la Notificación de Terminación de Contrato de Alquiler (remitente, inquilino, inmueble, causa de terminación, depósito y firma).",
+  "groups": [
+    {
+      "id": "sender",
+      "label": "A. REMITENTE (ARRENDADOR)",
+      "variables": [
+        {
+          "key": "senderFullName",
+          "label": "Nombre completo del remitente (arrendador/propietario)",
+          "type": "text",
+          "required": true,
+          "example": "Juan Pérez Gómez"
+        },
+        {
+          "key": "senderNationality",
+          "label": "Nacionalidad del remitente",
+          "type": "text",
+          "required": true,
+          "example": "dominicano(a)"
+        },
+        {
+          "key": "senderIdType",
+          "label": "Tipo de documento de identidad del remitente",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la Cédula de Identidad y Electoral", "el Pasaporte"]
+        },
+        {
+          "key": "senderIdNumber",
+          "label": "Número de documento de identidad del remitente",
+          "type": "text",
+          "required": true,
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "senderAddress",
+          "label": "Dirección completa del remitente",
+          "type": "text",
+          "required": true,
+          "example": "Calle Las Flores #25, Sector Naco, Santo Domingo"
+        },
+        {
+          "key": "senderCapacity",
+          "label": "Calidad o capacidad del remitente respecto al inmueble",
+          "type": "text",
+          "required": true,
+          "example": "propietario"
+        },
+        {
+          "key": "signatureCapacityLine",
+          "label": "Línea de capacidad debajo de la firma",
+          "type": "text",
+          "required": true,
+          "example": "Propietario / Arrendador"
+        }
+      ]
+    },
+    {
+      "id": "tenant",
+      "label": "B. INQUILINO (DESTINATARIO)",
+      "variables": [
+        {
+          "key": "tenantFullName",
+          "label": "Nombre completo del inquilino",
+          "type": "text",
+          "required": true,
+          "example": "María López Rodríguez"
+        },
+        {
+          "key": "tenantLastName",
+          "label": "Apellido del inquilino (para el saludo, opcional si viene en nombre completo)",
+          "type": "text",
+          "required": false,
+          "example": "López"
+        },
+        {
+          "key": "tenantGender",
+          "label": "Sexo del inquilino (para el saludo: Señor / Señora)",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Masculino", "Femenino"],
+          "example": "Femenino"
+        },
+        {
+          "key": "tenantAddress",
+          "label": "Dirección del inquilino (para la notificación)",
+          "type": "text",
+          "required": true,
+          "example": "Av. ABC #456, Santo Domingo Este"
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "label": "C. INMUEBLE Y CONTRATO",
+      "variables": [
+        {
+          "key": "propertyFullAddress",
+          "label": "Dirección completa del inmueble alquilado",
+          "type": "text",
+          "required": true,
+          "example": "Calle Principal #100, Apto. 3B, Ensanche Piantini, Santo Domingo"
+        },
+        {
+          "key": "contractExecutionDate",
+          "label": "Fecha de suscripción del contrato de alquiler original",
+          "type": "date",
+          "required": true,
+          "example": "quince (15) de enero de dos mil veinticinco (2025)"
+        }
+      ]
+    },
+    {
+      "id": "termination",
+      "label": "D. TERMINACIÓN",
+      "variables": [
+        {
+          "key": "terminationCause",
+          "label": "Causa de terminación (breve, para el asunto)",
+          "type": "text",
+          "required": true,
+          "example": "vencimiento del término contractual"
+        },
+        {
+          "key": "terminationCauseDetail",
+          "label": "Causa de terminación (detallada, para el cuerpo de la carta)",
+          "type": "text",
+          "required": true,
+          "example": "el vencimiento del término contractual pactado entre las partes, sin que se haya acordado una renovación"
+        },
+        {
+          "key": "terminationEffectiveDate",
+          "label": "Fecha efectiva de la terminación",
+          "type": "date",
+          "required": true,
+          "example": "treinta y uno (31) de marzo de dos mil veintiséis (2026)"
+        }
+      ]
+    },
+    {
+      "id": "deposit",
+      "label": "E. INSPECCIÓN Y DEPÓSITO",
+      "variables": [
+        {
+          "key": "inspectionResultText",
+          "label": "Resultado de la inspección del inmueble",
+          "type": "text",
+          "required": true,
+          "example": "el inmueble se encontraba en buenas condiciones, sin daños que excedan el desgaste normal por uso"
+        },
+        {
+          "key": "depositReturnDate",
+          "label": "Fecha de devolución o retención del depósito",
+          "type": "date",
+          "required": true,
+          "example": "primero (1) de abril de dos mil veintiséis (2026)"
+        },
+        {
+          "key": "depositActionText",
+          "label": "Acción realizada con el depósito (devolver / retener parcialmente / retener)",
+          "type": "text",
+          "required": true,
+          "example": "devolver íntegramente"
+        },
+        {
+          "key": "depositReturnMethodText",
+          "label": "Método de devolución del depósito",
+          "type": "text",
+          "required": true,
+          "example": "mediante transferencia bancaria a su cuenta"
+        },
+        {
+          "key": "attachmentReferenceText",
+          "label": "Referencia a los documentos adjuntos sobre el depósito",
+          "type": "text",
+          "required": true,
+          "example": "se adjunta copia del comprobante de transferencia como Anexo A"
+        }
+      ]
+    },
+    {
+      "id": "noticeDetails",
+      "label": "F. DATOS DE LA NOTIFICACIÓN",
+      "variables": [
+        {
+          "key": "noticeCity",
+          "label": "Ciudad desde donde se emite la notificación",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "noticeDateLong",
+          "label": "Fecha completa de la notificación",
+          "type": "date",
+          "required": true,
+          "example": "26 de marzo de 2026"
+        },
+        {
+          "key": "hasAttachments",
+          "label": "¿Se incluyen anexos?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "attachmentsList",
+          "label": "Lista de anexos incluidos",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAttachments", "equals": "Sí" },
+          "example": "Anexo A: Comprobante de transferencia del depósito; Anexo B: Fotos de inspección"
+        }
+      ]
+    }
+  ]
+}

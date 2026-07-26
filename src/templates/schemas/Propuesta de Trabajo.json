@@ -1,0 +1,292 @@
+{
+  "templateName": "Propuesta de Trabajo",
+  "displayName": "Propuesta Formal de Trabajo",
+  "description": "Formulario para completar las variables de la Propuesta Formal de Trabajo (empresa, candidato, posición, condiciones laborales, salario, beneficios y firma).",
+  "groups": [
+    {
+      "id": "company",
+      "label": "A. DATOS DE LA EMPRESA",
+      "variables": [
+        {
+          "key": "companyLegalName",
+          "label": "Nombre legal de la empresa",
+          "type": "text",
+          "required": true,
+          "example": "Tecnología Avanzada, S.R.L."
+        },
+        {
+          "key": "companyRnc",
+          "label": "Registro Nacional de Contribuyentes (RNC)",
+          "type": "text",
+          "required": true,
+          "example": "130-123456-7"
+        },
+        {
+          "key": "companyRm",
+          "label": "Registro Mercantil (RM)",
+          "type": "text",
+          "required": true,
+          "example": "12345-SD"
+        },
+        {
+          "key": "companyRnl",
+          "label": "Registro Nacional Laboral (RNL)",
+          "type": "text",
+          "required": true,
+          "example": "67890"
+        },
+        {
+          "key": "companyPhone",
+          "label": "Teléfono de contacto de la empresa",
+          "type": "text",
+          "required": true,
+          "example": "+1 (809) 555-0123"
+        },
+        {
+          "key": "companyEmail",
+          "label": "Correo electrónico de la empresa",
+          "type": "text",
+          "required": true,
+          "example": "rrhh@empresa.com"
+        },
+        {
+          "key": "companyFullAddress",
+          "label": "Dirección completa de la empresa",
+          "type": "text",
+          "required": true,
+          "example": "Av. Abraham Lincoln #500, Torre Empresarial, Santo Domingo"
+        }
+      ]
+    },
+    {
+      "id": "companyRep",
+      "label": "B. REPRESENTANTE DE LA EMPRESA",
+      "variables": [
+        {
+          "key": "companyRepFullName",
+          "label": "Nombre completo del representante de la empresa",
+          "type": "text",
+          "required": true,
+          "example": "María Gómez Reyes"
+        },
+        {
+          "key": "companyRepNationality",
+          "label": "Nacionalidad del representante",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "companyRepIdType",
+          "label": "Tipo de documento de identidad del representante",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la Cédula de Identidad y Electoral", "el Pasaporte"]
+        },
+        {
+          "key": "companyRepIdNumber",
+          "label": "Número de documento de identidad del representante",
+          "type": "text",
+          "required": true,
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "companyRepTitle",
+          "label": "Cargo del representante en la empresa",
+          "type": "text",
+          "required": true,
+          "example": "Gerente de Recursos Humanos"
+        }
+      ]
+    },
+    {
+      "id": "employee",
+      "label": "C. CANDIDATO",
+      "variables": [
+        {
+          "key": "employeeFullName",
+          "label": "Nombre completo del candidato",
+          "type": "text",
+          "required": true,
+          "example": "Juan Carlos Pérez Gómez"
+        },
+        {
+          "key": "employeeLastName",
+          "label": "Apellido del candidato (para el saludo)",
+          "type": "text",
+          "required": true,
+          "example": "Pérez"
+        },
+        {
+          "key": "employeeGender",
+          "label": "Sexo del candidato (para el saludo: Señor / Señora)",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Masculino", "Femenino"],
+          "example": "Masculino"
+        },
+        {
+          "key": "employeeNationality",
+          "label": "Nacionalidad del candidato",
+          "type": "text",
+          "required": true,
+          "example": "dominicano(a)"
+        },
+        {
+          "key": "employeeIdTypeAndNumber",
+          "label": "Tipo y número de documento de identidad del candidato",
+          "type": "text",
+          "required": true,
+          "example": "Cédula 001-1234567-8"
+        },
+        {
+          "key": "employeeAddressLine1",
+          "label": "Dirección del candidato — línea 1 (calle y número)",
+          "type": "text",
+          "required": true,
+          "example": "Calle 27 No. 45, Los Mina"
+        },
+        {
+          "key": "employeeAddressLine2",
+          "label": "Dirección del candidato — línea 2 (ciudad y provincia)",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo Este, DN"
+        }
+      ]
+    },
+    {
+      "id": "position",
+      "label": "D. POSICIÓN Y MODALIDAD",
+      "variables": [
+        {
+          "key": "positionTitle",
+          "label": "Título del puesto ofrecido",
+          "type": "text",
+          "required": true,
+          "example": "Gerente de Proyectos TI"
+        },
+        {
+          "key": "workLocationFullAddress",
+          "label": "Dirección del lugar de trabajo (ciudad y provincia; el documento añade República Dominicana sola)",
+          "type": "text",
+          "required": true,
+          "example": "Av. Tirandetes #30, Santo Domingo, Distrito Nacional"
+        },
+        {
+          "key": "contractType",
+          "label": "Tipo de contratación",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Contrato de trabajo por tiempo indefinido", "Contrato de trabajo a término fijo"]
+        },
+        {
+          "key": "fixedTermMonths",
+          "label": "Duración del contrato a término fijo (en meses)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "contractType", "equals": "Contrato de trabajo a término fijo" },
+          "example": "12"
+        },
+        {
+          "key": "modalityDetails",
+          "label": "Modalidad de trabajo (jornada, horario, presencial/remota/híbrida)",
+          "type": "text",
+          "required": true,
+          "example": "8 a.m. a 5 p.m., híbrido"
+        },
+        {
+          "key": "functionsList",
+          "label": "Funciones principales del puesto (lista separada por punto y coma)",
+          "type": "text",
+          "required": true,
+          "example": "Gestionar proyectos específicos de TI; Liderar equipos de desarrollo; Implementar sistemas y herramientas tecnológicas; Supervisar la calidad de los entregables."
+        }
+      ]
+    },
+    {
+      "id": "compensation",
+      "label": "E. SALARIO Y BENEFICIOS",
+      "variables": [
+        {
+          "key": "salaryMonthlyAmount",
+          "label": "Monto del salario mensual (solo números, sin RD$)",
+          "type": "text",
+          "required": true,
+          "example": "150,000.00"
+        },
+        {
+          "key": "payrollDays",
+          "label": "Días de pago del salario",
+          "type": "text",
+          "required": true,
+          "example": "15 y último"
+        },
+        {
+          "key": "hasAdditionalBenefits",
+          "label": "¿Se ofrecen beneficios adicionales a los legales?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "additionalBenefitsList",
+          "label": "Beneficios adicionales ofrecidos",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalBenefits", "equals": "Sí" },
+          "example": "Seguro médico privado; Bono de desempeño del 10%; Vehículo de empresa"
+        }
+      ]
+    },
+    {
+      "id": "dates",
+      "label": "F. FECHAS Y PERÍODO DE PRUEBA",
+      "variables": [
+        {
+          "key": "proposalCity",
+          "label": "Ciudad de emisión de la propuesta",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "proposalProvince",
+          "label": "Provincia de emisión de la propuesta",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "proposalDate",
+          "label": "Fecha de la propuesta",
+          "type": "date",
+          "required": true,
+          "example": "26 de marzo de 2026"
+        },
+        {
+          "key": "startDate",
+          "label": "Fecha de inicio propuesta",
+          "type": "date",
+          "required": true,
+          "example": "1 de abril de 2026"
+        },
+        {
+          "key": "hasProbationPeriod",
+          "label": "¿Se establece un período de prueba?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "probationPeriodDays",
+          "label": "Duración del período de prueba (número de días; en el PDF se expresará como días calendario)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasProbationPeriod", "equals": "Sí" },
+          "example": "90"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,536 @@
+{
+  "templateName": "Acuerdo de Confidencialidad y No-Elusión",
+  "displayName": "Acuerdo de Confidencialidad y No-Elusión",
+  "description": "Formulario para completar las variables del Acuerdo de Confidencialidad y No-Elusión (partes, preámbulo, vigencia, notificaciones y firma).",
+  "groups": [
+    {
+      "id": "party1",
+      "label": "A. PRIMERA PARTE",
+      "variables": [
+        {
+          "key": "party1IsCompany",
+          "label": "¿La PRIMERA PARTE es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"],
+          "example": "Empresa → true; Persona física → false"
+        },
+        {
+          "key": "party1TypelaSociedad",
+          "label": "Tipo de PRIMERA PARTE: “la sociedad” (empresa) / “el/la señor(a)” (persona)",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la sociedad", "el señor", "la señora"]
+        },
+        {
+          "key": "party1LegalName",
+          "label": "Nombre legal completo (empresa) o nombre completo (persona)",
+          "type": "text",
+          "required": true,
+          "example": "Constructora ABC, S.A. / Juan Pérez Gómez"
+        },
+        {
+          "key": "representative1Nationality",
+          "label": "Nacionalidad del firmante (empresa) o de la persona",
+          "type": "text",
+          "required": true,
+          "example": "dominicano"
+        },
+        {
+          "key": "party1Jurisdiction",
+          "label": "País o estado de constitución (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "party1Rnc",
+          "label": "RNC de la empresa (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "example": "1-01-23456-7"
+        },
+        {
+          "key": "party1Rm",
+          "label": "Registro Mercantil (solo empresa, si aplica)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "example": "123456SD"
+        },
+        {
+          "key": "party1FullAddress",
+          "label": "Dirección legal o registrada",
+          "type": "text",
+          "required": true,
+          "example": "Av. Churchill 123, Piantini, Santo Domingo"
+        },
+        {
+          "key": "party1RepresentativeTitle",
+          "label": "Cargo del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "example": "Presidente"
+        },
+        {
+          "key": "party1RepresentativeFullName",
+          "label": "Nombre completo del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "example": "Carlos Rodríguez"
+        },
+        {
+          "key": "party1RepresentativeIdTypedeLaCdulaDeIdentidadYElectoralOrdelPasaporte",
+          "label": "Tipo ID firmante (solo empresa): cédula o pasaporte",
+          "type": "dropdown",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "party1RepresentativeIdNumber",
+          "label": "Número de ID del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "party1RepresentativeFullAddress",
+          "label": "Dirección del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": true },
+          "example": "Santo Domingo, DN"
+        },
+        {
+          "key": "party1Nationality",
+          "label": "Nacionalidad (solo persona física)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": false },
+          "example": "dominicano"
+        },
+        {
+          "key": "party1IdTypedeLaCdulaDeIdentidadYElectoralOrdelPasaporte",
+          "label": "Tipo de ID (solo persona física)",
+          "type": "dropdown",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": false },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "party1IdNumber",
+          "label": "Número de ID (solo persona física)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party1IsCompany", "equals": false },
+          "example": "001-9876543-2"
+        }
+      ]
+    },
+    {
+      "id": "party2",
+      "label": "B. SEGUNDA PARTE",
+      "variables": [
+        {
+          "key": "party2IsCompany",
+          "label": "¿La SEGUNDA PARTE es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"]
+        },
+        {
+          "key": "party2TypelaSociedad",
+          "label": "Tipo de SEGUNDA PARTE: “la sociedad” / “el/la señor(a)”",
+          "type": "dropdown",
+          "required": true,
+          "options": ["la sociedad", "el señor", "la señora"]
+        },
+        {
+          "key": "party2LegalName",
+          "label": "Nombre legal (empresa) o nombre completo (persona)",
+          "type": "text",
+          "required": true,
+          "example": "Proveedora XYZ, S.R.L. / María López"
+        },
+        {
+          "key": "representative2Nationality",
+          "label": "Nacionalidad del firmante o de la persona",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "party2Jurisdiction",
+          "label": "País o estado de constitución (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "party2Rnc",
+          "label": "RNC (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true }
+        },
+        {
+          "key": "party2Rm",
+          "label": "Registro Mercantil (solo empresa, si aplica)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true }
+        },
+        {
+          "key": "party2FullAddress",
+          "label": "Dirección legal o registrada",
+          "type": "text",
+          "required": true,
+          "example": "Calle Principal 456, Santiago"
+        },
+        {
+          "key": "party2RepresentativeTitle",
+          "label": "Cargo del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true }
+        },
+        {
+          "key": "party2RepresentativeFullName",
+          "label": "Nombre completo del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true }
+        },
+        {
+          "key": "party2RepresentativeIdTypedeLaCdulaDeIdentidadYElectoralOrdelPasaporte",
+          "label": "Tipo ID firmante (solo empresa)",
+          "type": "dropdown",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "party2RepresentativeIdNumber",
+          "label": "Número de ID del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true }
+        },
+        {
+          "key": "party2RepresentativeFullAddress",
+          "label": "Dirección del firmante (solo empresa)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": true }
+        },
+        {
+          "key": "party2IdTypedeLaCdulaDeIdentidadYElectoralOrdelPasaporte",
+          "label": "Tipo de ID (solo persona física)",
+          "type": "dropdown",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": false },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "party2IdNumber",
+          "label": "Número de ID (solo persona física)",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "party2IsCompany", "equals": false },
+          "example": "001-5555555-6"
+        }
+      ]
+    },
+    {
+      "id": "preambulo",
+      "label": "C. PREÁMBULO / NEGOCIO",
+      "variables": [
+        {
+          "key": "party2BusinessDescription",
+          "label": "Descripción breve del negocio de la SEGUNDA PARTE (una frase)",
+          "type": "text",
+          "required": true,
+          "example": "suministro de materiales de construcción"
+        },
+        {
+          "key": "businessPurposeSummary",
+          "label": "Propósito del referimiento (una frase)",
+          "type": "text",
+          "required": true,
+          "example": "cotizar materiales para proyecto industrial"
+        },
+        {
+          "key": "projectDescriptionMinimal",
+          "label": "Descripción mínima del proyecto (sin revelar datos sensibles)",
+          "type": "text",
+          "required": true,
+          "example": "nave de distribución en SD Oeste"
+        },
+        {
+          "key": "permittedPurposeevaluarLaPotencialOportunidadDeNegocioevaluarYEjecutarElProyecto",
+          "label": "Uso permitido de la información confidencial",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "evaluar la potencial oportunidad de negocio",
+            "evaluar y ejecutar el proyecto"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no_elusion",
+      "label": "D. NO-ELUSIÓN / PARÁMETROS",
+      "variables": [
+        {
+          "key": "noticePeriodInDays",
+          "label": "Plazo de aviso en letras (ej. tres, cinco)",
+          "type": "text",
+          "required": true,
+          "example": "tres"
+        },
+        {
+          "key": "noticePeriodInNumbers",
+          "label": "Plazo de aviso en números (días)",
+          "type": "number",
+          "required": true,
+          "example": "3"
+        },
+        {
+          "key": "referralFeeApproachnegociadaDeBuenaFeYMutuoAcuerdoEnUnDocumentoSeparadonoAplica",
+          "label": "Compensación por referimiento",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "negociada de buena fe y mutuo acuerdo en un documento separado",
+            "no aplica"
+          ]
+        },
+        {
+          "key": "penaltyAmountWithCurrency",
+          "label": "Penalidad convencional (opcional, ej. RD$1,000,000.00)",
+          "type": "text",
+          "required": false,
+          "example": "RD$1,000,000.00"
+        }
+      ]
+    },
+    {
+      "id": "vigencia",
+      "label": "E. VIGENCIA",
+      "variables": [
+        {
+          "key": "agreementTermYearsLetters",
+          "label": "Duración del contrato en letras (ej. cinco)",
+          "type": "text",
+          "required": true,
+          "example": "cinco"
+        },
+        {
+          "key": "agreementTermYearsNumbers",
+          "label": "Duración del contrato en números (años)",
+          "type": "number",
+          "required": true,
+          "example": "5"
+        },
+        {
+          "key": "confidentialitySurvivalYearsLetters",
+          "label": "Extensión de confidencialidad post-terminación en letras",
+          "type": "text",
+          "required": true,
+          "example": "diez"
+        },
+        {
+          "key": "confidentialitySurvivalYearsNumbers",
+          "label": "Extensión post-terminación en números (años)",
+          "type": "number",
+          "required": true,
+          "example": "10"
+        }
+      ]
+    },
+    {
+      "id": "arbitraje",
+      "label": "F. ARBITRAJE",
+      "variables": [
+        {
+          "key": "numberOfArbitrators",
+          "label": "Número de árbitros (1 o 3)",
+          "type": "dropdown",
+          "required": true,
+          "options": ["1", "3"]
+        }
+      ]
+    },
+    {
+      "id": "notificaciones",
+      "label": "G. NOTIFICACIONES",
+      "variables": [
+        {
+          "key": "noticeParty1Name",
+          "label": "Nombre para notificaciones — PRIMERA PARTE",
+          "type": "text",
+          "required": true,
+          "example": "Constructora ABC"
+        },
+        {
+          "key": "noticeParty1Address",
+          "label": "Dirección de notificación — PRIMERA PARTE",
+          "type": "text",
+          "required": true,
+          "example": "Av. Churchill 123"
+        },
+        {
+          "key": "noticeParty1Attention",
+          "label": "Atención — PRIMERA PARTE",
+          "type": "text",
+          "required": true,
+          "example": "Departamento Legal"
+        },
+        {
+          "key": "noticeParty1Phone",
+          "label": "Teléfono — PRIMERA PARTE",
+          "type": "text",
+          "required": true,
+          "example": "+1 (809) 555-1234"
+        },
+        {
+          "key": "noticeParty1Email",
+          "label": "Correo electrónico — PRIMERA PARTE",
+          "type": "email",
+          "required": true,
+          "example": "legal@abc.com"
+        },
+        {
+          "key": "noticeParty2Name",
+          "label": "Nombre para notificaciones — SEGUNDA PARTE",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "noticeParty2Address",
+          "label": "Dirección de notificación — SEGUNDA PARTE",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "noticeParty2Attention",
+          "label": "Atención — SEGUNDA PARTE",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "noticeParty2Phone",
+          "label": "Teléfono — SEGUNDA PARTE",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "noticeParty2Email",
+          "label": "Correo electrónico — SEGUNDA PARTE",
+          "type": "email",
+          "required": true
+        },
+        {
+          "key": "noticeCcName",
+          "label": "Copia a — Nombre (opcional)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "key": "noticeCcAddress",
+          "label": "Copia a — Dirección (opcional)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "key": "noticeCcAttention",
+          "label": "Copia a — Atención (opcional)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "key": "noticeCcPhone",
+          "label": "Copia a — Teléfono (opcional)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "key": "noticeCcEmail",
+          "label": "Copia a — Correo (opcional)",
+          "type": "email",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "firma",
+      "label": "H. FIRMA",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad de firma",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "signingProvincestate",
+          "label": "Provincia o estado",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "signingDayLetters",
+          "label": "Día de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "dieciocho"
+        },
+        {
+          "key": "signingDayNumbers",
+          "label": "Día de firma en números",
+          "type": "number",
+          "required": true,
+          "example": "18"
+        },
+        {
+          "key": "signingMonthLetters",
+          "label": "Mes de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "marzo"
+        },
+        {
+          "key": "signingYearLetters",
+          "label": "Año de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "dos mil veintiséis"
+        },
+        {
+          "key": "signingYearNumbers",
+          "label": "Año de firma en números",
+          "type": "number",
+          "required": true,
+          "example": "2026"
+        }
+      ]
+    }
+  ]
+}

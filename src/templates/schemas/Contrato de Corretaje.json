@@ -1,0 +1,626 @@
+{
+  "templateName": "Contrato de Representación Agente de Bienes Raíces",
+  "displayName": "Contrato de Intermediación y Corretaje Inmobiliario",
+  "description": "Formulario para completar las variables del Contrato de Intermediación y Corretaje Inmobiliario (propietario, agente, inmueble, comisión, duración, confidencialidad, cláusulas legales y firma).",
+  "groups": [
+    {
+      "id": "transaction",
+      "label": "A. TIPO DE OPERACIÓN",
+      "variables": [
+        {
+          "key": "transactionType",
+          "label": "¿Cuál es el tipo de operación?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Venta", "Alquiler"]
+        }
+      ]
+    },
+    {
+      "id": "owner",
+      "label": "B. EL PROPIETARIO",
+      "variables": [
+        {
+          "key": "ownerIsCompany",
+          "label": "¿El propietario es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"]
+        },
+        {
+          "key": "ownerLegalName",
+          "label": "Nombre legal / razón social del propietario",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "Inversiones Inmobiliarias ABC, S.A."
+        },
+        {
+          "key": "ownerJurisdiction",
+          "label": "Jurisdicción de constitución de la empresa",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "ownerRnc",
+          "label": "RNC del propietario",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "1-30-12345-6"
+        },
+        {
+          "key": "ownerFullAddress",
+          "label": "Dirección completa del propietario",
+          "type": "text",
+          "required": true,
+          "example": "Calle Principal No. 25, Ensanche Naco, Santo Domingo, D.N."
+        },
+        {
+          "key": "ownerRepTitle",
+          "label": "Título del representante legal de la empresa",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "su Presidente"
+        },
+        {
+          "key": "ownerRepFullName",
+          "label": "Nombre completo del representante legal",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "María Fernández López"
+        },
+        {
+          "key": "ownerRepNationality",
+          "label": "Nacionalidad del representante legal",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "dominicana"
+        },
+        {
+          "key": "ownerRepMaritalStatus",
+          "label": "Estado civil del representante legal",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "ownerRepIdType",
+          "label": "Tipo de documento del representante legal",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "ownerRepIdNumber",
+          "label": "Número de documento del representante legal",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "ownerRepAddress",
+          "label": "Domicilio del representante legal",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Empresa" },
+          "example": "Calle Las Palmas No. 10, Ensanche Paraíso, Santo Domingo, D.N."
+        },
+        {
+          "key": "ownerFullName",
+          "label": "Nombre completo del propietario",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Persona física" },
+          "example": "Carlos Ramírez Mejía"
+        },
+        {
+          "key": "ownerNationality",
+          "label": "Nacionalidad del propietario",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Persona física" },
+          "example": "dominicano(a)"
+        },
+        {
+          "key": "ownerMaritalStatus",
+          "label": "Estado civil del propietario",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Persona física" },
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "ownerOccupation",
+          "label": "Ocupación del propietario",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Persona física" },
+          "example": "empresario"
+        },
+        {
+          "key": "ownerIdType",
+          "label": "Tipo de documento del propietario",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Persona física" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "ownerIdNumber",
+          "label": "Número de documento del propietario",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "ownerIsCompany", "equals": "Persona física" },
+          "example": "001-1234567-8"
+        }
+      ]
+    },
+    {
+      "id": "agent",
+      "label": "C. EL AGENTE",
+      "variables": [
+        {
+          "key": "agentIsCompany",
+          "label": "¿El agente es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"]
+        },
+        {
+          "key": "agentLegalName",
+          "label": "Nombre legal / razón social del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "Bienes Raíces Dominicana, S.R.L."
+        },
+        {
+          "key": "agentJurisdiction",
+          "label": "Jurisdicción de constitución de la empresa agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "agentRnc",
+          "label": "RNC del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "1-30-98765-4"
+        },
+        {
+          "key": "agentHasMercantileRegistry",
+          "label": "¿Tiene registro mercantil?",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "agentMercantileRegistryNumber",
+          "label": "Número de Registro Mercantil",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentHasMercantileRegistry", "equals": "Sí" },
+          "example": "RM-2024-00567"
+        },
+        {
+          "key": "agentFullAddress",
+          "label": "Dirección completa del agente",
+          "type": "text",
+          "required": true,
+          "example": "Av. Lope de Vega No. 52, Ensanche Naco, Santo Domingo, D.N."
+        },
+        {
+          "key": "agentRepTitle",
+          "label": "Título del representante legal del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "su Gerente General"
+        },
+        {
+          "key": "agentRepFullName",
+          "label": "Nombre completo del representante legal del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "Ana María Sánchez Pérez"
+        },
+        {
+          "key": "agentRepNationality",
+          "label": "Nacionalidad del representante legal del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "dominicana"
+        },
+        {
+          "key": "agentRepMaritalStatus",
+          "label": "Estado civil del representante legal del agente",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "agentRepIdType",
+          "label": "Tipo de documento del representante legal del agente",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "agentRepIdNumber",
+          "label": "Número de documento del representante legal del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "001-9876543-2"
+        },
+        {
+          "key": "agentRepAddress",
+          "label": "Domicilio del representante legal del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Empresa" },
+          "example": "Calle El Conde No. 100, Zona Colonial, Santo Domingo, D.N."
+        },
+        {
+          "key": "agentFullName",
+          "label": "Nombre completo del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Persona física" },
+          "example": "Pedro Martínez Rodríguez"
+        },
+        {
+          "key": "agentNationality",
+          "label": "Nacionalidad del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Persona física" },
+          "example": "dominicano(a)"
+        },
+        {
+          "key": "agentMaritalStatus",
+          "label": "Estado civil del agente",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Persona física" },
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "agentOccupation",
+          "label": "Ocupación del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Persona física" },
+          "example": "corredor inmobiliario"
+        },
+        {
+          "key": "agentIdType",
+          "label": "Tipo de documento del agente",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Persona física" },
+          "options": ["de la cédula de identidad y electoral", "del pasaporte"]
+        },
+        {
+          "key": "agentIdNumber",
+          "label": "Número de documento del agente",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "agentIsCompany", "equals": "Persona física" },
+          "example": "001-5678901-2"
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "label": "D. INMUEBLE Y PRECIO",
+      "variables": [
+        {
+          "key": "propertyDescription",
+          "label": "Descripción del inmueble (según Certificado de Título)",
+          "type": "textarea",
+          "required": true,
+          "example": "Apartamento No. 5-A del quinto nivel del edificio denominado Torre Azul, situado en la Calle Las Flores No. 15, Ensanche Piantini, Distrito Nacional, con una superficie de 150 metros cuadrados, amparado por el Certificado de Título No. 0012345..."
+        },
+        {
+          "key": "referenceAmountInWords",
+          "label": "Precio mínimo de referencia (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "Diez Millones de Pesos Dominicanos"
+        },
+        {
+          "key": "referenceAmountWithCurrency",
+          "label": "Precio mínimo de referencia (cifras con moneda)",
+          "type": "text",
+          "required": true,
+          "example": "RD$10,000,000.00"
+        }
+      ]
+    },
+    {
+      "id": "commission",
+      "label": "E. COMISIÓN",
+      "variables": [
+        {
+          "key": "commissionPercentWords",
+          "label": "Porcentaje de comisión de venta (solo el número en letras, sin incluir 'por ciento')",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "transactionType", "equals": "Venta" },
+          "example": "tres"
+        },
+        {
+          "key": "commissionPercentNumber",
+          "label": "Porcentaje de comisión de venta (solo el dígito, sin incluir '%')",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "transactionType", "equals": "Venta" },
+          "example": "3"
+        },
+        {
+          "key": "commissionMonthsWords",
+          "label": "Cantidad de meses de renta como comisión de alquiler (solo el número en letras, sin incluir 'meses')",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "transactionType", "equals": "Alquiler" },
+          "example": "un"
+        },
+        {
+          "key": "commissionMonthsNumber",
+          "label": "Cantidad de meses de renta como comisión de alquiler (solo el dígito)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "transactionType", "equals": "Alquiler" },
+          "example": "1"
+        },
+        {
+          "key": "includeItbis",
+          "label": "¿Incluir cláusula de ITBIS (18%) en la comisión?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "commissionTriggerMoment",
+          "label": "¿En qué momento se devenga la comisión?",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "una promesa de compraventa",
+            "un contrato de opción de compra",
+            "un contrato de reserva",
+            "un contrato de compraventa definitiva",
+            "un contrato de alquiler",
+            "cualquier acuerdo que comprometa la operación"
+          ]
+        },
+        {
+          "key": "includeInvoiceClause",
+          "label": "¿Incluir cláusula sobre emisión de facturas?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        }
+      ]
+    },
+    {
+      "id": "duration",
+      "label": "F. DURACIÓN Y PLAZOS",
+      "variables": [
+        {
+          "key": "contractDurationWords",
+          "label": "Duración del contrato en años (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "un"
+        },
+        {
+          "key": "contractDurationNumbers",
+          "label": "Duración del contrato en años (número)",
+          "type": "text",
+          "required": true,
+          "example": "1"
+        },
+        {
+          "key": "terminationNoticeDaysWords",
+          "label": "Días de preaviso para terminación (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "treinta"
+        },
+        {
+          "key": "terminationNoticeDaysNumbers",
+          "label": "Días de preaviso para terminación (número)",
+          "type": "text",
+          "required": true,
+          "example": "30"
+        },
+        {
+          "key": "protectionPeriodMonthsWords",
+          "label": "Meses del período de protección post-contrato (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "seis"
+        },
+        {
+          "key": "protectionPeriodMonthsNumbers",
+          "label": "Meses del período de protección post-contrato (número)",
+          "type": "text",
+          "required": true,
+          "example": "6"
+        }
+      ]
+    },
+    {
+      "id": "confidentiality",
+      "label": "G. CONFIDENCIALIDAD",
+      "variables": [
+        {
+          "key": "confidentialityYearsWords",
+          "label": "Años de vigencia de la cláusula de confidencialidad (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "dos"
+        },
+        {
+          "key": "confidentialityYearsNumbers",
+          "label": "Años de vigencia de la cláusula de confidencialidad (número)",
+          "type": "text",
+          "required": true,
+          "example": "2"
+        },
+        {
+          "key": "confidentialityPenalty",
+          "label": "Penalidad por incumplimiento de confidencialidad",
+          "type": "text",
+          "required": true,
+          "example": "RD$500,000.00 (Quinientos Mil Pesos Dominicanos)"
+        }
+      ]
+    },
+    {
+      "id": "legal",
+      "label": "H. CLÁUSULAS LEGALES",
+      "variables": [
+        {
+          "key": "disputeResolution",
+          "label": "¿Cómo se resolverán los conflictos?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Arbitraje CRC", "Tribunales ordinarios"]
+        },
+        {
+          "key": "numberOfArbitrators",
+          "label": "Número de árbitros (si aplica)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "disputeResolution", "equals": "Arbitraje CRC" },
+          "options": ["un (1) árbitro", "tres (3) árbitros"]
+        },
+        {
+          "key": "assignmentRestriction",
+          "label": "¿Quién tiene restricción de cesión del contrato?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["EL AGENTE", "cualquiera de las Partes"]
+        },
+        {
+          "key": "assigneeConsent",
+          "label": "¿Quién debe autorizar la cesión?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["EL PROPIETARIO", "la otra Parte"]
+        },
+        {
+          "key": "includeSubcontractClause",
+          "label": "¿Incluir cláusula de subcontratación?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "includeBilingualClause",
+          "label": "¿Incluir cláusula bilingüe?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "bilingualLanguage",
+          "label": "Idioma de la traducción de referencia",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "includeBilingualClause", "equals": "Sí" },
+          "example": "inglés"
+        }
+      ]
+    },
+    {
+      "id": "signing",
+      "label": "I. FIRMA Y NOTARÍA",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad de firma",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia de firma",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "signingDayLetters",
+          "label": "Día de firma (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "veinticuatro"
+        },
+        {
+          "key": "signingDayNumbers",
+          "label": "Día de firma (número)",
+          "type": "text",
+          "required": true,
+          "example": "24"
+        },
+        {
+          "key": "signingMonthLetters",
+          "label": "Mes de firma (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "marzo"
+        },
+        {
+          "key": "signingYearLetters",
+          "label": "Año de firma (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "dos mil veintiséis"
+        },
+        {
+          "key": "signingYearNumbers",
+          "label": "Año de firma (número)",
+          "type": "text",
+          "required": true,
+          "example": "2026"
+        },
+        {
+          "key": "notaryProvince",
+          "label": "Provincia de registro del Notario Público",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        }
+      ]
+    }
+  ]
+}

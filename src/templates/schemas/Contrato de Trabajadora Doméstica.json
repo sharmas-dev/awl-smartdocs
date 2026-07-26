@@ -1,0 +1,314 @@
+{
+  "templateName": "Contrato de Trabajadora Doméstica",
+  "displayName": "Contrato de Trabajo para Servicio Doméstico",
+  "description": "Formulario para completar las variables del Contrato de Trabajo para Servicio Doméstico (empleador, trabajadora, condiciones laborales, salario, beneficios, vigencia y firma).",
+  "variableMappingNote": "When contractDurationKind is Por tiempo indefinido, contractDurationIndefinite is server-derived (canonical: por tiempo indefinido) for the HBS tail after «La duración del Contrato es …» — not asked in chat. documentSigningDate expands into signingDayLetters, signingDayNumbers, signingMonthLetters, signingYearLetters, signingYearNumbers (PDF only; not asked in chat).",
+  "groups": [
+    {
+      "id": "employer",
+      "label": "A. EL EMPLEADOR",
+      "variables": [
+        {
+          "key": "employerFullName",
+          "label": "Nombre completo del empleador",
+          "type": "text",
+          "required": true,
+          "example": "Juan Pérez Gómez"
+        },
+        {
+          "key": "employerIdType",
+          "label": "Tipo de documento de identidad del empleador",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Cédula", "Pasaporte"]
+        },
+        {
+          "key": "employerIdNumber",
+          "label": "Número de documento de identidad del empleador",
+          "type": "text",
+          "required": true,
+          "example": "001-0000000-0"
+        },
+        {
+          "key": "employerFullAddress",
+          "label": "Dirección completa del empleador",
+          "type": "text",
+          "required": true,
+          "example": "Calle XYZ #123, Santo Domingo"
+        }
+      ]
+    },
+    {
+      "id": "employee",
+      "label": "B. LA TRABAJADORA",
+      "variables": [
+        {
+          "key": "employeeFullName",
+          "label": "Nombre completo de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "María López Rodríguez"
+        },
+        {
+          "key": "employeeNationality",
+          "label": "Nacionalidad de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "employeeMaritalStatus",
+          "label": "Estado civil de la trabajadora",
+          "type": "dropdown",
+          "required": true,
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "employeeAge",
+          "label": "Edad de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "30 años"
+        },
+        {
+          "key": "employeeGender",
+          "label": "Sexo de la trabajadora",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Femenino", "Masculino"]
+        },
+        {
+          "key": "employeeIdType",
+          "label": "Tipo de documento de identidad de la trabajadora",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Cédula", "Pasaporte"]
+        },
+        {
+          "key": "employeeIdNumber",
+          "label": "Número de documento de identidad de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "001-2345678-9"
+        },
+        {
+          "key": "employeeFullAddress",
+          "label": "Dirección completa de la trabajadora",
+          "type": "text",
+          "required": true,
+          "example": "Av. ABC #456, Santo Domingo Este"
+        }
+      ]
+    },
+    {
+      "id": "workConditions",
+      "label": "C. CONDICIONES DE TRABAJO",
+      "variables": [
+        {
+          "key": "startDate",
+          "label": "Fecha de inicio del contrato",
+          "type": "date",
+          "required": true,
+          "example": "15 de marzo de 2026"
+        },
+        {
+          "key": "workDays",
+          "label": "Días de la semana en que la trabajadora laborará (indique cada día o el rango, p. ej. lunes a viernes)",
+          "type": "text",
+          "required": true,
+          "example": "lunes a viernes"
+        },
+        {
+          "key": "workSchedule",
+          "label": "Horario o franja horaria diaria (solo las horas, complementando los días indicados)",
+          "type": "text",
+          "required": true,
+          "example": "de 8:00 a.m. a 5:00 p.m."
+        },
+        {
+          "key": "primaryResponsibility",
+          "label": "Funciones principales del cargo",
+          "type": "text",
+          "required": true,
+          "example": "Realizar las funciones propias del cargo de empleada doméstica, incluyendo limpieza general, lavado y planchado"
+        }
+      ]
+    },
+    {
+      "id": "salary",
+      "label": "D. SALARIO Y PAGO",
+      "variables": [
+        {
+          "key": "salaryInWords",
+          "label": "Salario en letras",
+          "type": "text",
+          "required": true,
+          "example": "veinticinco mil pesos dominicanos"
+        },
+        {
+          "key": "salaryAmountWithCurrency",
+          "label": "Salario en números con moneda",
+          "type": "text",
+          "required": true,
+          "example": "RD$25,000.00"
+        },
+        {
+          "key": "paymentFrequency",
+          "label": "Frecuencia de pago",
+          "type": "dropdown",
+          "required": true,
+          "options": ["mensuales", "quincenales", "semanales"]
+        },
+        {
+          "key": "paymentSchedule",
+          "label": "Calendario de pago",
+          "type": "text",
+          "required": true,
+          "example": "en dos partidas, los días 15 y 30 de cada mes"
+        }
+      ]
+    },
+    {
+      "id": "benefits",
+      "label": "E. OTROS BENEFICIOS",
+      "variables": [
+        {
+          "key": "hasAdditionalBenefits",
+          "label": "¿La trabajadora tendrá beneficios adicionales?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "otherBenefits",
+          "label": "Descripción de los beneficios adicionales",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalBenefits", "equals": "Sí" },
+          "example": "Comedor subsidiado, transporte"
+        }
+      ]
+    },
+    {
+      "id": "duration",
+      "label": "F. VIGENCIA Y TERMINACIÓN",
+      "variables": [
+        {
+          "key": "contractDurationKind",
+          "label": "Tipo de vigencia del contrato",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Por plazo fijo", "Por tiempo indefinido"],
+          "example": "Por plazo fijo"
+        },
+        {
+          "key": "contractDurationNumber",
+          "label": "Si es por plazo fijo: duración en cifras (solo el número principal)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "contractDurationKind", "equals": "Por plazo fijo" },
+          "example": "1"
+        },
+        {
+          "key": "contractDurationNumberWords",
+          "label": "Si es por plazo fijo: el mismo número en letras (para el paréntesis, ej. un, dos, tres)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "contractDurationKind", "equals": "Por plazo fijo" },
+          "example": "un"
+        },
+        {
+          "key": "contractDurationUnit",
+          "label": "Si es por plazo fijo: unidad de tiempo",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "contractDurationKind", "equals": "Por plazo fijo" },
+          "options": ["año", "años", "mes", "meses"]
+        },
+        {
+          "key": "contractDurationIndefinite",
+          "label": "Vigencia indefinida — frase PDF (solo servidor; no preguntar en chat)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "contractDurationKind", "equals": "Por tiempo indefinido" },
+          "example": "por tiempo indefinido"
+        },
+        {
+          "key": "minimumNoticeNumber",
+          "label": "Preaviso de la trabajadora: plazo en cifras (solo el número)",
+          "type": "text",
+          "required": true,
+          "example": "5"
+        },
+        {
+          "key": "minimumNoticeNumberWords",
+          "label": "Preaviso: el mismo número en letras (para el paréntesis, ej. cinco, quince)",
+          "type": "text",
+          "required": true,
+          "example": "cinco"
+        },
+        {
+          "key": "minimumNoticeUnit",
+          "label": "Preaviso: unidad",
+          "type": "dropdown",
+          "required": true,
+          "options": ["día", "días", "hora", "horas"]
+        }
+      ]
+    },
+    {
+      "id": "signing",
+      "label": "G. FIRMA DEL CONTRATO",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad de firma",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia de firma",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "documentSigningDate",
+          "label": "Fecha en que se firmará el contrato (día, mes y año en un solo dato)",
+          "type": "date",
+          "required": true,
+          "example": "15 de marzo de 2026",
+          "pdfKeys": [
+            "signingDayLetters",
+            "signingDayNumbers",
+            "signingMonthLetters",
+            "signingYearLetters",
+            "signingYearNumbers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notary",
+      "label": "H. CERTIFICACIÓN NOTARIAL",
+      "variables": [
+        {
+          "key": "notaryJurisdiction",
+          "label": "Jurisdicción del notario",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        }
+      ]
+    }
+  ]
+}

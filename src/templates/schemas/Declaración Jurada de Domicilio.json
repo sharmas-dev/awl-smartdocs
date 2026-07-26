@@ -1,0 +1,211 @@
+{
+  "templateName": "Declaración Jurada de Domicilio",
+  "displayName": "Declaración Jurada de Domicilio",
+  "description": "Formulario para completar las variables de la Declaración Jurada de Domicilio (declarante, residencia, testigos, firma y certificación notarial).",
+  "groups": [
+    {
+      "id": "declarant",
+      "label": "A. EL DECLARANTE",
+      "variables": [
+        {
+          "key": "declarantFullName",
+          "label": "Nombre completo del declarante",
+          "type": "text",
+          "required": true,
+          "example": "Juan Pérez Gómez"
+        },
+        {
+          "key": "declarantNationality",
+          "label": "Nacionalidad del declarante",
+          "type": "text",
+          "required": true,
+          "example": "dominicano(a)"
+        },
+        {
+          "key": "declarantIdType",
+          "label": "Tipo(s) de documento de identidad del declarante",
+          "type": "dropdown",
+          "required": true,
+          "options": ["de la Cédula de Identidad y Electoral", "del Pasaporte", "de la Cédula de Identidad y Electoral y del Pasaporte"]
+        },
+        {
+          "key": "declarantIdNumbers",
+          "label": "Número(s) de documento de identidad del declarante",
+          "type": "text",
+          "required": true,
+          "example": "001-1234567-8"
+        }
+      ]
+    },
+    {
+      "id": "residence",
+      "label": "B. DOMICILIO",
+      "variables": [
+        {
+          "key": "yearsOfResidenceLetters",
+          "label": "Años de residencia en República Dominicana (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "cinco"
+        },
+        {
+          "key": "yearsOfResidenceNumbers",
+          "label": "Años de residencia en República Dominicana (en números)",
+          "type": "text",
+          "required": true,
+          "example": "5"
+        },
+        {
+          "key": "declarantFullAddress",
+          "label": "Dirección completa del domicilio que se declara",
+          "type": "text",
+          "required": true,
+          "example": "Calle Las Flores #25, Sector Naco, Santo Domingo, Distrito Nacional"
+        }
+      ]
+    },
+    {
+      "id": "witness1",
+      "label": "C. TESTIGO 1",
+      "variables": [
+        {
+          "key": "witness1FullName",
+          "label": "Nombre completo del testigo 1",
+          "type": "text",
+          "required": true,
+          "example": "María López Rodríguez"
+        },
+        {
+          "key": "witness1Nationality",
+          "label": "Nacionalidad del testigo 1",
+          "type": "text",
+          "required": true,
+          "example": "dominicano(a)"
+        },
+        {
+          "key": "witness1IdType",
+          "label": "Tipo de documento de identidad del testigo 1",
+          "type": "dropdown",
+          "required": true,
+          "options": ["de la Cédula de Identidad y Electoral", "del Pasaporte"]
+        },
+        {
+          "key": "witness1IdNumber",
+          "label": "Número de documento de identidad del testigo 1",
+          "type": "text",
+          "required": true,
+          "example": "001-2345678-9"
+        }
+      ]
+    },
+    {
+      "id": "witness2",
+      "label": "D. TESTIGO 2",
+      "variables": [
+        {
+          "key": "witness2FullName",
+          "label": "Nombre completo del testigo 2",
+          "type": "text",
+          "required": true,
+          "example": "Carlos Martínez Reyes"
+        },
+        {
+          "key": "witness2Nationality",
+          "label": "Nacionalidad del testigo 2",
+          "type": "text",
+          "required": true,
+          "example": "dominicano(a)"
+        },
+        {
+          "key": "witness2IdType",
+          "label": "Tipo de documento de identidad del testigo 2",
+          "type": "dropdown",
+          "required": true,
+          "options": ["de la Cédula de Identidad y Electoral", "del Pasaporte"]
+        },
+        {
+          "key": "witness2IdNumber",
+          "label": "Número de documento de identidad del testigo 2",
+          "type": "text",
+          "required": true,
+          "example": "001-3456789-0"
+        }
+      ]
+    },
+    {
+      "id": "signing",
+      "label": "E. FIRMA",
+      "variables": [
+        {
+          "key": "signingCity",
+          "label": "Ciudad de firma",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia de firma",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "signingDayLetters",
+          "label": "Día de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "veintiséis"
+        },
+        {
+          "key": "signingDayNumbers",
+          "label": "Día de firma en números",
+          "type": "text",
+          "required": true,
+          "example": "26"
+        },
+        {
+          "key": "signingMonthLetters",
+          "label": "Mes de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "marzo"
+        },
+        {
+          "key": "signingYearLetters",
+          "label": "Año de firma en letras",
+          "type": "text",
+          "required": true,
+          "example": "dos mil veintiséis"
+        },
+        {
+          "key": "signingYearNumbers",
+          "label": "Año de firma en números",
+          "type": "text",
+          "required": true,
+          "example": "2026"
+        }
+      ]
+    },
+    {
+      "id": "notary",
+      "label": "F. CERTIFICACIÓN NOTARIAL",
+      "variables": [
+        {
+          "key": "notaryProvince",
+          "label": "Provincia del notario",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        }
+      ]
+    }
+  ]
+}

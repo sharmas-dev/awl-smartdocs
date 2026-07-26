@@ -1,0 +1,767 @@
+{
+  "templateName": "Contrato de Teletrabajo",
+  "displayName": "Contrato de Teletrabajo",
+  "description": "Formulario para completar las variables del Contrato de Teletrabajo (empleador, trabajador, funciones, salario, beneficios, lugar de trabajo, costos, herramientas, horario, duración y firma).",
+  "groups": [
+    {
+      "id": "employer",
+      "label": "A. EL EMPLEADOR",
+      "variables": [
+        {
+          "key": "employerIsCompany",
+          "label": "¿El empleador es empresa o persona física?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Empresa", "Persona física"]
+        },
+        {
+          "key": "employerLegalName",
+          "label": "Nombre legal completo del empleador",
+          "type": "text",
+          "required": true,
+          "example": "ABC Consultores, S.R.L. / Juan Pérez Gómez"
+        },
+        {
+          "key": "employerCompanyNationalOrForeign",
+          "label": "¿Es una empresa extranjera o nacional?",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "options": ["Nacional", "Extranjera"]
+        },
+        {
+          "key": "employerHasDominicanRnc",
+          "label": "¿La empresa cuenta con un RNC en República Dominicana?",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "employerCompanyNationalOrForeign", "equals": "Extranjera" },
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "employerJurisdiction",
+          "label": "Jurisdicción legal del empleador (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "example": "República Dominicana"
+        },
+        {
+          "key": "employerRnc",
+          "label": "RNC de la empresa empleadora (9 dígitos, formato XXX-XXXXX-X)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIncludeRncMercantileIdentificationInContract", "equals": "Sí" },
+          "example": "1-30-1234567-8"
+        },
+        {
+          "key": "employerMercantileRegistryNumber",
+          "label": "Número de Registro Mercantil (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIncludeRncMercantileIdentificationInContract", "equals": "Sí" },
+          "example": "123456SD"
+        },
+        {
+          "key": "employerFullAddressStreet",
+          "label": "Calle, número o vía (domicilio social del empleador)",
+          "type": "text",
+          "required": true,
+          "example": "Av. Winsor Churchill #1020"
+        },
+        {
+          "key": "employerFullAddressCity",
+          "label": "Ciudad (domicilio social del empleador)",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo"
+        },
+        {
+          "key": "employerFullAddressCountry",
+          "label": "País (domicilio social del empleador)",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "República Dominicana",
+            "Estados Unidos",
+            "Colombia",
+            "México",
+            "España",
+            "Venezuela",
+            "Panamá",
+            "Chile",
+            "Argentina",
+            "Perú",
+            "Ecuador",
+            "Brasil",
+            "Canadá",
+            "Reino Unido",
+            "Francia",
+            "Italia",
+            "Alemania",
+            "China",
+            "Japón",
+            "Puerto Rico",
+            "Otro"
+          ],
+          "example": "República Dominicana"
+        },
+        {
+          "key": "employerRepTitle",
+          "label": "Cargo del representante del empleador (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "example": "Gerente General"
+        },
+        {
+          "key": "employerRepFullName",
+          "label": "Nombre completo del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "example": "Juan Pérez Gómez"
+        },
+        {
+          "key": "employerRepNationality",
+          "label": "Nacionalidad del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "example": "dominicano"
+        },
+        {
+          "key": "employerRepIdType",
+          "label": "Tipo de ID del representante (solo empresa)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "options": ["de la Cédula de Identidad y Electoral", "del Pasaporte"]
+        },
+        {
+          "key": "employerRepIdNumber",
+          "label": "Número de cédula o pasaporte del representative legal del empleador (cédula de 11 dígitos o pasaporte)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "example": "001-1234567-8"
+        },
+        {
+          "key": "employerRepAddressStreet",
+          "label": "Calle o vía del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "example": "Calle Los Laureles #12"
+        },
+        {
+          "key": "employerRepAddressCity",
+          "label": "Ciudad del representante (solo empresa)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "example": "Cartagena"
+        },
+        {
+          "key": "employerRepAddressCountry",
+          "label": "País del domicilio del representante (solo empresa)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Empresa" },
+          "options": [
+            "República Dominicana",
+            "Estados Unidos",
+            "Colombia",
+            "México",
+            "España",
+            "Venezuela",
+            "Panamá",
+            "Chile",
+            "Argentina",
+            "Perú",
+            "Ecuador",
+            "Brasil",
+            "Canadá",
+            "Reino Unido",
+            "Francia",
+            "Italia",
+            "Alemania",
+            "China",
+            "Japón",
+            "Puerto Rico",
+            "Otro"
+          ],
+          "example": "Colombia"
+        },
+        {
+          "key": "employerNationality",
+          "label": "Nacionalidad del empleador (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Persona física" },
+          "example": "dominicana"
+        },
+        {
+          "key": "employerMaritalStatus",
+          "label": "Estado civil del empleador (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Persona física" },
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "employerOccupation",
+          "label": "Ocupación del empleador (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Persona física" },
+          "example": "empresario"
+        },
+        {
+          "key": "employerIdType",
+          "label": "Tipo de ID del empleador (solo persona física)",
+          "type": "dropdown",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Persona física" },
+          "options": ["de la Cédula de Identidad y Electoral", "del Pasaporte"]
+        },
+        {
+          "key": "employerIdNumber",
+          "label": "Número de ID del empleador (solo persona física)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "employerIsCompany", "equals": "Persona física" },
+          "example": "001-7654321-0"
+        }
+      ]
+    },
+    {
+      "id": "employee",
+      "label": "B. EL TRABAJADOR",
+      "variables": [
+        {
+          "key": "employeeFullName",
+          "label": "Nombre completo del trabajador",
+          "type": "text",
+          "required": true,
+          "example": "María López Rodríguez"
+        },
+        {
+          "key": "employeeNationality",
+          "label": "Nacionalidad del trabajador",
+          "type": "text",
+          "required": true,
+          "example": "dominicana"
+        },
+        {
+          "key": "employeeMaritalStatus",
+          "label": "Estado civil del trabajador",
+          "type": "dropdown",
+          "required": true,
+          "options": ["casado(a)", "soltero(a)"]
+        },
+        {
+          "key": "employeeOccupation",
+          "label": "Ocupación o profesión del trabajador",
+          "type": "text",
+          "required": true,
+          "example": "ingeniero de software"
+        },
+        {
+          "key": "employeeIdType",
+          "label": "Tipo de documento de identidad del trabajador",
+          "type": "dropdown",
+          "required": true,
+          "options": ["de la Cédula de Identidad y Electoral", "del Pasaporte"]
+        },
+        {
+          "key": "employeeIdNumber",
+          "label": "Número de documento de identidad del trabajador",
+          "type": "text",
+          "required": true,
+          "example": "001-2345678-9"
+        },
+        {
+          "key": "employeeAddressStreet",
+          "label": "Calle, número o vía (domicilio del trabajador)",
+          "type": "text",
+          "required": true,
+          "example": "Av. 27 de Febrero #30"
+        },
+        {
+          "key": "employeeAddressCity",
+          "label": "Ciudad (domicilio del trabajador)",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo"
+        },
+        {
+          "key": "employeeAddressCountry",
+          "label": "País (domicilio del trabajador)",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "República Dominicana",
+            "Estados Unidos",
+            "Colombia",
+            "México",
+            "España",
+            "Venezuela",
+            "Panamá",
+            "Chile",
+            "Argentina",
+            "Perú",
+            "Ecuador",
+            "Brasil",
+            "Canadá",
+            "Reino Unido",
+            "Francia",
+            "Italia",
+            "Alemania",
+            "China",
+            "Japón",
+            "Puerto Rico",
+            "Otro"
+          ],
+          "example": "República Dominicana"
+        }
+      ]
+    },
+    {
+      "id": "positionAndDuties",
+      "label": "C. PUESTO Y FUNCIONES",
+      "variables": [
+        {
+          "key": "positionTitle",
+          "label": "Cargo o posición del trabajador",
+          "type": "text",
+          "required": true,
+          "example": "Asistente Legal"
+        },
+        {
+          "key": "startDay",
+          "label": "Día de inicio del contrato (en números)",
+          "type": "text",
+          "required": true,
+          "example": "15"
+        },
+        {
+          "key": "startMonth",
+          "label": "Mes de inicio del contrato (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "marzo"
+        },
+        {
+          "key": "startYear",
+          "label": "Año de inicio del contrato (en números)",
+          "type": "text",
+          "required": true,
+          "example": "2026"
+        },
+        {
+          "key": "specificDuties",
+          "label": "Descripción de las funciones específicas del cargo",
+          "type": "text",
+          "required": true,
+          "example": "gestionar agenda y correspondencia, redactar documentos legales"
+        },
+        {
+          "key": "hasAdditionalResponsibilities",
+          "label": "¿Hay responsabilidades adicionales más allá de las estándar?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "additionalResponsibilities",
+          "label": "Responsabilidades adicionales (con formato: g) deber1; h) deber2)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalResponsibilities", "equals": "Sí" },
+          "example": "g) Redactar informes mensuales; h) Coordinar con proveedores externos."
+        }
+      ]
+    },
+    {
+      "id": "department",
+      "label": "D. DEPARTAMENTO Y SUPERVISOR",
+      "variables": [
+        {
+          "key": "department",
+          "label": "Departamento al que está asignado el trabajador",
+          "type": "text",
+          "required": true,
+          "example": "Departamento de Tecnología"
+        },
+        {
+          "key": "supervisorPositionTitle",
+          "label": "Cargo del supervisor inmediato",
+          "type": "text",
+          "required": true,
+          "example": "Gerente de Tecnología"
+        },
+        {
+          "key": "supervisorContactInfo",
+          "label": "Información de contacto del supervisor (teléfono y correo)",
+          "type": "text",
+          "required": true,
+          "example": "teléfono 809-222-2222; correo electrónico supervisor@empresa.com"
+        }
+      ]
+    },
+    {
+      "id": "salary",
+      "label": "E. SALARIO Y PAGO",
+      "variables": [
+        {
+          "key": "salaryInWords",
+          "label": "Salario bruto en letras",
+          "type": "text",
+          "required": true,
+          "example": "veinticinco mil pesos dominicanos"
+        },
+        {
+          "key": "salaryAmountWithCurrency",
+          "label": "Salario bruto en números con moneda",
+          "type": "text",
+          "required": true,
+          "example": "RD$25,000.00"
+        },
+        {
+          "key": "paymentFrequency",
+          "label": "Frecuencia de pago del salario",
+          "type": "dropdown",
+          "required": true,
+          "options": ["mensuales", "quincenales", "semanales"]
+        },
+        {
+          "key": "paymentSchedule",
+          "label": "Calendario de pago",
+          "type": "text",
+          "required": true,
+          "example": "en dos partidas, los días 15 y 30 de cada mes"
+        }
+      ]
+    },
+    {
+      "id": "benefits",
+      "label": "F. BENEFICIOS",
+      "variables": [
+        {
+          "key": "numberOfAnnualVacationDays",
+          "label": "Número de días de vacaciones pagadas anuales",
+          "type": "text",
+          "required": true,
+          "example": "14"
+        },
+        {
+          "key": "hasAdditionalBenefits",
+          "label": "¿El trabajador tendrá beneficios adicionales?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "benefit1",
+          "label": "Beneficio adicional 1",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasAdditionalBenefits", "equals": "Sí" },
+          "example": "Bono de productividad de RD$10,000.00 mensuales"
+        },
+        {
+          "key": "benefit2",
+          "label": "Beneficio adicional 2",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasAdditionalBenefits", "equals": "Sí" },
+          "example": "Seguro médico privado"
+        },
+        {
+          "key": "benefit3",
+          "label": "Beneficio adicional 3",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasAdditionalBenefits", "equals": "Sí" },
+          "example": "Vehículo de la empresa para uso laboral"
+        },
+        {
+          "key": "benefit4",
+          "label": "Beneficio adicional 4",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasAdditionalBenefits", "equals": "Sí" },
+          "example": "Días personales adicionales"
+        }
+      ]
+    },
+    {
+      "id": "workplace",
+      "label": "G. LUGAR DE TRABAJO",
+      "variables": [
+        {
+          "key": "workplaceAddress",
+          "label": "Dirección del lugar de teletrabajo",
+          "type": "text",
+          "required": true,
+          "example": "Calle Principal #100, Residencial Los Jardines"
+        },
+        {
+          "key": "workplaceCity",
+          "label": "Ciudad del lugar de teletrabajo",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "workplaceCountry",
+          "label": "País del lugar de teletrabajo",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "hasInPersonDays",
+          "label": "¿Se acordarán días de trabajo presencial?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        }
+      ]
+    },
+    {
+      "id": "schedule",
+      "label": "H. HORARIO Y JORNADA",
+      "variables": [
+        {
+          "key": "workSchedule",
+          "label": "Horario y jornada: ¿cuál será el horario de trabajo del empleado? (Indica días y hora de inicio y fin; ej. lunes a viernes, de 8:00 a.m. a 5:00 p.m.)",
+          "type": "text",
+          "required": true,
+          "example": "lunes a viernes, de 8:00 a.m. a 5:00 p.m."
+        },
+        {
+          "key": "lunchBreakDuration",
+          "label": "Descanso para almuerzo: ¿cuánto tiempo de descanso para el almuerzo? (ej. una (1) hora, treinta (30) minutos)",
+          "type": "text",
+          "required": true,
+          "example": "una (1) hora"
+        }
+      ]
+    },
+    {
+      "id": "costs",
+      "label": "I. COSTOS ADICIONALES",
+      "variables": [
+        {
+          "key": "hasCostCoverage",
+          "label": "¿Se detallarán costos adicionales específicos?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "cost1",
+          "label": "Costo adicional 1",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasCostCoverage", "equals": "Sí" },
+          "example": "Internet"
+        },
+        {
+          "key": "cost2",
+          "label": "Costo adicional 2",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasCostCoverage", "equals": "Sí" },
+          "example": "Energía eléctrica"
+        },
+        {
+          "key": "cost3",
+          "label": "Costo adicional 3",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasCostCoverage", "equals": "Sí" },
+          "example": "Compensación por uso de espacio"
+        },
+        {
+          "key": "cost4",
+          "label": "Costo adicional 4",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasCostCoverage", "equals": "Sí" },
+          "example": "Telefonía"
+        },
+        {
+          "key": "costResponsible",
+          "label": "¿Quién asume los costos adicionales?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["EL EMPLEADOR", "EL TRABAJADOR"]
+        },
+        {
+          "key": "monthlyAmountInWords",
+          "label": "Monto mensual de compensación por costos (en letras)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasCostCoverage", "equals": "Sí" },
+          "example": "mil quinientos pesos dominicanos"
+        },
+        {
+          "key": "monthlyAmountWithCurrency",
+          "label": "Monto mensual de compensación por costos (con moneda)",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasCostCoverage", "equals": "Sí" },
+          "example": "RD$1,500.00"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "label": "J. HERRAMIENTAS DE TRABAJO",
+      "variables": [
+        {
+          "key": "hasWorkTools",
+          "label": "¿El empleador asignará herramientas de trabajo específicas?",
+          "type": "dropdown",
+          "required": true,
+          "options": ["Sí", "No"]
+        },
+        {
+          "key": "tool1",
+          "label": "Herramienta de trabajo 1",
+          "type": "text",
+          "required": true,
+          "condition": { "field": "hasWorkTools", "equals": "Sí" },
+          "example": "Computadora laptop"
+        },
+        {
+          "key": "tool2",
+          "label": "Herramienta de trabajo 2",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasWorkTools", "equals": "Sí" },
+          "example": "Teléfono móvil"
+        },
+        {
+          "key": "tool3",
+          "label": "Herramienta de trabajo 3",
+          "type": "text",
+          "required": false,
+          "condition": { "field": "hasWorkTools", "equals": "Sí" },
+          "example": "Monitor externo"
+        }
+      ]
+    },
+    {
+      "id": "durationAndRestrictions",
+      "label": "K. DURACIÓN Y RESTRICCIONES",
+      "variables": [
+        {
+          "key": "contractDuration",
+          "label": "Vigencia y duración (una sola frase que complete bien la oración legal posterior a «…conforme a la siguiente estipulación:»)",
+          "type": "text",
+          "required": true,
+          "example": "por tiempo indefinido, contado a partir de la fecha de inicio del trabajador"
+        },
+        {
+          "key": "nonCompetePeriod",
+          "label": "Período de no competencia post-empleo",
+          "type": "text",
+          "required": false,
+          "example": "seis (6) meses"
+        },
+        {
+          "key": "noticePeriod",
+          "label": "Plazo de notificación para reversibilidad del teletrabajo (en letras y números)",
+          "type": "text",
+          "required": true,
+          "example": "quince (15)"
+        },
+        {
+          "key": "notificationPeriod",
+          "label": "Plazo para notificar cambio de domicilio (incluye «días hábiles»; ej. cinco (5) días hábiles)",
+          "type": "text",
+          "required": true,
+          "example": "cinco (5) días hábiles"
+        }
+      ]
+    },
+    {
+      "id": "signing",
+      "label": "L. FIRMA DEL CONTRATO",
+      "variables": [
+        {
+          "key": "numberOfOriginals",
+          "label": "Número de ejemplares originales (en letras y números)",
+          "type": "text",
+          "required": true,
+          "example": "tres (3)"
+        },
+        {
+          "key": "signingCity",
+          "label": "Ciudad de firma del contrato (solo el nombre del municipio/ciudad; no pongas aquí la fecha de firma)",
+          "type": "text",
+          "required": true,
+          "example": "Santo Domingo de Guzmán"
+        },
+        {
+          "key": "signingProvince",
+          "label": "Provincia o distrito de firma (para la certificación notarial al final del documento)",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "signingCountry",
+          "label": "País de firma",
+          "type": "text",
+          "required": true,
+          "example": "República Dominicana"
+        },
+        {
+          "key": "documentSigningDate",
+          "label": "Fecha de firma del contrato con día, mes y año",
+          "type": "date",
+          "required": true,
+          "example": "15 de marzo de 2026",
+          "pdfKeys": [
+            "signingDayLetters",
+            "signingDayNumbers",
+            "signingMonthLetters",
+            "signingYearLetters",
+            "signingYearNumbers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notary",
+      "label": "M. CERTIFICACIÓN NOTARIAL",
+      "variables": [
+        {
+          "key": "notaryJurisdiction",
+          "label": "Jurisdicción del notario",
+          "type": "text",
+          "required": true,
+          "example": "Distrito Nacional"
+        },
+        {
+          "key": "notaryOfficeAddress",
+          "label": "Dirección del estudio profesional del notario",
+          "type": "text",
+          "required": true,
+          "example": "Av. Abraham Lincoln #500, Santo Domingo"
+        },
+        {
+          "key": "employerOrRepFullName",
+          "label": "Nombre del empleador o representante que firma (para certificación notarial)",
+          "type": "text",
+          "required": true,
+          "example": "Juan Pérez Gómez"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+<p style="text-align:left">{{proposalCity}}, {{proposalProvince}}</p>
+<p style="text-align:left">República Dominicana</p>
+<p style="text-align:left">{{proposalDate}}</p>
+
+<p style="text-align:left"><strong>Dirigido a:</strong></p>
+<p style="text-align:left"><strong>{{employeeFullName}}</strong></p>
+<p style="text-align:left">{{employeeIdTypeAndNumber}}</p>
+<p style="text-align:left">{{employeeAddressLine1}}</p>
+<p style="text-align:left">{{employeeAddressLine2}}</p>
+
+<p style="text-align:left"><strong>Asunto: Propuesta Formal de Trabajo - {{positionTitle}}</strong></p>
+
+<p style="text-align:justify">{{#eq employeeGender "Femenino"}}Distinguida Señora{{else}}{{#eq employeeGender "Masculino"}}Distinguido Señor{{else}}Distinguido(a) Señor(a){{/eq}}{{/eq}} {{employeeLastName}}:</p>
+
+<p style="text-align:justify">Quien suscribe, <strong>{{companyLegalName}}</strong>, sociedad comercial constituida bajo las leyes de la República Dominicana, titular del Registro Nacional de Contribuyentes (RNC) No. {{companyRnc}}, Registro Mercantil No. {{companyRm}}, Registro Nacional Laboral No. {{companyRnl}}, teléfono No. {{companyPhone}}, correo electrónico {{companyEmail}}, con domicilio en {{companyFullAddress}}; debidamente representada por {{companyRepFullName}}, {{companyRepNationality}}, mayor de edad, titular de {{companyRepIdType}} No. {{companyRepIdNumber}}; tiene a bien presentarle esta <strong>PROPUESTA FORMAL DE TRABAJO</strong>, bajo las siguientes condiciones:</p>
+
+<p style="text-align:left"><strong>1. Posición</strong></p>
+<p style="text-align:justify">{{positionTitle}}</p>
+
+<p style="text-align:left"><strong>2. Lugar de Trabajo</strong></p>
+<p style="text-align:justify">{{workLocationFullAddress}}, República Dominicana</p>
+
+<p style="text-align:left"><strong>3. Tipo de Contratación</strong></p>
+<p style="text-align:justify">{{contractType}}{{#eq contractType "Contrato de trabajo a término fijo"}} por {{fixedTermMonths}} meses{{/eq}}</p>
+
+<p style="text-align:left"><strong>4. Modalidad</strong></p>
+<p style="text-align:justify">{{modalityDetails}}</p>
+
+<p style="text-align:left"><strong>5. Funciones Principales</strong></p>
+<ul style="text-align:justify; padding-left:20px; margin-top:4px; margin-bottom:4px">
+{{#eachSplit ";" functionsList}}
+<li style="text-align:justify; margin-bottom:4px">{{this}}</li>
+{{else}}
+<li style="text-align:justify; margin-bottom:4px">{{functionsList}}</li>
+{{/eachSplit}}
+</ul>
+
+<p style="text-align:left"><strong>6. Salario</strong></p>
+<p style="text-align:justify">RD${{salaryMonthlyAmount}}, pagadero los días {{payrollDays}} de cada mes, sujeto a retenciones legales (impuestos, TSS).</p>
+
+<p style="text-align:left"><strong>7. Beneficios</strong></p>
+<ul style="text-align:justify; padding-left:20px; margin-top:4px; margin-bottom:4px">
+<li style="text-align:justify; margin-bottom:4px">Cobertura Seguridad Social (TSS).</li>
+<li style="text-align:justify; margin-bottom:4px">Vacaciones anuales, Salario 13.</li>
+{{#eq hasAdditionalBenefits "Sí"}}
+<li style="text-align:justify; margin-bottom:4px">{{additionalBenefitsList}}</li>
+{{/eq}}
+<li style="text-align:justify; margin-bottom:4px">De conformidad con Código de Trabajo dominicano.</li>
+</ul>
+
+<p style="text-align:left"><strong>8. Fecha de Inicio</strong></p>
+<p style="text-align:justify">{{startDate}}</p>
+
+{{#eq hasProbationPeriod "Sí"}}
+<p style="text-align:left"><strong>9. Período de Prueba</strong></p>
+<p style="text-align:justify">{{probationPeriodDays}} días calendario.</p>
+{{/eq}}
+
+<p style="text-align:justify">Sin otro particular, quedamos a la espera de su aceptación.</p>
+
+<p style="text-align:left">Atentamente,</p>
+
+<p style="text-align:left">&nbsp;</p>
+<p style="text-align:left">___________________________________________</p>
+<p style="text-align:left"><strong>{{companyRepFullName}}</strong></p>
+<p style="text-align:left">{{companyRepTitle}}</p>
+<p style="text-align:left">{{companyLegalName}}</p>
+<p style="text-align:left">{{companyPhone}} | {{companyEmail}}</p>
+
+<p style="text-align:left">&nbsp;</p>
+<p style="text-align:left"><strong>EN SEÑAL DE ACEPTACIÓN:</strong></p>
+
+<p style="text-align:left">&nbsp;</p>
+<p style="text-align:left">___________________________________________</p>
+<p style="text-align:left">___________________________________________</p>
+<p style="text-align:left"><strong>{{employeeFullName}}</strong></p>
+<p style="text-align:left">{{employeeNationality}}, {{employeeIdTypeAndNumber}}</p>
+<p style="text-align:left">Fecha: ____________________</p>

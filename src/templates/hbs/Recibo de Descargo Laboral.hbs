@@ -1,0 +1,72 @@
+<p style="text-align:center"><strong>RECIBO DE DESCARGO LABORAL</strong></p>
+
+<p style="text-align:justify">Quien suscribe, <strong>{{declarantFullName}}</strong>, {{declarantNationality}}, mayor de edad, titular {{declarantIdType}} número {{declarantIdNumber}}, con domicilio y residencia en {{declarantAddress}}, por medio del presente documento DECLARO, libre y voluntariamente, lo siguiente:</p>
+
+<p style="text-align:justify"><strong>PRIMERO:</strong> Que mantuve una relación laboral con <strong>{{employerFullName}}</strong>{{employerIdBlock}}, (en lo adelante denominado como el "ex empleador"), desde el día {{startDayLetters}} ({{startDayNumbers}}) del mes de {{startMonthLetters}} del año {{startYearLetters}} ({{startYearNumbers}}), hasta el día {{endDayLetters}} ({{endDayNumbers}}) del mes de {{endMonthLetters}} del año {{endYearLetters}} ({{endYearNumbers}}), la cual terminó de manera válida y legal previo a la firma del presente documento.</p>
+
+<p style="text-align:justify"><strong>SEGUNDO:</strong> Que en ocasión de la terminación de la relación laboral, he recibido de manos de mi ex empleador la suma de <strong>{{totalAmountInWords}} ({{totalAmountWithCurrency}})</strong>, mediante {{paymentMethod}}, por concepto de pago total de todo derecho de cualquier índole que me pudiera corresponder, derivado de la relación laboral que nos unía y de su terminación, sin quedar nada más por reclamar o recibir.</p>
+
+{{#eq hasDetailedBreakdown "Sí"}}
+<p style="text-align:justify">El desglose de los conceptos incluidos en el monto total es el siguiente:</p>
+
+<table style="border-collapse:collapse; width:60%">
+<tr>
+<td style="padding:2px 8px"><p style="text-align:left">Preaviso</p></td>
+<td style="padding:2px 8px"><p style="text-align:right">{{preavisoAmount}}</p></td>
+</tr>
+<tr>
+<td style="padding:2px 8px"><p style="text-align:left">Auxilio de Cesantía</p></td>
+<td style="padding:2px 8px"><p style="text-align:right">{{cesantiaAmount}}</p></td>
+</tr>
+<tr>
+<td style="padding:2px 8px"><p style="text-align:left">Navidad</p></td>
+<td style="padding:2px 8px"><p style="text-align:right">{{navidadAmount}}</p></td>
+</tr>
+<tr>
+<td style="padding:2px 8px"><p style="text-align:left">Vacaciones</p></td>
+<td style="padding:2px 8px"><p style="text-align:right">{{vacacionesAmount}}</p></td>
+</tr>
+{{#eq hasAdditionalConcept1 "Sí"}}
+<tr>
+<td style="padding:2px 8px"><p style="text-align:left">{{additionalConcept1Label}}</p></td>
+<td style="padding:2px 8px"><p style="text-align:right">{{additionalConcept1Amount}}</p></td>
+</tr>
+{{/eq}}
+{{#eq hasAdditionalConcept2 "Sí"}}
+<tr>
+<td style="padding:2px 8px"><p style="text-align:left">{{additionalConcept2Label}}</p></td>
+<td style="padding:2px 8px"><p style="text-align:right">{{additionalConcept2Amount}}</p></td>
+</tr>
+{{/eq}}
+<tr>
+<td style="padding:2px 8px; border-top:1px solid black"><p style="text-align:left"><strong>Total</strong></p></td>
+<td style="padding:2px 8px; border-top:1px solid black"><p style="text-align:right"><strong>{{totalAmountWithCurrency}}</strong></p></td>
+</tr>
+</table>
+{{/eq}}
+
+<p style="text-align:justify"><strong>TERCERO:</strong> Que, por lo tanto, mediante el presente documento <strong>OTORGO FORMAL Y DEFINITIVO RECIBO DE VALORES, DESCARGO Y FINIQUITO LEGAL</strong>, en la forma más absoluta y amplia posible, sin reserva alguna, a favor de <strong>{{employerFullName}}</strong>, por todos los derechos que me hubieran podido corresponder en el presente o futuro, de cualquier naturaleza, como consecuencia de la existencia o terminación de la relación laboral que nos unía, así como respecto de cualesquiera acciones u omisiones que tuvieran lugar durante su vigencia o su terminación. En tal virtud, renuncio y desisto formal y expresamente, sin reservas de ninguna especie y desde ahora y para siempre, a cualquier acción, demanda o reclamación que pudiera originarse en dicha relación, incluyendo, pero sin limitarse a, reclamaciones de carácter laboral, derechos adquiridos, pago de prestaciones, indemnización de daños y perjuicios, o cualquier otra pretensión de naturaleza civil, penal, laboral, de seguridad social o de riesgos de trabajo.</p>
+
+<p style="text-align:justify"><strong>CUARTO:</strong> Que declaro y reconozco que aparte de los montos antes indicados, no se me adeuda ninguna otra suma, y que en consecuencia, no tengo ningún tipo de acción en contra de mi ex empleador que pueda derivarse de la relación contractual que nos unía o su terminación, incluyendo aquellas provenientes de las acciones u omisiones relacionadas con dicha relación, sin importar su naturaleza, pues con el pago de la suma indicada queda satisfecha cualquier deuda presente o futura a mi favor.</p>
+
+<p style="text-align:justify"><strong>QUINTO:</strong> Que igualmente, declaro que los descargos y renuncias otorgados en este acto se extienden y benefician a <strong>{{employerFullName}}</strong>, sus subsidiarias, filiales, matriz, socios, relacionados y vinculados, o cualquier persona física o jurídica que se haya beneficiado de los servicios que presté. Asimismo, declaro y reconozco que el presente descargo es oponible a cualquiera de mis relacionados, quienes estarán obligados a respetar el mismo como si fuera mi propia persona.</p>
+
+<p style="text-align:justify"><strong>SEXTO:</strong> Que me comprometo a mantener como confidencial toda información a la que haya tenido acceso durante y en el marco de la relación laboral a favor de <strong>{{employerFullName}}</strong> y a abstenerme de emitir declaraciones en su perjuicio.</p>
+
+<p style="text-align:justify"><strong>SÉPTIMO:</strong> Que el presente descargo posee todas las características y efectos de contrato de transacción en lo que respecta a cualquier diferencia eventual que pudiera existir con respeto a la relación laboral antes indicada y su terminación; y en consecuencia, reconozco el presente documento como sentencia con autoridad de cosa irrevocablemente juzgada en última instancia y atendiendo a los términos del artículo 2052 del Código Civil y con apego a su letra, por lo que podrá ser opuesto a cualquier tribunal o autoridad como dirimitorio de cualquier demanda, reclamación o instancia de toda naturaleza, aún bajo leyes de orden público, que se vincule con la referida relación.</p>
+
+<p style="text-align:justify"><strong>OCTAVO:</strong> Que reconozco que el presente documento constituye el acuerdo completo al que he arribado con mi ex empleador, y que, si alguna de las disposiciones de este es anulada por una autoridad competente o deja de tener vigencia, tal circunstancia no invalidará el resto del documento.</p>
+
+{{! signingDay/Month/Year* are derived server-side from documentSigningDate — collect one full signing date in chat, not year alone }}
+<p style="text-align:justify">Hecho y firmado en tres (3) originales de un mismo tenor y efecto. En {{signingCity}}, {{signingProvince}}, {{signingCountry}}, el día {{signingDayLetters}} ({{signingDayNumbers}}) del mes de {{signingMonthLetters}} del año {{signingYearLetters}} ({{signingYearNumbers}}).</p>
+
+<p style="text-align:center">&nbsp;</p>
+<p style="text-align:center"><strong>____________________________________</strong></p>
+<p style="text-align:center"><strong>{{declarantFullName}}</strong></p>
+
+<p>&nbsp;</p>
+<p style="text-align:justify">Yo, _____________________________________, Notario Público de los del Número para el {{notaryProvince}}, matrícula número _____________ del Colegio Dominicano de Notarios de la República Dominicana, <strong>CERTIFICO Y DOY FE</strong> que la firma que antecede fue puesta en mi presencia libre y voluntariamente por <strong>{{declarantFullName}}</strong>, de generales que constan, persona a la que doy fe conocer y quien me ha declarado que esa es la firma que acostumbra a utilizar en todos sus actos de su vida pública o privada, por lo que merece entera fe y crédito. En {{signingCity}}, {{signingProvince}}, {{signingCountry}}, el día {{signingDayLetters}} ({{signingDayNumbers}}) del mes de {{signingMonthLetters}} del año {{signingYearLetters}} ({{signingYearNumbers}}).</p>
+
+<p style="text-align:center">&nbsp;</p>
+<p style="text-align:center"><strong>_________________________________</strong></p>
+<p style="text-align:center"><strong>Notario Público</strong></p>

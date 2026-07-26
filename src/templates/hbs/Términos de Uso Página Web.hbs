@@ -1,0 +1,617 @@
+<p style="text-align:center"><strong>TÉRMINOS Y CONDICIONES DE USO DEL SITIO WEB</strong></p>
+
+<p style="text-align:justify"><strong>Fecha de última actualización:</strong> {{updateDate}}</p>
+
+<p style="text-align:center"><strong>INTRODUCCIÓN Y ACEPTACIÓN DE LOS TÉRMINOS</strong></p>
+
+<p style="text-align:justify">Bienvenido al sitio web <strong>{{websiteName}}</strong> (en adelante, el "<strong>Sitio Web</strong>"), operado por <strong>{{companyLegalName}}</strong>, sociedad comercial constituida de conformidad con las leyes de la República Dominicana, con Registro Nacional de Contribuyentes (RNC) No. <strong>{{companyRnc}}</strong>, domiciliada en <strong>{{companyAddress}}</strong>, República Dominicana (en adelante, "<strong>la Empresa</strong>", "<strong>Nosotros</strong>" o "<strong>Nuestro</strong>").</p>
+
+<p style="text-align:justify">Los presentes Términos y Condiciones de Uso (en adelante, los "<strong>Términos</strong>") constituyen un acuerdo legal vinculante entre usted (en adelante, "<strong>Usuario</strong>", "<strong>Usted</strong>" o "<strong>Su</strong>") y la Empresa, y regulan su acceso y uso del Sitio Web, así como de todos los servicios, funcionalidades, contenidos, productos e información disponibles a través del mismo (en adelante, colectivamente los "<strong>Servicios</strong>").</p>
+
+<p style="text-align:justify"><strong>AL ACCEDER, NAVEGAR O UTILIZAR EL SITIO WEB Y SUS SERVICIOS, USTED RECONOCE Y ACEPTA EXPRESAMENTE HABER LEÍDO, COMPRENDIDO Y ACEPTADO ESTAR SUJETO A ESTOS TÉRMINOS, ASÍ COMO A NUESTRA POLÍTICA DE PRIVACIDAD, QUE SE INCORPORA POR REFERENCIA.</strong></p>
+
+<p style="text-align:justify"><strong>SI USTED NO ESTÁ DE ACUERDO CON ESTOS TÉRMINOS O CON NUESTRA POLÍTICA DE PRIVACIDAD, DEBE ABANDONAR INMEDIATAMENTE EL SITIO WEB Y ABSTENERSE DE UTILIZAR LOS SERVICIOS.</strong></p>
+
+<p style="text-align:center"><strong>ARTÍCULO 1: DEFINICIONES</strong></p>
+
+<p style="text-align:justify">Para efectos de los presentes Términos, las siguientes expresiones tendrán el significado que se indica a continuación:</p>
+
+<p style="text-align:justify"><strong>1.1. "Sitio Web"</strong> se refiere al sitio web operado por la Empresa, accesible a través de la URL <strong>{{websiteUrl}}</strong> y cualquier subdominio asociado, así como sus versiones para dispositivos móviles.</p>
+
+<p style="text-align:justify"><strong>1.2. "Servicios"</strong> se refiere a todas las funcionalidades, herramientas, contenidos, información, productos o servicios ofrecidos a través del Sitio Web.</p>
+
+<p style="text-align:justify"><strong>1.3. "Usuario"</strong> se refiere a cualquier persona física o jurídica que accede, navega o utiliza el Sitio Web y sus Servicios.</p>
+
+<p style="text-align:justify"><strong>1.4. "Cuenta de Usuario"</strong> se refiere {{#neq hasRegistration "No"}}al perfil personal creado por el Usuario mediante registro en el Sitio Web, que permite acceder a funcionalidades adicionales{{else}}— no aplica; el Sitio Web no requiere registro{{/neq}}.</p>
+
+<p style="text-align:justify"><strong>1.5. "Contenido"</strong> se refiere a toda información, texto, gráficos, imágenes, fotografías, videos, audios, software, código, bases de datos, diseños, marcas, logos y cualquier otro material disponible en el Sitio Web.</p>
+
+<p style="text-align:justify"><strong>1.6. "Contenido del Usuario"</strong> se refiere a cualquier información, datos, textos, imágenes u otros materiales que el Usuario publique, cargue, transmita o envíe a través del Sitio Web.</p>
+
+<p style="text-align:justify"><strong>1.7. "Propiedad Intelectual"</strong> se refiere a todos los derechos de autor, marcas comerciales, nombres comerciales, patentes, secretos industriales, derechos de diseño y cualquier otro derecho de propiedad intelectual e industrial relacionado con el Sitio Web y su Contenido.</p>
+
+<p style="text-align:justify"><strong>1.8. "Terceros"</strong> se refiere a cualquier persona natural o jurídica distinta del Usuario y la Empresa, incluyendo proveedores de servicios, socios comerciales y otros sitios web vinculados.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 2: OBJETO Y ALCANCE</strong></p>
+
+<p style="text-align:justify"><strong>2.1. Objeto de los Términos</strong></p>
+
+<p style="text-align:justify">Los presentes Términos tienen por objeto establecer las condiciones generales bajo las cuales el Usuario puede acceder y utilizar el Sitio Web y los Servicios ofrecidos por la Empresa.</p>
+
+<p style="text-align:justify"><strong>2.2. Descripción de los Servicios</strong></p>
+
+<p style="text-align:justify">El Sitio Web ofrece {{serviceDescription}}, permitiendo a los Usuarios {{serviceFunctionalities}}.</p>
+
+{{#eq hasSpecificServices "Sí"}}
+<p style="text-align:justify">Los Servicios incluyen, de manera enunciativa y no limitativa:</p>
+
+<p style="text-align:justify">{{#eachSplit ";" servicesList}}<strong>{{@letter}})</strong> {{this}}{{#unless @last}}; {{else}}.{{/unless}}{{else}}{{servicesList}}{{/eachSplit}}</p>
+{{/eq}}
+
+<p style="text-align:justify"><strong>2.3. Modificación de los Servicios</strong></p>
+
+<p style="text-align:justify">La Empresa se reserva el derecho de modificar, suspender, discontinuar o limitar, total o parcialmente, los Servicios ofrecidos a través del Sitio Web, en cualquier momento y sin previo aviso, sin que esto genere derecho a compensación o indemnización alguna a favor del Usuario.</p>
+
+<p style="text-align:justify"><strong>2.4. Requisitos para el Uso del Sitio Web</strong></p>
+
+<p style="text-align:justify">Para acceder y utilizar el Sitio Web, el Usuario debe:</p>
+
+<p style="text-align:justify"><strong>a)</strong> Ser mayor de <strong>{{minimumAge}}</strong> años de edad o contar con la autorización de sus padres o tutores legales;</p>
+<p style="text-align:justify"><strong>b)</strong> Contar con acceso a internet y un dispositivo compatible (computadora, tablet, teléfono inteligente);</p>
+<p style="text-align:justify"><strong>c)</strong> Utilizar un navegador web actualizado y compatible;</p>
+<p style="text-align:justify"><strong>d)</strong> {{#neq hasRegistration "No"}}Completar el proceso de registro proporcionando información veraz y actualizada{{else}}No se requiere registro para acceder a las funcionalidades básicas del Sitio Web{{/neq}};</p>
+<p style="text-align:justify"><strong>e)</strong> Aceptar los presentes Términos y la Política de Privacidad.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 3: REGISTRO Y CUENTA DE USUARIO</strong></p>
+
+{{#neq hasRegistration "No"}}
+<p style="text-align:justify"><strong>3.1. Creación de Cuenta</strong></p>
+
+<p style="text-align:justify">Para acceder a ciertas funcionalidades del Sitio Web, el Usuario deberá crear una Cuenta de Usuario proporcionando la información requerida en el formulario de registro, que puede incluir:</p>
+
+<ul>
+<li>Nombre completo</li>
+<li>Dirección de correo electrónico</li>
+<li>Contraseña segura</li>
+{{#if additionalRegistrationFields}}
+<li>{{additionalRegistrationFields}}</li>
+{{/if}}
+</ul>
+
+<p style="text-align:justify"><strong>3.2. Veracidad de la Información</strong></p>
+
+<p style="text-align:justify">El Usuario declara y garantiza que toda la información proporcionada durante el proceso de registro es veraz, completa, precisa y actualizada. El Usuario se compromete a mantener actualizada su información de registro y a notificar inmediatamente a la Empresa cualquier cambio.</p>
+
+<p style="text-align:justify">La Empresa se reserva el derecho de verificar la veracidad de la información proporcionada y de suspender o cancelar cualquier Cuenta que contenga información falsa, inexacta o desactualizada.</p>
+
+<p style="text-align:justify"><strong>3.3. Responsabilidad sobre Credenciales de Acceso</strong></p>
+
+<p style="text-align:justify">El Usuario es el único responsable de mantener la confidencialidad de su nombre de usuario y contraseña, y de todas las actividades realizadas bajo su Cuenta.</p>
+
+<p style="text-align:justify">El Usuario se compromete a:</p>
+
+<ul>
+<li>No compartir sus credenciales de acceso con terceros</li>
+<li>Notificar inmediatamente a la Empresa sobre cualquier uso no autorizado de su Cuenta</li>
+<li>Cerrar sesión al finalizar cada sesión de uso del Sitio Web</li>
+<li>Utilizar contraseñas seguras y cambiarlas periódicamente</li>
+</ul>
+
+<p style="text-align:justify"><strong>3.4. Uso Personal e Intransferible</strong></p>
+
+<p style="text-align:justify">La Cuenta de Usuario es personal e intransferible. El Usuario no podrá ceder, transferir, vender o compartir su Cuenta con terceros.</p>
+
+<p style="text-align:justify"><strong>3.5. Suspensión y Cancelación de Cuenta</strong></p>
+
+<p style="text-align:justify">La Empresa se reserva el derecho de suspender o cancelar, temporal o permanentemente, cualquier Cuenta de Usuario que:</p>
+
+<ul>
+<li>Viole los presentes Términos</li>
+<li>Realice actividades fraudulentas o ilícitas</li>
+<li>Incurra en conductas abusivas o inapropiadas</li>
+<li>Permanezca inactiva por un período prolongado</li>
+</ul>
+
+<p style="text-align:justify">El Usuario podrá solicitar la cancelación de su Cuenta en cualquier momento contactando a la Empresa a través de {{contactMethod}}.</p>
+{{else}}
+
+<p style="text-align:justify"><strong>3.1. No Requerimiento de Registro</strong></p>
+
+<p style="text-align:justify">El Sitio Web no requiere creación de cuenta o registro para acceder a sus funcionalidades básicas. Los Usuarios pueden navegar y utilizar los Servicios de manera anónima.</p>
+
+{{#eq hasOptionalContactForms "Sí"}}
+<p style="text-align:justify">No obstante, ciertas funcionalidades opcionales pueden requerir que el Usuario proporcione información de contacto (nombre, correo electrónico) a través de formularios específicos.</p>
+{{/eq}}
+{{/neq}}
+
+<p style="text-align:center"><strong>ARTÍCULO 4: OBLIGACIONES Y CONDUCTA DEL USUARIO</strong></p>
+
+<p style="text-align:justify"><strong>4.1. Uso Lícito y Apropiado</strong></p>
+
+<p style="text-align:justify">El Usuario se compromete a utilizar el Sitio Web y los Servicios de manera lícita, ética y conforme a estos Términos, la legislación vigente aplicable y las buenas costumbres.</p>
+
+<p style="text-align:justify"><strong>4.2. Conductas Prohibidas</strong></p>
+
+<p style="text-align:justify">Queda expresamente prohibido al Usuario:</p>
+
+<p style="text-align:justify"><strong>a) En relación con la integridad del Sitio Web:</strong></p>
+
+<ul>
+<li>Intentar acceder a áreas restringidas del Sitio Web o sus sistemas informáticos</li>
+<li>Realizar acciones que puedan dañar, deshabilitar, sobrecargar o deteriorar el funcionamiento del Sitio Web</li>
+<li>Utilizar robots, arañas web (spiders), scrapers u otros medios automatizados para acceder al Sitio Web sin autorización expresa</li>
+<li>Realizar ingeniería inversa, descompilar o intentar extraer el código fuente del Sitio Web</li>
+</ul>
+
+<p style="text-align:justify"><strong>b) En relación con el Contenido:</strong></p>
+
+<ul>
+<li>Copiar, reproducir, distribuir, modificar, publicar o explotar comercialmente el Contenido del Sitio Web sin autorización</li>
+<li>Eliminar, alterar u ocultar avisos de derechos de autor, marcas comerciales u otros avisos de propiedad</li>
+<li>Crear obras derivadas basadas en el Contenido del Sitio Web</li>
+</ul>
+
+{{#neq hasUserContent "No"}}
+<p style="text-align:justify"><strong>c) En relación con la interacción en el Sitio Web:</strong></p>
+
+<ul>
+<li>Publicar, transmitir o compartir Contenido del Usuario que sea ilegal, ofensivo, difamatorio, obsceno, amenazante, abusivo, acosador, discriminatorio o que viole derechos de terceros</li>
+<li>Hacerse pasar por otra persona o entidad o falsear su identidad o afiliación</li>
+<li>Transmitir virus, malware, código malicioso o cualquier otro elemento dañino</li>
+<li>Recopilar información personal de otros Usuarios sin su consentimiento</li>
+<li>Realizar spam, publicidad no solicitada o cualquier forma de comunicación comercial no autorizada</li>
+</ul>
+{{/neq}}
+
+<p style="text-align:justify"><strong>{{#neq hasUserContent "No"}}d{{else}}c{{/neq}}) En relación con actividades ilegales:</strong></p>
+
+<ul>
+<li>Utilizar el Sitio Web para fines ilegales, fraudulentos o que violen derechos de terceros</li>
+<li>Infringir derechos de propiedad intelectual, privacidad o cualquier otro derecho de terceros</li>
+<li>Realizar transacciones relacionadas con actividades ilícitas (lavado de dinero, financiamiento del terrorismo, corrupción, etc.)</li>
+</ul>
+
+<p style="text-align:justify"><strong>4.3. Consecuencias del Incumplimiento</strong></p>
+
+<p style="text-align:justify">El incumplimiento de estas obligaciones facultará a la Empresa para:</p>
+
+<ul>
+<li>Suspender o cancelar el acceso del Usuario al Sitio Web</li>
+<li>Eliminar cualquier Contenido del Usuario que viole estos Términos</li>
+<li>Emprender acciones legales para proteger sus derechos e intereses</li>
+<li>Reportar actividades ilegales a las autoridades competentes</li>
+</ul>
+
+<p style="text-align:justify"><strong>4.4. Responsabilidad por Actividades del Usuario</strong></p>
+
+<p style="text-align:justify">El Usuario será el único responsable de sus actividades en el Sitio Web y de las consecuencias legales derivadas del incumplimiento de estos Términos o de la legislación aplicable.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 5: PROPIEDAD INTELECTUAL</strong></p>
+
+<p style="text-align:justify"><strong>5.1. Titularidad de los Derechos</strong></p>
+
+<p style="text-align:justify">Todos los derechos de Propiedad Intelectual sobre el Sitio Web, incluyendo su diseño, estructura, código fuente, bases de datos, gráficos, textos, imágenes, videos, logos, marcas comerciales y cualquier otro Contenido, son propiedad exclusiva de la Empresa o de sus licenciantes, y están protegidos por las leyes de propiedad intelectual de la República Dominicana y los tratados internacionales aplicables.</p>
+
+<p style="text-align:justify"><strong>5.2. Licencia de Uso Limitada</strong></p>
+
+<p style="text-align:justify">La Empresa otorga al Usuario una licencia limitada, no exclusiva, intransferible, revocable y no sublicenciable para acceder y utilizar el Sitio Web y su Contenido únicamente para fines personales{{#eq hasCommercialLicense "Sí"}} y/o comerciales legítimos relacionados con {{commercialLicenseScope}}{{/eq}}, conforme a estos Términos.</p>
+
+<p style="text-align:justify">Esta licencia no incluye el derecho de:</p>
+
+<ul>
+<li>Copiar, reproducir o duplicar el Contenido</li>
+<li>Modificar, adaptar o crear obras derivadas</li>
+<li>Distribuir, vender, alquilar o licenciar el Contenido a terceros</li>
+<li>Utilizar el Contenido para fines comerciales sin autorización expresa</li>
+</ul>
+
+<p style="text-align:justify"><strong>5.3. Marcas Comerciales</strong></p>
+
+<p style="text-align:justify">Las marcas comerciales, logos, nombres comerciales y otros signos distintivos exhibidos en el Sitio Web son propiedad de la Empresa o de terceros autorizados. Ninguna disposición de estos Términos otorga al Usuario derecho alguno sobre dichas marcas.</p>
+
+<p style="text-align:justify">El uso no autorizado de estas marcas está estrictamente prohibido y puede constituir una violación de las leyes de marcas comerciales aplicables.</p>
+
+{{#neq hasUserContent "No"}}
+<p style="text-align:justify"><strong>5.4. Contenido del Usuario</strong></p>
+
+<p style="text-align:justify"><strong>5.4.1. Titularidad:</strong> El Usuario conserva todos los derechos de propiedad sobre el Contenido del Usuario que publique o comparta a través del Sitio Web.</p>
+
+<p style="text-align:justify"><strong>5.4.2. Licencia Otorgada a la Empresa:</strong> Al publicar Contenido del Usuario en el Sitio Web, el Usuario otorga a la Empresa una licencia {{userContentLicenseScope}} para usar, reproducir, distribuir, modificar, adaptar, publicar, traducir, crear obras derivadas y mostrar dicho Contenido en conexión con la operación y promoción del Sitio Web y los Servicios.</p>
+
+<p style="text-align:justify"><strong>5.4.3. Declaraciones del Usuario:</strong> Al publicar Contenido del Usuario, el Usuario declara y garantiza que:</p>
+
+<ul>
+<li>Es el titular de todos los derechos sobre dicho Contenido o cuenta con las autorizaciones necesarias</li>
+<li>El Contenido no infringe derechos de propiedad intelectual, privacidad u otros derechos de terceros</li>
+<li>El Contenido no es ilegal, ofensivo ni viola estos Términos</li>
+</ul>
+
+<p style="text-align:justify"><strong>5.4.4. Responsabilidad:</strong> El Usuario es el único responsable del Contenido del Usuario que publique y de las consecuencias de su publicación. La Empresa no se hace responsable por el Contenido del Usuario ni está obligada a monitorear o revisar dicho Contenido.</p>
+{{/neq}}
+
+<p style="text-align:justify"><strong>5.5. Reporte de Infracciones</strong></p>
+
+<p style="text-align:justify">Si usted considera que algún Contenido del Sitio Web infringe sus derechos de propiedad intelectual, puede notificarlo a la Empresa a través de <strong>{{contactEmail}}</strong>, proporcionando:</p>
+
+<ul>
+<li>Identificación del material infractor</li>
+<li>Prueba de titularidad de los derechos</li>
+<li>Información de contacto</li>
+<li>Declaración de buena fe</li>
+</ul>
+
+<p style="text-align:center"><strong>ARTÍCULO 6: PRIVACIDAD Y PROTECCIÓN DE DATOS PERSONALES</strong></p>
+
+<p style="text-align:justify"><strong>6.1. Política de Privacidad</strong></p>
+
+<p style="text-align:justify">El tratamiento de datos personales recopilados a través del Sitio Web se rige por nuestra Política de Privacidad, disponible en <strong>{{privacyPolicyUrl}}</strong>, la cual forma parte integral de estos Términos.</p>
+
+<p style="text-align:justify">Al utilizar el Sitio Web, el Usuario acepta el tratamiento de sus datos personales conforme a lo establecido en dicha Política de Privacidad.</p>
+
+<p style="text-align:justify"><strong>6.2. Cumplimiento Normativo</strong></p>
+
+<p style="text-align:justify">La Empresa cumple con la <strong>Ley No. 172-13 sobre Protección de Datos de Carácter Personal</strong> de la República Dominicana y sus reglamentos, implementando las medidas técnicas y organizativas necesarias para garantizar la seguridad, confidencialidad e integridad de los datos personales.</p>
+
+<p style="text-align:justify"><strong>6.3. Consentimiento para el Tratamiento de Datos</strong></p>
+
+<p style="text-align:justify">Al acceder y utilizar el Sitio Web, el Usuario consiente expresamente que la Empresa recopile, almacene, procese y utilice sus datos personales conforme a lo establecido en la Política de Privacidad, incluyendo:</p>
+
+<ul>
+<li>Datos de navegación y cookies</li>
+<li>Información proporcionada voluntariamente en formularios</li>
+{{#neq hasRegistration "No"}}
+<li>Datos de registro y perfil de usuario</li>
+{{/neq}}
+<li>Información necesaria para la prestación de los Servicios</li>
+</ul>
+
+<p style="text-align:justify"><strong>6.4. Derechos del Titular</strong></p>
+
+<p style="text-align:justify">De conformidad con la legislación aplicable, el Usuario tiene derecho a:</p>
+
+<ul>
+<li>Acceder a sus datos personales</li>
+<li>Rectificar datos inexactos o incompletos</li>
+<li>Solicitar la supresión de sus datos</li>
+<li>Oponerse al tratamiento de sus datos</li>
+<li>Solicitar la limitación del tratamiento</li>
+<li>Portabilidad de datos</li>
+</ul>
+
+<p style="text-align:justify">Para ejercer estos derechos, el Usuario puede contactar a la Empresa a través de <strong>{{contactEmail}}</strong>.</p>
+
+<p style="text-align:justify"><strong>6.5. Cookies y Tecnologías de Rastreo</strong></p>
+
+<p style="text-align:justify">El Sitio Web utiliza cookies y tecnologías similares para mejorar la experiencia del Usuario, analizar el uso del Sitio Web y personalizar el Contenido.</p>
+
+<p style="text-align:justify">Para información detallada sobre el uso de cookies, consulte nuestra Política de Cookies.</p>
+
+<p style="text-align:justify">El Usuario puede configurar su navegador para rechazar cookies, aunque esto puede afectar la funcionalidad del Sitio Web.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 7: ENLACES A SITIOS WEB DE TERCEROS</strong></p>
+
+<p style="text-align:justify"><strong>7.1. Enlaces Externos</strong></p>
+
+<p style="text-align:justify">El Sitio Web puede contener enlaces, vínculos o referencias a sitios web, aplicaciones, servicios, recursos o contenidos operados por terceros (en adelante, "<strong>Sitios de Terceros</strong>").</p>
+
+<p style="text-align:justify"><strong>7.2. Ausencia de Responsabilidad</strong></p>
+
+<p style="text-align:justify">La Empresa no controla, supervisa, aprueba ni se hace responsable por:</p>
+
+<ul>
+<li>El contenido, exactitud, legalidad o veracidad de la información publicada en Sitios de Terceros</li>
+<li>Las prácticas de privacidad o términos de uso de Sitios de Terceros</li>
+<li>Los productos, servicios o actividades ofrecidos a través de Sitios de Terceros</li>
+<li>Cualquier daño, pérdida o inconveniente derivado del acceso o uso de Sitios de Terceros</li>
+</ul>
+
+<p style="text-align:justify"><strong>7.3. Acceso Bajo Responsabilidad del Usuario</strong></p>
+
+<p style="text-align:justify">El acceso a Sitios de Terceros se realiza bajo la exclusiva responsabilidad del Usuario. La Empresa recomienda al Usuario revisar los términos y condiciones y políticas de privacidad de dichos sitios antes de utilizarlos.</p>
+
+<p style="text-align:justify"><strong>7.4. Naturaleza de los Enlaces</strong></p>
+
+<p style="text-align:justify">La inclusión de enlaces a Sitios de Terceros no implica:</p>
+
+<ul>
+<li>Aprobación, respaldo o patrocinio por parte de la Empresa</li>
+<li>Asociación, alianza o relación comercial con dichos terceros</li>
+<li>Garantía sobre la calidad, seguridad o legalidad de los Sitios de Terceros</li>
+</ul>
+
+<p style="text-align:justify"><strong>7.5. Enlaces desde Sitios de Terceros</strong></p>
+
+<p style="text-align:justify">La creación de enlaces desde sitios web de terceros hacia el Sitio Web requiere autorización previa y por escrito de la Empresa, salvo que se trate de enlaces simples sin frames o co-branding.</p>
+
+<p style="text-align:justify">La Empresa se reserva el derecho de solicitar la eliminación de cualquier enlace no autorizado.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 8: LIMITACIÓN DE RESPONSABILIDAD</strong></p>
+
+<p style="text-align:justify"><strong>8.1. Disponibilidad del Sitio Web</strong></p>
+
+<p style="text-align:justify">La Empresa no garantiza que el Sitio Web estará disponible de manera ininterrumpida, oportuna, segura o libre de errores. El acceso al Sitio Web puede verse interrumpido por:</p>
+
+<ul>
+<li>Mantenimiento programado o no programado</li>
+<li>Fallas técnicas, cortes de energía o problemas de conectividad</li>
+<li>Causas de fuerza mayor o caso fortuito</li>
+<li>Ataques cibernéticos o acciones de terceros</li>
+</ul>
+
+<p style="text-align:justify"><strong>8.2. Exactitud del Contenido</strong></p>
+
+<p style="text-align:justify">La Empresa se esfuerza por mantener la exactitud y actualización del Contenido del Sitio Web, sin embargo:</p>
+
+<ul>
+<li>No garantiza que el Contenido sea completo, preciso, actualizado o libre de errores</li>
+<li>No se responsabiliza por errores tipográficos, inexactitudes o información desactualizada</li>
+<li>Se reserva el derecho de corregir errores o actualizar información sin previo aviso</li>
+</ul>
+
+<p style="text-align:justify"><strong>8.3. Uso Bajo Propio Riesgo</strong></p>
+
+<p style="text-align:justify">El Usuario reconoce y acepta expresamente que el uso del Sitio Web y los Servicios es bajo su propio riesgo. El Sitio Web y los Servicios se proporcionan "<strong>TAL CUAL</strong>" y "<strong>SEGÚN DISPONIBILIDAD</strong>", sin garantías de ningún tipo, ya sean expresas o implícitas.</p>
+
+<p style="text-align:justify"><strong>8.4. Exclusión de Garantías</strong></p>
+
+<p style="text-align:justify">En la máxima medida permitida por la legislación aplicable, la Empresa excluye todas las garantías, incluyendo, sin limitación:</p>
+
+<ul>
+<li>Garantías implícitas de comerciabilidad, idoneidad para un propósito particular o no infracción</li>
+<li>Garantías sobre la disponibilidad, continuidad, seguridad o libre de virus del Sitio Web</li>
+<li>Garantías sobre los resultados obtenidos mediante el uso del Sitio Web</li>
+</ul>
+
+<p style="text-align:justify"><strong>8.5. Limitación de Responsabilidad por Daños</strong></p>
+
+<p style="text-align:justify">En ningún caso la Empresa, sus directores, empleados, representantes, afiliados, socios o proveedores serán responsables por:</p>
+
+<p style="text-align:justify"><strong>a)</strong> Daños directos, indirectos, incidentales, consecuenciales, especiales, punitivos o ejemplares, incluyendo, sin limitación:</p>
+
+<ul>
+<li>Pérdida de beneficios, ingresos, negocios, ahorros anticipados u oportunidades</li>
+<li>Pérdida o corrupción de datos o información</li>
+<li>Pérdida de buena voluntad o reputación</li>
+<li>Costos de obtención de productos o servicios sustitutos</li>
+</ul>
+
+<p style="text-align:justify"><strong>b)</strong> Daños derivados de:</p>
+
+<ul>
+<li>Errores, inexactitudes o deficiencias en el Contenido</li>
+<li>Acceso no autorizado, alteración o eliminación de datos</li>
+<li>Virus, malware u otros elementos dañinos</li>
+<li>Interrupciones, retrasos o fallas en la transmisión de datos</li>
+<li>Conducta o contenido de terceros en el Sitio Web</li>
+<li>Acceso a Sitios de Terceros vinculados</li>
+</ul>
+
+<p style="text-align:justify"><strong>8.6. Legislación Aplicable</strong></p>
+
+<p style="text-align:justify">Algunas jurisdicciones no permiten la exclusión de ciertas garantías o la limitación de responsabilidad por daños incidentales o consecuenciales. En tales casos, la responsabilidad de la Empresa se limitará a la máxima extensión permitida por la legislación aplicable.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 9: INDEMNIZACIÓN</strong></p>
+
+<p style="text-align:justify"><strong>9.1. Obligación de Indemnizar</strong></p>
+
+<p style="text-align:justify">El Usuario acuerda defender, indemnizar y mantener indemne a la Empresa, sus filiales, subsidiarias, directores, funcionarios, empleados, agentes, representantes, socios, licenciantes y proveedores de servicios (colectivamente, las "<strong>Partes Indemnizadas</strong>"), de y contra cualquier reclamación, demanda, acción legal, pérdida, responsabilidad, daño, costo y gasto (incluyendo honorarios razonables de abogados) que surja de o esté relacionado con:</p>
+
+<p style="text-align:justify"><strong>a)</strong> El uso o acceso del Usuario al Sitio Web y los Servicios;</p>
+<p style="text-align:justify"><strong>b)</strong> La violación por parte del Usuario de estos Términos o de cualquier ley o regulación aplicable;</p>
+<p style="text-align:justify"><strong>c)</strong> La violación por parte del Usuario de derechos de terceros, incluyendo derechos de propiedad intelectual, privacidad o cualquier otro derecho;</p>
+<p style="text-align:justify"><strong>d)</strong> Cualquier Contenido del Usuario publicado o compartido a través del Sitio Web;</p>
+<p style="text-align:justify"><strong>e)</strong> Cualquier reclamo de que el Contenido del Usuario causó daño a un tercero;</p>
+<p style="text-align:justify"><strong>f)</strong> Cualquier uso no autorizado de la Cuenta del Usuario o credenciales de acceso;</p>
+<p style="text-align:justify"><strong>g)</strong> Cualquier conducta fraudulenta, negligente o dolosa del Usuario.</p>
+
+<p style="text-align:justify"><strong>9.2. Cooperación en la Defensa</strong></p>
+
+<p style="text-align:justify">La Empresa se reserva el derecho, a su propio costo, de asumir la defensa y el control exclusivo de cualquier asunto sujeto a indemnización por parte del Usuario, en cuyo caso el Usuario cooperará plenamente con la Empresa en la defensa de dicho asunto.</p>
+
+<p style="text-align:justify"><strong>9.3. No Transacción sin Consentimiento</strong></p>
+
+<p style="text-align:justify">El Usuario no podrá resolver ninguna reclamación sujeta a indemnización sin el consentimiento previo y por escrito de la Empresa.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 10: CUMPLIMIENTO LEGAL Y REGULATORIO</strong></p>
+
+<p style="text-align:justify"><strong>10.1. Prevención de Lavado de Activos y Financiamiento del Terrorismo</strong></p>
+
+<p style="text-align:justify">El Usuario declara y garantiza que cumple con todas las leyes y regulaciones aplicables en materia de prevención de lavado de activos y financiamiento del terrorismo, incluyendo la <strong>Ley No. 155-17 sobre Lavado de Activos y Financiamiento del Terrorismo</strong> de la República Dominicana.</p>
+
+<p style="text-align:justify">El Usuario se compromete a:</p>
+
+<ul>
+<li>No utilizar el Sitio Web para actividades relacionadas con lavado de dinero o financiamiento del terrorismo</li>
+<li>Proporcionar información veraz sobre el origen de los fondos utilizados en transacciones realizadas a través del Sitio Web</li>
+<li>No encontrarse en listas restrictivas nacionales o internacionales (OFAC, ONU, UE, etc.)</li>
+</ul>
+
+<p style="text-align:justify"><strong>10.2. Cumplimiento Anticorrupción</strong></p>
+
+<p style="text-align:justify">El Usuario se compromete a cumplir con todas las leyes anticorrupción aplicables, incluyendo:</p>
+
+<ul>
+<li>La Convención Interamericana Contra la Corrupción</li>
+<li>La Convención para Combatir el Cohecho de la OCDE</li>
+<li>Legislación dominicana en materia de corrupción</li>
+</ul>
+
+<p style="text-align:justify">El Usuario se obliga a no ofrecer, prometer, autorizar o entregar, directa o indirectamente, cualquier beneficio indebido a funcionarios públicos u otras personas con el propósito de obtener ventajas ilícitas.</p>
+
+<p style="text-align:justify"><strong>10.3. Cumplimiento de Leyes Aplicables</strong></p>
+
+<p style="text-align:justify">El Usuario se compromete a cumplir con todas las leyes, regulaciones, normas y códigos aplicables al uso del Sitio Web, incluyendo, sin limitación:</p>
+
+<ul>
+<li>Leyes de protección de datos y privacidad</li>
+<li>Leyes de propiedad intelectual</li>
+<li>Leyes de protección al consumidor</li>
+<li>Leyes fiscales y tributarias</li>
+</ul>
+
+<p style="text-align:justify"><strong>10.4. Cooperación con Autoridades</strong></p>
+
+<p style="text-align:justify">La Empresa cooperará plenamente con las autoridades competentes en caso de investigaciones relacionadas con actividades ilegales realizadas a través del Sitio Web, y podrá divulgar información del Usuario cuando sea requerido por ley o por orden judicial.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 11: MODIFICACIÓN DE LOS TÉRMINOS</strong></p>
+
+<p style="text-align:justify"><strong>11.1. Derecho de Modificación</strong></p>
+
+<p style="text-align:justify">La Empresa se reserva el derecho de modificar, actualizar o revisar estos Términos en cualquier momento, a su entera discreción, sin necesidad de notificación previa al Usuario.</p>
+
+<p style="text-align:justify"><strong>11.2. Publicación de Modificaciones</strong></p>
+
+<p style="text-align:justify">Las modificaciones a estos Términos entrarán en vigor inmediatamente después de su publicación en el Sitio Web, indicando la "<strong>Fecha de última actualización</strong>" al inicio del documento.</p>
+
+<p style="text-align:justify"><strong>11.3. Aceptación de Modificaciones</strong></p>
+
+<p style="text-align:justify">El uso continuado del Sitio Web después de la publicación de modificaciones constituye la aceptación expresa del Usuario de los Términos modificados.</p>
+
+<p style="text-align:justify">Si el Usuario no está de acuerdo con las modificaciones, debe cesar inmediatamente el uso del Sitio Web.</p>
+
+<p style="text-align:justify"><strong>11.4. Revisión Periódica</strong></p>
+
+<p style="text-align:justify">La Empresa recomienda al Usuario revisar periódicamente estos Términos para mantenerse informado sobre cualquier cambio.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 12: TERMINACIÓN Y SUSPENSIÓN</strong></p>
+
+<p style="text-align:justify"><strong>12.1. Terminación por el Usuario</strong></p>
+
+<p style="text-align:justify">El Usuario puede cesar el uso del Sitio Web en cualquier momento{{#neq hasRegistration "No"}}, y puede solicitar la cancelación de su Cuenta contactando a la Empresa a través de {{contactMethod}}{{/neq}}.</p>
+
+<p style="text-align:justify"><strong>12.2. Terminación o Suspensión por la Empresa</strong></p>
+
+<p style="text-align:justify">La Empresa se reserva el derecho, a su entera discreción y sin previo aviso, de:</p>
+
+<ul>
+<li>Suspender o terminar el acceso del Usuario al Sitio Web</li>
+<li>Eliminar o deshabilitar cualquier Cuenta de Usuario</li>
+<li>Eliminar cualquier Contenido del Usuario</li>
+<li>Limitar las funcionalidades disponibles para el Usuario</li>
+</ul>
+
+<p style="text-align:justify">En caso de que el Usuario:</p>
+
+<ul>
+<li>Viole estos Términos o la Política de Privacidad</li>
+<li>Incurra en conductas fraudulentas, abusivas o ilegales</li>
+<li>Ponga en riesgo la seguridad o integridad del Sitio Web</li>
+<li>Genere responsabilidad legal para la Empresa</li>
+{{#if additionalTerminationGrounds}}
+<li>{{additionalTerminationGrounds}}</li>
+{{/if}}
+</ul>
+
+<p style="text-align:justify"><strong>12.3. Efectos de la Terminación</strong></p>
+
+<p style="text-align:justify">Al terminar el acceso del Usuario al Sitio Web:</p>
+
+<ul>
+<li>Cesarán todos los derechos otorgados al Usuario bajo estos Términos</li>
+{{#neq hasRegistration "No"}}
+<li>La Cuenta del Usuario será deshabilitada permanentemente</li>
+{{/neq}}
+{{#neq hasUserContent "No"}}
+<li>El Contenido del Usuario podrá ser eliminado a discreción de la Empresa</li>
+{{/neq}}
+<li>Las obligaciones del Usuario que por su naturaleza deban sobrevivir a la terminación (indemnización, limitación de responsabilidad, ley aplicable) continuarán vigentes</li>
+</ul>
+
+<p style="text-align:justify"><strong>12.4. Supervivencia de Cláusulas</strong></p>
+
+<p style="text-align:justify">Las disposiciones de los Artículos <strong>5 (Propiedad Intelectual), 8 (Limitación de Responsabilidad), 9 (Indemnización), 13 (Ley Aplicable y Jurisdicción)</strong> y cualquier otra disposición que por su naturaleza deba sobrevivir, permanecerán en vigor después de la terminación de estos Términos.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 13: LEY APLICABLE Y SOLUCIÓN DE CONTROVERSIAS</strong></p>
+
+<p style="text-align:justify"><strong>13.1. Ley Aplicable</strong></p>
+
+<p style="text-align:justify">Estos Términos se regirán, interpretarán y ejecutarán de conformidad con las leyes de la <strong>República Dominicana</strong>, sin dar efecto a sus principios sobre conflictos de leyes.</p>
+
+<p style="text-align:justify"><strong>13.2. Resolución Amigable</strong></p>
+
+<p style="text-align:justify">Las Partes se comprometen a realizar sus mejores esfuerzos para resolver amigablemente cualquier controversia, disputa o reclamación derivada de o relacionada con estos Términos o el uso del Sitio Web, mediante negociación directa de buena fe.</p>
+
+<p style="text-align:justify"><strong>13.3. Resolución de Controversias</strong></p>
+
+<p style="text-align:justify">En caso de no alcanzar una solución amigable dentro de treinta (30) días calendario desde la notificación de la controversia, cualquier disputa será resuelta definitivamente mediante arbitraje. El arbitraje se sujetará al <strong>Reglamento de Arbitraje de la Corte de Arbitraje y Resolución Alternativa de Conflictos de la Cámara de Comercio y Producción de Santo Domingo, Inc. (CRC)</strong>, vigente al momento de la interposición de la demanda arbitral.</p>
+
+<p style="text-align:justify">El arbitraje será conducido por un (1) árbitro designado conforme al Reglamento CRC, en idioma español, y en la ciudad de <strong>Santo Domingo de Guzmán, Distrito Nacional, República Dominicana</strong>. El laudo arbitral será final y vinculante para las Partes, quienes renuncian expresamente a ejercer cualquier recurso en su contra. El laudo podrá ser ejecutado ante cualquier tribunal competente.</p>
+
+<p style="text-align:justify">Los costos y honorarios del arbitraje serán cubiertos conforme lo determine el tribunal arbitral.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 14: DISPOSICIONES GENERALES</strong></p>
+
+<p style="text-align:justify"><strong>14.1. Acuerdo Completo</strong></p>
+
+<p style="text-align:justify">Estos Términos constituyen el acuerdo completo entre el Usuario y la Empresa respecto al uso del Sitio Web, y sustituyen cualquier acuerdo, comunicación o entendimiento previo, ya sea oral o escrito.</p>
+
+<p style="text-align:justify"><strong>14.2. Divisibilidad</strong></p>
+
+<p style="text-align:justify">Si cualquier disposición de estos Términos es declarada inválida, ilegal o inejecutable por un tribunal competente, dicha disposición será modificada o eliminada en la mínima medida necesaria, y las demás disposiciones permanecerán en pleno vigor y efecto.</p>
+
+<p style="text-align:justify"><strong>14.3. No Renuncia</strong></p>
+
+<p style="text-align:justify">El hecho de que la Empresa no ejerza o haga valer cualquier derecho o disposición de estos Términos no constituirá una renuncia a dicho derecho o disposición.</p>
+
+<p style="text-align:justify"><strong>14.4. Cesión</strong></p>
+
+<p style="text-align:justify">El Usuario no podrá ceder, transferir o sublicenciar estos Términos o cualquier derecho u obligación derivado de los mismos, sin el consentimiento previo y por escrito de la Empresa.</p>
+
+<p style="text-align:justify">La Empresa podrá ceder o transferir estos Términos, en su totalidad o en parte, sin restricción alguna.</p>
+
+<p style="text-align:justify"><strong>14.5. Relación entre las Partes</strong></p>
+
+<p style="text-align:justify">Ninguna disposición de estos Términos creará ni se interpretará como creando una relación de sociedad, joint venture, empleo, agencia o representación entre el Usuario y la Empresa.</p>
+
+<p style="text-align:justify"><strong>14.6. Fuerza Mayor</strong></p>
+
+<p style="text-align:justify">La Empresa no será responsable por cualquier incumplimiento o retraso en el cumplimiento de sus obligaciones bajo estos Términos debido a causas fuera de su control razonable, incluyendo, sin limitación:</p>
+
+<ul>
+<li>Desastres naturales (terremotos, huracanes, inundaciones)</li>
+<li>Pandemias o emergencias de salud pública</li>
+<li>Actos de guerra, terrorismo o disturbios civiles</li>
+<li>Fallas en servicios públicos o de telecomunicaciones</li>
+<li>Ataques cibernéticos o fallas en sistemas de terceros</li>
+<li>Restricciones gubernamentales o cambios regulatorios</li>
+</ul>
+
+<p style="text-align:justify"><strong>14.7. Títulos y Encabezados</strong></p>
+
+<p style="text-align:justify">Los títulos y encabezados de los artículos y secciones de estos Términos son utilizados únicamente para facilitar la referencia y no afectan la interpretación de su contenido.</p>
+
+<p style="text-align:justify"><strong>14.8. Idioma</strong></p>
+
+<p style="text-align:justify">Estos Términos han sido redactados en idioma español, el cual prevalecerá en caso de discrepancia con cualquier traducción a otro idioma.</p>
+
+<p style="text-align:justify"><strong>14.9. Supervivencia</strong></p>
+
+<p style="text-align:justify">Las obligaciones y disposiciones que por su naturaleza deben sobrevivir a la terminación de estos Términos (incluyendo, sin limitación, las relacionadas con propiedad intelectual, indemnización, limitación de responsabilidad, ley aplicable y jurisdicción) continuarán en vigor después de dicha terminación.</p>
+
+<p style="text-align:center"><strong>ARTÍCULO 15: CONTACTO</strong></p>
+
+<p style="text-align:justify"><strong>15.1. Información de Contacto</strong></p>
+
+<p style="text-align:justify">Para cualquier pregunta, comentario, queja o solicitud relacionada con estos Términos o con el Sitio Web, el Usuario puede contactar a la Empresa a través de:</p>
+
+<p style="text-align:justify"><strong>Nombre Legal:</strong> {{companyLegalName}}<br /><strong>RNC:</strong> {{companyRnc}}<br /><strong>Dirección:</strong> {{companyAddress}}, República Dominicana<br /><strong>Correo electrónico:</strong> {{contactEmail}}<br /><strong>Teléfono:</strong> {{contactPhone}}<br /><strong>Horario de atención:</strong> {{businessHours}}</p>
+
+<p style="text-align:justify"><strong>15.2. Notificaciones</strong></p>
+
+<p style="text-align:justify">Todas las notificaciones dirigidas a la Empresa bajo estos Términos deberán ser enviadas por escrito a la dirección indicada anteriormente.</p>
+
+<p style="text-align:justify">Las notificaciones de la Empresa al Usuario serán enviadas {{notificationMethod}}.</p>
+
+<p style="text-align:justify"><strong>15.3. Atención al Usuario</strong></p>
+
+<p style="text-align:justify">La Empresa se compromete a responder las consultas y solicitudes de los Usuarios en un plazo razonable, conforme a su capacidad operativa.</p>
+
+<p style="text-align:center"><strong>DECLARACIÓN FINAL</strong></p>
+
+<p style="text-align:justify"><strong>AL UTILIZAR EL SITIO WEB, USTED RECONOCE HABER LEÍDO, COMPRENDIDO Y ACEPTADO ESTOS TÉRMINOS Y CONDICIONES DE USO EN SU TOTALIDAD.</strong></p>
+
+<p style="text-align:justify"><strong>SI NO ESTÁ DE ACUERDO CON ESTOS TÉRMINOS, DEBE ABSTENERSE DE UTILIZAR EL SITIO WEB INMEDIATAMENTE.</strong></p>
+
+<p style="text-align:justify"><strong>FECHA DE ÚLTIMA ACTUALIZACIÓN:</strong> {{updateDate}}</p>
+
+<p style="text-align:justify"><strong>{{companyLegalName}}</strong><br />República Dominicana</p>

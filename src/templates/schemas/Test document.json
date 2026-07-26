@@ -1,0 +1,41 @@
+{
+  "templateName": "Test document",
+  "displayName": "Test document",
+  "description": "Documento de prueba para teletrabajo: cargo del trabajador y fecha de inicio (día, mes y año).",
+  "groups": [
+    {
+      "id": "roleAndStart",
+      "label": "A. PUESTO Y FECHA DE INICIO",
+      "variables": [
+        {
+          "key": "positionTitle",
+          "label": "Cargo o posición del trabajador",
+          "type": "text",
+          "required": true,
+          "example": "Asistente Legal"
+        },
+        {
+          "key": "startDay",
+          "label": "Día de inicio (en números)",
+          "type": "text",
+          "required": true,
+          "example": "15"
+        },
+        {
+          "key": "startMonth",
+          "label": "Mes de inicio (en letras)",
+          "type": "text",
+          "required": true,
+          "example": "marzo"
+        },
+        {
+          "key": "startYear",
+          "label": "Año de inicio (en números)",
+          "type": "text",
+          "required": true,
+          "example": "2026"
+        }
+      ]
+    }
+  ]
+}

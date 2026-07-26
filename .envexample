@@ -1,0 +1,20 @@
+MONGO_URI=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
+JWT_SECRET=your-jwt-secret-here
+
+AWS_S3_REGION_ECOM=us-east-1
+AWS_ACCESS_KEY_ID_ECOM=
+AWS_SECRET_ACCESS_KEY_ECOM=
+AWS_BUCKET_NAME_ECOM=
+
+# Ephemeral PDF preview HTML is uploaded to S3 under `previews/` (same bucket/credentials as final PDFs).
+# The widget fetches that HTTPS URL in embedded hosts where relative /api/preview fails.
+# Configure S3 CORS on this bucket to allow GET from your chat/widget origins (or * for testing).
+# Optional: add a lifecycle rule to expire objects under `previews/` after 7d as a safety net if delete fails.
+
+# Base URL of the Next widget app (where /api/preview is served). Fallback when S3 preview is
+# unavailable (no AWS env). Required when the PDF preview widget runs embedded (e.g. Nitro ui://)
+# so fetch() can use an absolute URL instead of /api/...
+NEXT_PUBLIC_WIDGET_API_ORIGIN=http://localhost:3001
+
+# Optional: IANA timezone for interpreting "today" / relative dates when saving schema fields of type "date" (default America/Santo_Domingo).
+# DOC_ASSISTANT_DATE_TIMEZONE=America/Santo_Domingo
