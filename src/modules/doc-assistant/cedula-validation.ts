@@ -149,14 +149,20 @@ export function shouldApplyRncDigitValidation(
     return false;
 }
 
-export type RncNormalizeReason = 'empty' | 'wrong_length' | 'invalid_placeholder';
+export type RncNormalizeReason = 'empty' | 'wrong_length' | 'invalid_placeholder' | 'invalid_characters';
 
 export type RncNormalizeResult =
     | { ok: true; formatted: string; reason?: never }
     | { ok: false; digits: string; reason: RncNormalizeReason };
 
 export function normalizeRncNumberInput(raw: string): RncNormalizeResult {
-    const digits = extractCedulaDigits(raw);
+    const trimmed = String(raw ?? '').trim();
+    if (!trimmed) return { ok: false, digits: '', reason: 'empty' };
+    // Digits + common separators only — reject letters/junk (e.g. 102234543D)
+    if (!/^[\d\s.\-/]+$/.test(trimmed)) {
+        return { ok: false, digits: extractCedulaDigits(trimmed), reason: 'invalid_characters' };
+    }
+    const digits = extractCedulaDigits(trimmed);
     if (!digits) return { ok: false, digits: '', reason: 'empty' };
     if (digits.length !== 9) return { ok: false, digits, reason: 'wrong_length' };
     if (/^0{9}$/.test(digits)) {
@@ -168,6 +174,9 @@ export function normalizeRncNumberInput(raw: string): RncNormalizeResult {
 export function rncValidationErrorMessage(digitCount: number, reason?: RncNormalizeResult['reason']): string {
     if (reason === 'invalid_placeholder') {
         return 'El RNC proporcionado no es válido; verifique que no sea un valor de ejemplo como 000-00000-0.';
+    }
+    if (reason === 'invalid_characters') {
+        return 'El RNC solo puede contener dígitos (formato XXX-XXXXX-X); no se permiten letras ni otros caracteres.';
     }
     if (digitCount === 0) {
         return 'El RNC debe tener exactamente 9 dígitos (formato XXX-XXXXX-X).';

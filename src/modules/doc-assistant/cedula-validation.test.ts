@@ -144,6 +144,16 @@ describe('normalizeRncNumberInput', () => {
         assert.equal(normalizeRncNumberInput('13164338').ok, false);
         assert.equal(normalizeRncNumberInput('1316433880').ok, false);
     });
+
+    it('rejects letters and other non-separator junk', () => {
+        const withLetter = normalizeRncNumberInput('102234543D');
+        assert.equal(withLetter.ok, false);
+        if (!withLetter.ok) assert.equal(withLetter.reason, 'invalid_characters');
+
+        const dashedWithLetter = normalizeRncNumberInput('131-64338-8X');
+        assert.equal(dashedWithLetter.ok, false);
+        if (!dashedWithLetter.ok) assert.equal(dashedWithLetter.reason, 'invalid_characters');
+    });
 });
 
 describe('shouldApplyRncDigitValidation', () => {
@@ -203,6 +213,18 @@ describe('getInvalidCedulaFieldsInVariables (RNC flags)', () => {
             employerHasDominicanRnc: 'Sí',
         });
         assert.equal(errors.length, 0);
+    });
+
+    it('rejects employerRnc with trailing letter', () => {
+        const errors = getInvalidCedulaFieldsInVariables({
+            employerRnc: '102234543D',
+        });
+        assert.equal(errors.length, 1);
+        assert.equal(errors[0]?.key, 'employerRnc');
+        assert.match(
+            errors[0]?.message ?? '',
+            /solo puede contener dígitos|no se permiten letras/i,
+        );
     });
 });
 
