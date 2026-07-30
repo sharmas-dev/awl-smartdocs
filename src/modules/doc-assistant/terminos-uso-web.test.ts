@@ -5,6 +5,7 @@ import { describe, it } from 'node:test';
 import Handlebars from 'handlebars';
 
 import { normalizePhoneNumber, isPhoneNumberVariableKey } from './phone-number-format.js';
+import { stripOrphanEnumerationsFromHtml } from './not-applicable-cleanup.js';
 import {
     enforceTerminosUsoWebNotificationCoherence,
     enforceTerminosUsoWebServicesCoherence,
@@ -144,13 +145,65 @@ describe('Términos de Uso Página Web — services rendering (Rule 2)', () => {
             notificationMethod: 'mediante publicación en el Sitio Web',
             updateDate: '31 de marzo de 2026',
         });
-        const servicesLine = /Los Servicios incluyen[^]*?<p style="text-align:justify">(.*?)<\/p>/.exec(html)?.[1] ?? '';
+        const servicesBlock = /Los Servicios incluyen[^]*?<ol type="a">([\s\S]*?)<\/ol>/.exec(html)?.[1] ?? '';
         assert.equal(
-            servicesLine,
-            '<strong>a)</strong> Acceso a catálogo; <strong>b)</strong> Formularios de contacto; <strong>c)</strong> Descarga de recursos.',
+            servicesBlock.replace(/>\s+</g, '><').trim(),
+            '<li>Acceso a catálogo</li><li>Formularios de contacto</li><li>Descarga de recursos</li>',
         );
         assert.match(html, /serán enviadas mediante publicación en el Sitio Web\./);
         assert.match(html, /Fecha de última actualización:<\/strong> 31 de marzo de 2026/);
+    });
+
+    it('keeps §2.4 letters at a) after post-render cleanup when services list is present', () => {
+        registerHelpers();
+        const hbs = readFileSync(HBS_PATH, 'utf8');
+        const tpl = Handlebars.compile(hbs);
+        const raw = tpl({
+            hasSpecificServices: 'Sí',
+            servicesList: 'Acceso a catálogo; Formularios de contacto; Descarga de recursos',
+            hasRegistration: 'No',
+            minimumAge: '16',
+            notificationMethod: 'mediante publicación en el Sitio Web',
+            updateDate: '31 de marzo de 2026',
+        });
+        const html = stripOrphanEnumerationsFromHtml(raw);
+        assert.match(html, /<strong>a\)<\/strong> Ser mayor de/);
+        assert.equal(html.includes('<strong>c)</strong> Ser mayor de'), false);
+    });
+});
+
+describe('Términos de Uso Página Web — Artículo 1 Cuenta de Usuario conditional', () => {
+    it('omits the entire Cuenta de Usuario definition when registration is not required', () => {
+        registerHelpers();
+        const hbs = readFileSync(HBS_PATH, 'utf8');
+        const tpl = Handlebars.compile(hbs);
+        const html = stripOrphanEnumerationsFromHtml(
+            tpl({
+                hasRegistration: 'No',
+                notificationMethod: 'mediante publicación en el Sitio Web',
+                updateDate: '31 de marzo de 2026',
+            }),
+        );
+        assert.equal(html.includes('1.8. "Cuenta de Usuario"'), false);
+        assert.equal(/ARTÍCULO 1: DEFINICIONES[\s\S]*?ARTÍCULO 2/.exec(html)?.[0].includes('Cuenta de Usuario') ?? true, false);
+        assert.equal(html.includes('— ;'), false);
+        assert.equal(html.includes('no aplica'), false);
+        assert.match(html, /1\.7\. "Terceros"/);
+    });
+
+    it('renders 1.8 Cuenta de Usuario when registration is required', () => {
+        registerHelpers();
+        const hbs = readFileSync(HBS_PATH, 'utf8');
+        const tpl = Handlebars.compile(hbs);
+        const html = tpl({
+            hasRegistration: 'Sí',
+            notificationMethod: 'al correo electrónico proporcionado por el Usuario durante el registro',
+            updateDate: '31 de marzo de 2026',
+        });
+        assert.match(
+            html,
+            /1\.8\. "Cuenta de Usuario"<\/strong> se refiere al perfil personal creado por el Usuario mediante registro en el Sitio Web, que permite acceder a funcionalidades adicionales\./,
+        );
     });
 });
 
@@ -182,6 +235,23 @@ describe('Términos de Uso Página Web — services normalization', () => {
         assert.equal(changed, false);
         assert.equal(out.serviceDescription, 'materiales de construcción');
         assert.equal(out.serviceFunctionalities, 'consultar catálogo');
+    });
+
+    it('avoids doubled "El Sitio Web ofrece" after enrichment + render', () => {
+        registerHelpers();
+        const out: Record<string, string | number> = {
+            serviceDescription: 'El sitio web ofrece alfombras hechas a mano',
+            serviceFunctionalities: 'consultar el catálogo',
+            hasRegistration: 'No',
+            hasSpecificServices: 'No',
+            notificationMethod: 'mediante publicación en el Sitio Web',
+            updateDate: '31 de marzo de 2026',
+        };
+        enforceTerminosUsoWebServicesCoherence(out);
+        const hbs = readFileSync(HBS_PATH, 'utf8');
+        const html = Handlebars.compile(hbs)(out);
+        assert.match(html, /El Sitio Web ofrece alfombras hechas a mano, permitiendo a los Usuarios consultar el catálogo\./);
+        assert.equal(/el sitio web ofrece/i.test(html.replace(/El Sitio Web ofrece/, '')), false);
     });
 });
 

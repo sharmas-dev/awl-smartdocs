@@ -22,15 +22,17 @@
 
 <p style="text-align:justify"><strong>1.3. "Usuario"</strong> se refiere a cualquier persona física o jurídica que accede, navega o utiliza el Sitio Web y sus Servicios.</p>
 
-<p style="text-align:justify"><strong>1.4. "Cuenta de Usuario"</strong> se refiere {{#neq hasRegistration "No"}}al perfil personal creado por el Usuario mediante registro en el Sitio Web, que permite acceder a funcionalidades adicionales{{else}}— no aplica; el Sitio Web no requiere registro{{/neq}}.</p>
+<p style="text-align:justify"><strong>1.4. "Contenido"</strong> se refiere a toda información, texto, gráficos, imágenes, fotografías, videos, audios, software, código, bases de datos, diseños, marcas, logos y cualquier otro material disponible en el Sitio Web.</p>
 
-<p style="text-align:justify"><strong>1.5. "Contenido"</strong> se refiere a toda información, texto, gráficos, imágenes, fotografías, videos, audios, software, código, bases de datos, diseños, marcas, logos y cualquier otro material disponible en el Sitio Web.</p>
+<p style="text-align:justify"><strong>1.5. "Contenido del Usuario"</strong> se refiere a cualquier información, datos, textos, imágenes u otros materiales que el Usuario publique, cargue, transmita o envíe a través del Sitio Web.</p>
 
-<p style="text-align:justify"><strong>1.6. "Contenido del Usuario"</strong> se refiere a cualquier información, datos, textos, imágenes u otros materiales que el Usuario publique, cargue, transmita o envíe a través del Sitio Web.</p>
+<p style="text-align:justify"><strong>1.6. "Propiedad Intelectual"</strong> se refiere a todos los derechos de autor, marcas comerciales, nombres comerciales, patentes, secretos industriales, derechos de diseño y cualquier otro derecho de propiedad intelectual e industrial relacionado con el Sitio Web y su Contenido.</p>
 
-<p style="text-align:justify"><strong>1.7. "Propiedad Intelectual"</strong> se refiere a todos los derechos de autor, marcas comerciales, nombres comerciales, patentes, secretos industriales, derechos de diseño y cualquier otro derecho de propiedad intelectual e industrial relacionado con el Sitio Web y su Contenido.</p>
+<p style="text-align:justify"><strong>1.7. "Terceros"</strong> se refiere a cualquier persona natural o jurídica distinta del Usuario y la Empresa, incluyendo proveedores de servicios, socios comerciales y otros sitios web vinculados.</p>
 
-<p style="text-align:justify"><strong>1.8. "Terceros"</strong> se refiere a cualquier persona natural o jurídica distinta del Usuario y la Empresa, incluyendo proveedores de servicios, socios comerciales y otros sitios web vinculados.</p>
+{{#neq hasRegistration "No"}}
+<p style="text-align:justify"><strong>1.8. "Cuenta de Usuario"</strong> se refiere al perfil personal creado por el Usuario mediante registro en el Sitio Web, que permite acceder a funcionalidades adicionales.</p>
+{{/neq}}
 
 <p style="text-align:center"><strong>ARTÍCULO 2: OBJETO Y ALCANCE</strong></p>
 
@@ -45,7 +47,9 @@
 {{#eq hasSpecificServices "Sí"}}
 <p style="text-align:justify">Los Servicios incluyen, de manera enunciativa y no limitativa:</p>
 
-<p style="text-align:justify">{{#eachSplit ";" servicesList}}<strong>{{@letter}})</strong> {{this}}{{#unless @last}}; {{else}}.{{/unless}}{{else}}{{servicesList}}{{/eachSplit}}</p>
+<ol type="a">
+{{#eachSplit ";" servicesList}}<li>{{this}}</li>{{else}}<li>{{servicesList}}</li>{{/eachSplit}}
+</ol>
 {{/eq}}
 
 <p style="text-align:justify"><strong>2.3. Modificación de los Servicios</strong></p>
