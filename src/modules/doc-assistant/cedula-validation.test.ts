@@ -3,7 +3,9 @@ import { describe, it } from 'node:test';
 import {
     detectCedulaValidationErrorsFromUserMessage,
     extractCedulaDigits,
+    getInvalidCedulaFieldsInVariables,
     isCedulaFieldValueValid,
+    isRncVariableKey,
     looksLikeDominicanCedulaAttempt,
     normalizeCedulaNumberInput,
     normalizeRncNumberInput,
@@ -11,7 +13,7 @@ import {
     shouldApplyRncDigitValidation,
     validateAndNormalizeCedulaAnswers,
 } from './cedula-validation.js';
-it 
+
 describe('normalizeCedulaNumberInput', () => {
     it('formats 11 digits without hyphens', () => {
         const r = normalizeCedulaNumberInput('00123456789');
@@ -155,6 +157,52 @@ describe('shouldApplyRncDigitValidation', () => {
 
     it('applies to id number key with empty tipo and 9 digits', () => {
         assert.equal(shouldApplyRncDigitValidation('employerIdNumber', '', '131643388'), true);
+    });
+
+    it('does not apply to HasDominicanRnc / IncludeRnc flags', () => {
+        assert.equal(shouldApplyRncDigitValidation('employerHasDominicanRnc', '', 'Sí'), false);
+        assert.equal(
+            shouldApplyRncDigitValidation('employerIncludeRncMercantileIdentificationInContract', '', 'Sí'),
+            false,
+        );
+        assert.equal(shouldApplyRncDigitValidation('sellerIncludeRncInContract', '', 'No'), false);
+    });
+});
+
+describe('isRncVariableKey', () => {
+    it('matches RNC number fields only', () => {
+        assert.equal(isRncVariableKey('employerRnc'), true);
+        assert.equal(isRncVariableKey('sellerRnc'), true);
+        assert.equal(isRncVariableKey('companyRnc'), true);
+        assert.equal(isRncVariableKey('employerIncludeRncMercantileIdentificationInContract'), false);
+        assert.equal(isRncVariableKey('employerHasDominicanRnc'), false);
+        assert.equal(isRncVariableKey('sellerIncludeRncInContract'), false);
+        assert.equal(isRncVariableKey('buyerHasDominicanRnc'), false);
+    });
+});
+
+describe('getInvalidCedulaFieldsInVariables (RNC flags)', () => {
+    it('accepts dashed employerRnc alongside IncludeRnc Sí flag', () => {
+        const errors = getInvalidCedulaFieldsInVariables({
+            employerIncludeRncMercantileIdentificationInContract: 'Sí',
+            employerRnc: '131-64338-8',
+        });
+        assert.equal(errors.length, 0);
+    });
+
+    it('accepts undashed employerRnc alongside IncludeRnc Sí flag', () => {
+        const errors = getInvalidCedulaFieldsInVariables({
+            employerIncludeRncMercantileIdentificationInContract: 'Sí',
+            employerRnc: '131643388',
+        });
+        assert.equal(errors.length, 0);
+    });
+
+    it('does not reject HasDominicanRnc Sí alone', () => {
+        const errors = getInvalidCedulaFieldsInVariables({
+            employerHasDominicanRnc: 'Sí',
+        });
+        assert.equal(errors.length, 0);
     });
 });
 

@@ -35,7 +35,7 @@
           "type": "text",
           "required": true,
           "condition": { "field": "employerIsCompany", "equals": "Empresa" },
-          "example": "1-30-1234567-8"
+          "example": "131-64338-8"
         },
         {
           "key": "employerMercantileRegistryNumber",

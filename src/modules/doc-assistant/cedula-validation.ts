@@ -48,9 +48,14 @@ export function isRncIdTypeLabel(idType: string): boolean {
     return /rnc|registro\s+nacional\s+de\s+contribuyentes/i.test(f);
 }
 
+/**
+ * True for RNC *number* fields (employerRnc, sellerRnc, companyRnc, …).
+ * Excludes Yes/No flags that merely mention RNC (HasDominicanRnc, IncludeRnc*).
+ */
 export function isRncVariableKey(key: string): boolean {
     const k = key.toLowerCase();
-    return /rnc/i.test(k);
+    if (/hasdominicanrnc$|includernc/i.test(k)) return false;
+    return /rnc$/i.test(k);
 }
 
 /** Both documents in one tipo (Declaración Jurada) — free-text number field. */

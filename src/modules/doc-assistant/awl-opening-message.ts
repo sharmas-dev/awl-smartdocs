@@ -129,7 +129,7 @@ function phraseForPendingField(field: OpeningPendingField): string {
     if (/idnumber|idnum/i.test(k)) return 'el número de documento';
     if (/address/i.test(k)) return 'la dirección completa';
     if (/iscompany/i.test(k)) return 'si la parte es empresa o persona física';
-    if (/rnc/i.test(k) && !/hasrnc/i.test(k)) return 'el RNC';
+    if (/rnc$/i.test(k) && !/hasdominicanrnc$|includernc/i.test(k)) return 'el RNC';
     const label = field.label.replace(/\s*\([^)]*\)\s*/g, ' ').trim().toLowerCase();
     if (label.length > 0 && label.length < 120) return label;
     return field.key;

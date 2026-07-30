@@ -18,6 +18,8 @@ function foldAscii(s: string): string {
 export function isIdPresentationVariableKey(key: string): boolean {
     const k = key.toLowerCase();
     if (/(nationality|nacionalidad|chasis|matr[ií]cula|invoice|factura|ncf\b)/i.test(k)) return false;
+    // RNC number fields only — not HasDominicanRnc / IncludeRnc* Yes/No flags
+    const isRncNumberKey = /rnc$/i.test(k) && !/hasdominicanrnc$|includernc/i.test(k);
     return (
         /idtype/i.test(k) ||
         /idnumber/i.test(k) ||
@@ -26,7 +28,7 @@ export function isIdPresentationVariableKey(key: string): boolean {
         /employeridblock/i.test(k) ||
         /declarantidtype/i.test(k) ||
         /empleadorid/i.test(k) ||
-        /rnc/i.test(k)
+        isRncNumberKey
     );
 }
 

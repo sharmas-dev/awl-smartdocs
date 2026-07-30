@@ -19,7 +19,7 @@
           "label": "Registro Nacional de Contribuyentes (RNC)",
           "type": "text",
           "required": true,
-          "example": "130-123456-7"
+          "example": "131-64338-8"
         },
         {
           "key": "companyRm",

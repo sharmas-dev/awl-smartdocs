@@ -176,7 +176,7 @@ function extractValueForVariable(
         }
     }
 
-    if (/rnc/i.test(key)) {
+    if (isRncVariableKey(key)) {
         const m =
             t.match(/(?:n[uú]mero|no\.?)\s*([\d][\d\s.\-/]{6,15}[\d])/i) ??
             t.match(/\b(\d{3}-\d{5}-\d)\b/) ??
