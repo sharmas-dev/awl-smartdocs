@@ -156,15 +156,30 @@ const VISIBLE_NA_TOKEN = /(?<=^|[\s>([{,;:])(?:N\/A|n\/a|N\.A\.|n\.a\.|N\/D|n\/d
  */
 const DOUBLE_SPACE_IN_TEXT = /(>[^<]*?) {2,}([^<]*?<)/g;
 
-/** After dropping empty slots, renumber remaining <strong>a)</strong>… sequentially. */
+/**
+ * After dropping empty slots, renumber remaining <strong>a)</strong>… sequentially
+ * within each top-level block that contains **two or more** letter markers.
+ * Single-marker paragraphs (e.g. §2.4 a)–e) each in its own `<p>`) are left alone
+ * so a document-wide counter cannot advance services letters into requirements.
+ */
 export function renumberStrongLetterEnumerations(html: string): string {
     if (!html) return html;
     const letters = 'abcdefghijklmnopqrstuvwxyz';
-    let n = 0;
-    return html.replace(/<strong>\s*[a-z]\)\s*<\/strong>/gi, () => {
-        const letter = letters[n++] ?? 'z';
-        return `<strong>${letter})</strong>`;
-    });
+    const markerRe = () => /<strong>\s*[a-z]\)\s*<\/strong>/gi;
+    const renumberInside = (inner: string): string => {
+        const count = inner.match(markerRe())?.length ?? 0;
+        if (count < 2) return inner;
+        let n = 0;
+        return inner.replace(markerRe(), () => {
+            const letter = letters[n++] ?? 'z';
+            return `<strong>${letter})</strong>`;
+        });
+    };
+    return html.replace(
+        /<(p|li|ol|ul|div)(\b[^>]*)>([\s\S]*?)<\/\1>/gi,
+        (_full, tag: string, attrs: string, inner: string) =>
+            `<${tag}${attrs}>${renumberInside(inner)}</${tag}>`,
+    );
 }
 
 export function stripOrphanEnumerationsFromHtml(html: string): string {

@@ -85,4 +85,15 @@ describe('stripOrphanEnumerationsFromHtml', () => {
             '<p><strong>a)</strong> Servicio de internet para la prestación del servicio serán asumidos</p>',
         );
     });
+
+    it('does not advance letter counter from one paragraph into the next', () => {
+        const rawHtml =
+            '<p><strong>a)</strong> Servicio 1;</p><p><strong>b)</strong> Servicio 2.</p>' +
+            '<p><strong>a)</strong> Ser mayor;</p><p><strong>b)</strong> Contar con acceso.</p>';
+        const cleaned = stripOrphanEnumerationsFromHtml(rawHtml);
+        assert.match(cleaned, /<strong>a\)<\/strong> Servicio 1/);
+        assert.match(cleaned, /<strong>b\)<\/strong> Servicio 2/);
+        assert.match(cleaned, /<strong>a\)<\/strong> Ser mayor/);
+        assert.match(cleaned, /<strong>b\)<\/strong> Contar con acceso/);
+    });
 });

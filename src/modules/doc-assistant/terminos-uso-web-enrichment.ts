@@ -99,11 +99,51 @@ export function enforceTerminosUsoWebNotificationCoherence(
     return false;
 }
 
+/** Leading phrases that duplicate the HBS prefix "El Sitio Web ofrece …". */
+const SERVICE_DESCRIPTION_PREFIX =
+    /^(el\s+sitio\s+web\s+ofrece|el\s+sitio\s+ofrece|sitio\s+web\s+ofrece|ofrece)\s+/i;
+
+const SERVICE_FUNCTIONALITIES_PREFIX =
+    /^(pueden\s+los\s+usuarios|pueden|poder|para)\s+/i;
+
+/**
+ * Collapses a doubled template prefix that survived into rendered HTML, e.g.
+ * "El Sitio Web ofrece el sitio web ofrece información…" → "El Sitio Web ofrece información…".
+ */
+export function scrubTerminosUsoWebDoubleOfreceHtml(html: string): string {
+    if (!html) return html;
+    let out = html;
+    const doubled =
+        /El Sitio Web ofrece\s+(?:el\s+)?sitio\s+web\s+ofrece\s+/gi;
+    for (let i = 0; i < 3; i++) {
+        const next = out.replace(doubled, 'El Sitio Web ofrece ');
+        if (next === out) break;
+        out = next;
+    }
+    return out;
+}
+
+function stripLeadingPhraseLoop(raw: string, pattern: RegExp): string {
+    let val = raw.trim();
+    for (let i = 0; i < 5; i++) {
+        if (!pattern.test(val)) break;
+        let next = val.replace(pattern, '').trim();
+        if (next) {
+            next = next.charAt(0).toLowerCase() + next.slice(1);
+        }
+        if (next === val) break;
+        val = next;
+    }
+    return val;
+}
+
 /**
  * Normalizes serviceDescription and serviceFunctionalities by stripping redundant leading verbs/phrases
  * (e.g. "El sitio web ofrece...", "pueden...", "poder...") to maintain clean and grammatical integration
  * in the final document:
  * "...ofrece {{serviceDescription}}, permitiendo a los Usuarios {{serviceFunctionalities}}."
+ *
+ * Prefix strip runs in a loop so already-doubled stored values still collapse to a fragment.
  */
 export function enforceTerminosUsoWebServicesCoherence(
     out: Record<string, string | number>,
@@ -112,31 +152,19 @@ export function enforceTerminosUsoWebServicesCoherence(
 
     if (typeof out.serviceDescription === 'string') {
         const val = out.serviceDescription.trim();
-        const pattern = /^(el\s+sitio\s+web\s+ofrece|el\s+sitio\s+ofrece|sitio\s+web\s+ofrece|ofrece)\s+/i;
-        if (pattern.test(val)) {
-            let newVal = val.replace(pattern, '').trim();
-            if (newVal) {
-                newVal = newVal.charAt(0).toLowerCase() + newVal.slice(1);
-            }
-            if (newVal !== val) {
-                out.serviceDescription = newVal;
-                changed = true;
-            }
+        const newVal = stripLeadingPhraseLoop(val, SERVICE_DESCRIPTION_PREFIX);
+        if (newVal !== val) {
+            out.serviceDescription = newVal;
+            changed = true;
         }
     }
 
     if (typeof out.serviceFunctionalities === 'string') {
         const val = out.serviceFunctionalities.trim();
-        const pattern = /^(pueden\s+los\s+usuarios|pueden|poder|para)\s+/i;
-        if (pattern.test(val)) {
-            let newVal = val.replace(pattern, '').trim();
-            if (newVal) {
-                newVal = newVal.charAt(0).toLowerCase() + newVal.slice(1);
-            }
-            if (newVal !== val) {
-                out.serviceFunctionalities = newVal;
-                changed = true;
-            }
+        const newVal = stripLeadingPhraseLoop(val, SERVICE_FUNCTIONALITIES_PREFIX);
+        if (newVal !== val) {
+            out.serviceFunctionalities = newVal;
+            changed = true;
         }
     }
 

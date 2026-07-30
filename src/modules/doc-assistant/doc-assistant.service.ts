@@ -89,6 +89,7 @@ import {
     enforceTerminosUsoWebNotificationCoherence,
     enforceTerminosUsoWebServicesCoherence,
     normalizeTerminosUsoWebSiNoFlags,
+    scrubTerminosUsoWebDoubleOfreceHtml,
 } from './terminos-uso-web-enrichment.js';
 import {
     expandCompraventaVehiculoCanonicalDates,
@@ -2262,9 +2263,12 @@ ${htmlBody}
              * rendered body so the deliverable always reads cleanly.
              */
             const naCleanedBody = stripOrphanEnumerationsFromHtml(grammarFixedBody);
-            const corretajeCleanedBody = isCorretajeInmobiliarioTemplate(templateName)
-                ? sanitizeCorretajeRenderedHtml(naCleanedBody)
+            const terminosCleanedBody = isTerminosUsoPaginaWebTemplate(templateName)
+                ? scrubTerminosUsoWebDoubleOfreceHtml(naCleanedBody)
                 : naCleanedBody;
+            const corretajeCleanedBody = isCorretajeInmobiliarioTemplate(templateName)
+                ? sanitizeCorretajeRenderedHtml(terminosCleanedBody)
+                : terminosCleanedBody;
             let cleanedBody = this.stripMetadataSections(corretajeCleanedBody);
 
             // Post-process HTML to capitalize date string if it starts a paragraph (p), table cell (td), or list item (li)

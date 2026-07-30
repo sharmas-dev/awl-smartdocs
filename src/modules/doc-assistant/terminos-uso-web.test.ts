@@ -6,11 +6,13 @@ import Handlebars from 'handlebars';
 
 import { normalizePhoneNumber, isPhoneNumberVariableKey } from './phone-number-format.js';
 import { stripOrphanEnumerationsFromHtml } from './not-applicable-cleanup.js';
+import { normalizeMidSentencePhrase } from './mid-sentence-phrase-format.js';
 import {
     enforceTerminosUsoWebNotificationCoherence,
     enforceTerminosUsoWebServicesCoherence,
     normalizeTerminosUsoWebSiNo,
     normalizeTerminosUsoWebSiNoFlags,
+    scrubTerminosUsoWebDoubleOfreceHtml,
 } from './terminos-uso-web-enrichment.js';
 
 const SCHEMA_PATH = join(process.cwd(), 'src/templates/schemas/Términos de Uso Página Web.json');
@@ -145,16 +147,14 @@ describe('Términos de Uso Página Web — services rendering (Rule 2)', () => {
             notificationMethod: 'mediante publicación en el Sitio Web',
             updateDate: '31 de marzo de 2026',
         });
-        const servicesBlock = /Los Servicios incluyen[^]*?<ol type="a">([\s\S]*?)<\/ol>/.exec(html)?.[1] ?? '';
-        assert.equal(
-            servicesBlock.replace(/>\s+</g, '><').trim(),
-            '<li>Acceso a catálogo</li><li>Formularios de contacto</li><li>Descarga de recursos</li>',
-        );
+        assert.match(html, /<strong>a\)<\/strong> Acceso a catálogo;/);
+        assert.match(html, /<strong>b\)<\/strong> Formularios de contacto;/);
+        assert.match(html, /<strong>c\)<\/strong> Descarga de recursos\./);
         assert.match(html, /serán enviadas mediante publicación en el Sitio Web\./);
         assert.match(html, /Fecha de última actualización:<\/strong> 31 de marzo de 2026/);
     });
 
-    it('keeps §2.4 letters at a) after post-render cleanup when services list is present', () => {
+    it('keeps §2.2 and §2.4 both starting at a) after post-render cleanup', () => {
         registerHelpers();
         const hbs = readFileSync(HBS_PATH, 'utf8');
         const tpl = Handlebars.compile(hbs);
@@ -167,6 +167,7 @@ describe('Términos de Uso Página Web — services rendering (Rule 2)', () => {
             updateDate: '31 de marzo de 2026',
         });
         const html = stripOrphanEnumerationsFromHtml(raw);
+        assert.match(html, /<strong>a\)<\/strong> Acceso a catálogo/);
         assert.match(html, /<strong>a\)<\/strong> Ser mayor de/);
         assert.equal(html.includes('<strong>c)</strong> Ser mayor de'), false);
     });
@@ -252,6 +253,46 @@ describe('Términos de Uso Página Web — services normalization', () => {
         const html = Handlebars.compile(hbs)(out);
         assert.match(html, /El Sitio Web ofrece alfombras hechas a mano, permitiendo a los Usuarios consultar el catálogo\./);
         assert.equal(/el sitio web ofrece/i.test(html.replace(/El Sitio Web ofrece/, '')), false);
+    });
+
+    it('collapses screenshot-exact TechNova description through mid-sentence + enrichment + HBS', () => {
+        registerHelpers();
+        const raw =
+            'El sitio web ofrece información sobre los productos y servicios tecnológicos de TechNova Solutions, incluyendo desarrollo de software, consultoría tecnológica, soluciones en la nube y soporte técnico.';
+        const out: Record<string, string | number> = {
+            serviceDescription: normalizeMidSentencePhrase(raw),
+            serviceFunctionalities: 'consultar información sobre productos y servicios',
+            hasRegistration: 'No',
+            hasSpecificServices: 'No',
+            notificationMethod: 'mediante publicación en el Sitio Web',
+            updateDate: '31 de marzo de 2026',
+        };
+        enforceTerminosUsoWebServicesCoherence(out);
+        const html = Handlebars.compile(readFileSync(HBS_PATH, 'utf8'))(out);
+        assert.match(
+            html,
+            /El Sitio Web ofrece información sobre los productos y servicios tecnológicos de TechNova Solutions/,
+        );
+        assert.equal(/El Sitio Web ofrece\s+el sitio web ofrece/i.test(html), false);
+    });
+
+    it('collapses already-doubled stored serviceDescription', () => {
+        const out: Record<string, string> = {
+            serviceDescription:
+                'El sitio web ofrece el sitio web ofrece información sobre los productos de TechNova Solutions',
+        };
+        assert.equal(enforceTerminosUsoWebServicesCoherence(out), true);
+        assert.equal(out.serviceDescription, 'información sobre los productos de TechNova Solutions');
+    });
+
+    it('scrubs doubled ofrece from rendered HTML as belt-and-braces', () => {
+        const raw =
+            '<p>El Sitio Web ofrece el sitio web ofrece información sobre los productos, permitiendo a los Usuarios consultar.</p>';
+        const cleaned = scrubTerminosUsoWebDoubleOfreceHtml(raw);
+        assert.equal(
+            cleaned,
+            '<p>El Sitio Web ofrece información sobre los productos, permitiendo a los Usuarios consultar.</p>',
+        );
     });
 });
 
