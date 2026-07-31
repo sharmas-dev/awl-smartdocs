@@ -106,28 +106,63 @@ const SERVICE_DESCRIPTION_PREFIX =
 const SERVICE_FUNCTIONALITIES_PREFIX =
     /^(pueden\s+los\s+usuarios|pueden|poder|para)\s+/i;
 
+/** Match "sitio web ofrece" with flexible whitespace (incl. &nbsp; / Unicode spaces). */
+const SITIO_WEB_OFRECE_TOKEN = '(?:el[\\s\\u00a0\\u202f]+)?sitio[\\s\\u00a0\\u202f]+web[\\s\\u00a0\\u202f]+ofrece';
+
+/**
+ * Normalize HTML / Unicode spaces that break simple `\\s` matching after entity encoding.
+ */
+function normalizeHtmlSpaces(html: string): string {
+    return html
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&#160;/gi, ' ')
+        .replace(/&#x0*a0;/gi, ' ')
+        .replace(/[\u00a0\u202f\u2007\u2060\ufeff]/g, ' ');
+}
+
 /**
  * Collapses a doubled template prefix that survived into rendered HTML, e.g.
  * "El Sitio Web ofrece el sitio web ofrece información…" → "El Sitio Web ofrece información…".
+ * Matching is case-insensitive and tolerant of &nbsp; / Unicode spaces.
  */
 export function scrubTerminosUsoWebDoubleOfreceHtml(html: string): string {
     if (!html) return html;
-    let out = html;
-    const doubled =
-        /El Sitio Web ofrece\s+(?:el\s+)?sitio\s+web\s+ofrece\s+/gi;
-    for (let i = 0; i < 3; i++) {
-        const next = out.replace(doubled, 'El Sitio Web ofrece ');
+    let out = normalizeHtmlSpaces(html);
+    // /i covers all casings; repeat until stable for triple+ prefixes.
+    const doubled = new RegExp(
+        `((?:${SITIO_WEB_OFRECE_TOKEN}))(?:[\\s\\u00a0\\u202f]+(?:${SITIO_WEB_OFRECE_TOKEN}))+([\\s\\u00a0\\u202f]+)`,
+        'gi',
+    );
+    for (let i = 0; i < 5; i++) {
+        const next = out.replace(doubled, 'El Sitio Web ofrece$2');
         if (next === out) break;
         out = next;
     }
+    // Belt-and-braces: collapse any remaining adjacent duplicate token.
+    const adjacent = new RegExp(
+        `(${SITIO_WEB_OFRECE_TOKEN})([\\s\\u00a0\\u202f]+)(?=${SITIO_WEB_OFRECE_TOKEN})`,
+        'gi',
+    );
+    for (let i = 0; i < 5; i++) {
+        const next = out.replace(adjacent, '');
+        if (next === out) break;
+        out = next;
+    }
+    // Canonicalize the surviving template prefix casing.
+    out = out.replace(
+        new RegExp(`(${SITIO_WEB_OFRECE_TOKEN})`, 'i'),
+        'El Sitio Web ofrece',
+    );
     return out;
 }
 
 function stripLeadingPhraseLoop(raw: string, pattern: RegExp): string {
-    let val = raw.trim();
+    let val = normalizeHtmlSpaces(raw).replace(/\s+/g, ' ').trim();
     for (let i = 0; i < 5; i++) {
-        if (!pattern.test(val)) break;
-        let next = val.replace(pattern, '').trim();
+        // Use replace (not test) so shared /i patterns never trip lastIndex.
+        const stripped = val.replace(pattern, '').trim();
+        if (stripped === val) break;
+        let next = stripped;
         if (next) {
             next = next.charAt(0).toLowerCase() + next.slice(1);
         }
@@ -138,12 +173,38 @@ function stripLeadingPhraseLoop(raw: string, pattern: RegExp): string {
 }
 
 /**
+ * "permitiendo a los Usuarios {{serviceFunctionalities}}" expects prose, not a
+ * semicolon-joined checklist. Convert "a; B; C" → "a, b y c".
+ */
+export function normalizeTerminosUsoWebFunctionalitiesProse(raw: string): string {
+    const normalized = normalizeHtmlSpaces(raw).replace(/\s+/g, ' ').trim();
+    if (!normalized || !normalized.includes(';')) return normalized;
+    const parts = normalized
+        .split(';')
+        .map((p) => p.trim())
+        .filter(Boolean)
+        .map((p) => p.replace(/[.,;:]+$/g, '').trim())
+        .filter(Boolean)
+        .map((p, i) => {
+            if (!p) return p;
+            // Keep first fragment as-is (already mid-sentence); lowercase later items.
+            if (i === 0) return p.charAt(0).toLowerCase() + p.slice(1);
+            return p.charAt(0).toLowerCase() + p.slice(1);
+        });
+    if (parts.length === 0) return normalized;
+    if (parts.length === 1) return parts[0]!;
+    if (parts.length === 2) return `${parts[0]} y ${parts[1]}`;
+    return `${parts.slice(0, -1).join(', ')} y ${parts[parts.length - 1]}`;
+}
+
+/**
  * Normalizes serviceDescription and serviceFunctionalities by stripping redundant leading verbs/phrases
  * (e.g. "El sitio web ofrece...", "pueden...", "poder...") to maintain clean and grammatical integration
  * in the final document:
  * "...ofrece {{serviceDescription}}, permitiendo a los Usuarios {{serviceFunctionalities}}."
  *
  * Prefix strip runs in a loop so already-doubled stored values still collapse to a fragment.
+ * Semicolon lists in serviceFunctionalities are rewritten as Spanish prose.
  */
 export function enforceTerminosUsoWebServicesCoherence(
     out: Record<string, string | number>,
@@ -161,7 +222,8 @@ export function enforceTerminosUsoWebServicesCoherence(
 
     if (typeof out.serviceFunctionalities === 'string') {
         const val = out.serviceFunctionalities.trim();
-        const newVal = stripLeadingPhraseLoop(val, SERVICE_FUNCTIONALITIES_PREFIX);
+        let newVal = stripLeadingPhraseLoop(val, SERVICE_FUNCTIONALITIES_PREFIX);
+        newVal = normalizeTerminosUsoWebFunctionalitiesProse(newVal);
         if (newVal !== val) {
             out.serviceFunctionalities = newVal;
             changed = true;

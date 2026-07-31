@@ -2220,6 +2220,15 @@ ${htmlBody}
             const normalizedVars = this.normalizeFieldValuesForStorage(templateName, variables);
             let varsForPdf = (normalizedVars ?? variables) as Record<string, string | number>;
 
+            /**
+             * Términos de Uso: re-apply services coherence immediately before
+             * compile so a stale session value (or missed storage-time strip)
+             * cannot produce "El Sitio Web ofrece el sitio web ofrece…".
+             */
+            if (isTerminosUsoPaginaWebTemplate(templateName)) {
+                enforceTerminosUsoWebServicesCoherence(varsForPdf);
+            }
+
             if (isReciboDescargoTrabajadoraDomesticaTemplate(templateName)) {
                 const pdfReady = verifyReciboDomesticaPdfReady(varsForPdf);
                 if (!pdfReady.ok) {

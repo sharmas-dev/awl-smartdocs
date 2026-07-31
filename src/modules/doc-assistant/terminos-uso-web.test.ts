@@ -10,6 +10,7 @@ import { normalizeMidSentencePhrase } from './mid-sentence-phrase-format.js';
 import {
     enforceTerminosUsoWebNotificationCoherence,
     enforceTerminosUsoWebServicesCoherence,
+    normalizeTerminosUsoWebFunctionalitiesProse,
     normalizeTerminosUsoWebSiNo,
     normalizeTerminosUsoWebSiNoFlags,
     scrubTerminosUsoWebDoubleOfreceHtml,
@@ -293,6 +294,51 @@ describe('Términos de Uso Página Web — services normalization', () => {
             cleaned,
             '<p>El Sitio Web ofrece información sobre los productos, permitiendo a los Usuarios consultar.</p>',
         );
+    });
+
+    it('scrubs doubled ofrece case-insensitively', () => {
+        const raw =
+            '<p>EL SITIO WEB OFRECE El Sitio Web Ofrece información sobre los productos.</p>';
+        const cleaned = scrubTerminosUsoWebDoubleOfreceHtml(raw);
+        assert.equal(cleaned, '<p>El Sitio Web ofrece información sobre los productos.</p>');
+    });
+
+    it('scrubs doubled ofrece when separated by &nbsp;', () => {
+        const raw =
+            '<p>El Sitio Web ofrece&nbsp;el sitio web ofrece información sobre los productos.</p>';
+        const cleaned = scrubTerminosUsoWebDoubleOfreceHtml(raw);
+        assert.equal(cleaned, '<p>El Sitio Web ofrece información sobre los productos.</p>');
+    });
+
+    it('rewrites semicolon functionalities into Spanish prose', () => {
+        const prose = normalizeTerminosUsoWebFunctionalitiesProse(
+            'consultar información sobre productos y servicios; Crear y administrar una cuenta de usuario; Solicitar cotizaciones y contactar al equipo comercial; Suscribirse a boletines informativos',
+        );
+        assert.equal(
+            prose,
+            'consultar información sobre productos y servicios, crear y administrar una cuenta de usuario, solicitar cotizaciones y contactar al equipo comercial y suscribirse a boletines informativos',
+        );
+    });
+
+    it('renders TechNova screenshot paragraph without doubled ofrece or semicolon checklist', () => {
+        registerHelpers();
+        const out: Record<string, string | number> = {
+            serviceDescription:
+                'El sitio web ofrece información sobre los productos y servicios tecnológicos de TechNova Solutions, incluyendo desarrollo de software, consultoría tecnológica, soluciones en la nube y soporte técnico.',
+            serviceFunctionalities:
+                'consultar información sobre productos y servicios; Crear y administrar una cuenta de usuario; Solicitar cotizaciones y contactar al equipo comercial; Descargar recursos y documentación; Enviar formularios de contacto y soporte; Suscribirse a boletines informativos.',
+            hasRegistration: 'No',
+            hasSpecificServices: 'No',
+            notificationMethod: 'mediante publicación en el Sitio Web',
+            updateDate: '31 de marzo de 2026',
+        };
+        enforceTerminosUsoWebServicesCoherence(out);
+        let html = Handlebars.compile(readFileSync(HBS_PATH, 'utf8'))(out);
+        html = scrubTerminosUsoWebDoubleOfreceHtml(html);
+        assert.match(html, /El Sitio Web ofrece información sobre los productos y servicios tecnológicos de TechNova Solutions/);
+        assert.equal(/El Sitio Web ofrece\s+el sitio web ofrece/i.test(html), false);
+        assert.match(html, /permitiendo a los Usuarios consultar información sobre productos y servicios,/);
+        assert.equal(html.includes('permitiendo a los Usuarios consultar información sobre productos y servicios;'), false);
     });
 });
 
