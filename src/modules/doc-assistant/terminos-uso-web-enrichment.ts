@@ -99,15 +99,33 @@ export function enforceTerminosUsoWebNotificationCoherence(
     return false;
 }
 
-/** Leading phrases that duplicate the HBS prefix "El Sitio Web ofrece …". */
-const SERVICE_DESCRIPTION_PREFIX =
-    /^(el\s+sitio\s+web\s+ofrece|el\s+sitio\s+ofrece|sitio\s+web\s+ofrece|ofrece)\s+/i;
+/**
+ * Leading phrases that duplicate the HBS prefix "El Sitio Web ofrece …".
+ * Also covers synonym verbs (proporciona, brinda, …) and a bare "el sitio web "
+ * left when the model swapped the verb.
+ */
+const SERVICE_DESCRIPTION_VERBS =
+    'ofrece|proporciona|brinda|presenta|facilita|permite|suministra|provee';
+
+const SERVICE_DESCRIPTION_PREFIX = new RegExp(
+    `^(?:` +
+        `el\\s+sitio\\s+web\\s+(?:${SERVICE_DESCRIPTION_VERBS})|` +
+        `el\\s+sitio\\s+(?:${SERVICE_DESCRIPTION_VERBS})|` +
+        `sitio\\s+web\\s+(?:${SERVICE_DESCRIPTION_VERBS})|` +
+        `el\\s+sitio\\s+web|` +
+        `sitio\\s+web|` +
+        `(?:${SERVICE_DESCRIPTION_VERBS})` +
+        `)\\s+`,
+    'i',
+);
 
 const SERVICE_FUNCTIONALITIES_PREFIX =
     /^(pueden\s+los\s+usuarios|pueden|poder|para)\s+/i;
 
-/** Match "sitio web ofrece" with flexible whitespace (incl. &nbsp; / Unicode spaces). */
-const SITIO_WEB_OFRECE_TOKEN = '(?:el[\\s\\u00a0\\u202f]+)?sitio[\\s\\u00a0\\u202f]+web[\\s\\u00a0\\u202f]+ofrece';
+/** "el? sitio web" + optional synonym verb, flexible whitespace. */
+const SITIO_WEB_LEAD_TOKEN =
+    `(?:el[\\s\\u00a0\\u202f]+)?sitio[\\s\\u00a0\\u202f]+web` +
+    `(?:[\\s\\u00a0\\u202f]+(?:${SERVICE_DESCRIPTION_VERBS}))?`;
 
 /**
  * Normalize HTML / Unicode spaces that break simple `\\s` matching after entity encoding.
@@ -121,26 +139,26 @@ function normalizeHtmlSpaces(html: string): string {
 }
 
 /**
- * Collapses a doubled template prefix that survived into rendered HTML, e.g.
- * "El Sitio Web ofrece el sitio web ofrece información…" → "El Sitio Web ofrece información…".
- * Matching is case-insensitive and tolerant of &nbsp; / Unicode spaces.
+ * Collapses a doubled template subject/verb that survived into rendered HTML, e.g.
+ * "El Sitio Web ofrece el sitio web ofrece…" / "…ofrece el sitio web proporciona…"
+ * → "El Sitio Web ofrece …".
  */
 export function scrubTerminosUsoWebDoubleOfreceHtml(html: string): string {
     if (!html) return html;
     let out = normalizeHtmlSpaces(html);
-    // /i covers all casings; repeat until stable for triple+ prefixes.
-    const doubled = new RegExp(
-        `((?:${SITIO_WEB_OFRECE_TOKEN}))(?:[\\s\\u00a0\\u202f]+(?:${SITIO_WEB_OFRECE_TOKEN}))+([\\s\\u00a0\\u202f]+)`,
+    // Template prefix + redundant "el sitio web [verb]".
+    const afterTemplate = new RegExp(
+        `El[\\s\\u00a0\\u202f]+Sitio[\\s\\u00a0\\u202f]+Web[\\s\\u00a0\\u202f]+ofrece[\\s\\u00a0\\u202f]+(?:${SITIO_WEB_LEAD_TOKEN})[\\s\\u00a0\\u202f]+`,
         'gi',
     );
     for (let i = 0; i < 5; i++) {
-        const next = out.replace(doubled, 'El Sitio Web ofrece$2');
+        const next = out.replace(afterTemplate, 'El Sitio Web ofrece ');
         if (next === out) break;
         out = next;
     }
-    // Belt-and-braces: collapse any remaining adjacent duplicate token.
+    // Adjacent duplicate "sitio web [verb]" tokens.
     const adjacent = new RegExp(
-        `(${SITIO_WEB_OFRECE_TOKEN})([\\s\\u00a0\\u202f]+)(?=${SITIO_WEB_OFRECE_TOKEN})`,
+        `(${SITIO_WEB_LEAD_TOKEN})([\\s\\u00a0\\u202f]+)(?=${SITIO_WEB_LEAD_TOKEN})`,
         'gi',
     );
     for (let i = 0; i < 5; i++) {
@@ -148,11 +166,6 @@ export function scrubTerminosUsoWebDoubleOfreceHtml(html: string): string {
         if (next === out) break;
         out = next;
     }
-    // Canonicalize the surviving template prefix casing.
-    out = out.replace(
-        new RegExp(`(${SITIO_WEB_OFRECE_TOKEN})`, 'i'),
-        'El Sitio Web ofrece',
-    );
     return out;
 }
 
@@ -199,8 +212,8 @@ export function normalizeTerminosUsoWebFunctionalitiesProse(raw: string): string
 
 /**
  * Render-time fragment for `El Sitio Web ofrece {{…}}` — always strip a leading
- * "el sitio web ofrece" so Handlebars cannot emit a doubled prefix even when
- * storage-time enrichment was skipped.
+ * "el sitio web [ofrece|proporciona|…]" so Handlebars cannot emit a doubled
+ * subject/verb even when storage-time enrichment was skipped.
  */
 export function formatTerminosUsoWebServiceDescriptionFragment(raw: unknown): string {
     const val = raw === null || raw === undefined ? '' : String(raw);

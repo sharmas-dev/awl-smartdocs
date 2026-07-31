@@ -318,6 +318,41 @@ describe('Términos de Uso Página Web — services normalization', () => {
         assert.equal(cleaned, '<p>El Sitio Web ofrece información sobre los productos.</p>');
     });
 
+    it('strips "el sitio web proporciona" so template does not double the subject', () => {
+        assert.equal(
+            formatTerminosUsoWebServiceDescriptionFragment(
+                'el sitio web proporciona información sobre productos y servicios de tecnología de TechNova Solutions',
+            ),
+            'información sobre productos y servicios de tecnología de TechNova Solutions',
+        );
+    });
+
+    it('renders "El Sitio Web ofrece información…" when stored value uses proporciona', () => {
+        registerHelpers();
+        const html = Handlebars.compile(readFileSync(HBS_PATH, 'utf8'))({
+            serviceDescription:
+                'el sitio web proporciona información sobre productos y servicios de tecnología de TechNova Solutions, incluyendo desarrollo de software',
+            serviceFunctionalities: 'ver información de productos y servicios',
+            hasRegistration: 'No',
+            hasSpecificServices: 'No',
+            notificationMethod: 'mediante publicación en el Sitio Web',
+            updateDate: '31 de marzo de 2026',
+        });
+        assert.match(
+            html,
+            /El Sitio Web ofrece información sobre productos y servicios de tecnología de TechNova Solutions/,
+        );
+        assert.equal(/El Sitio Web ofrece\s+el sitio web/i.test(html), false);
+        assert.equal(/ofrece\s+proporciona/i.test(html), false);
+    });
+
+    it('scrubs HTML "ofrece el sitio web proporciona"', () => {
+        const raw =
+            '<p>El Sitio Web ofrece el sitio web proporciona información sobre los productos.</p>';
+        const cleaned = scrubTerminosUsoWebDoubleOfreceHtml(raw);
+        assert.equal(cleaned, '<p>El Sitio Web ofrece información sobre los productos.</p>');
+    });
+
     it('rewrites semicolon functionalities into Spanish prose', () => {
         const prose = normalizeTerminosUsoWebFunctionalitiesProse(
             'consultar información sobre productos y servicios; Crear y administrar una cuenta de usuario; Solicitar cotizaciones y contactar al equipo comercial; Suscribirse a boletines informativos',
