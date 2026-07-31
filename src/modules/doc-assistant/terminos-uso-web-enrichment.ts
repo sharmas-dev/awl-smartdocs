@@ -198,6 +198,26 @@ export function normalizeTerminosUsoWebFunctionalitiesProse(raw: string): string
 }
 
 /**
+ * Render-time fragment for `El Sitio Web ofrece {{…}}` — always strip a leading
+ * "el sitio web ofrece" so Handlebars cannot emit a doubled prefix even when
+ * storage-time enrichment was skipped.
+ */
+export function formatTerminosUsoWebServiceDescriptionFragment(raw: unknown): string {
+    const val = raw === null || raw === undefined ? '' : String(raw);
+    return stripLeadingPhraseLoop(val, SERVICE_DESCRIPTION_PREFIX);
+}
+
+/**
+ * Render-time fragment for `permitiendo a los Usuarios {{…}}` — strip leading
+ * verbs and rewrite semicolon checklists into Spanish prose.
+ */
+export function formatTerminosUsoWebServiceFunctionalitiesFragment(raw: unknown): string {
+    const val = raw === null || raw === undefined ? '' : String(raw);
+    const stripped = stripLeadingPhraseLoop(val, SERVICE_FUNCTIONALITIES_PREFIX);
+    return normalizeTerminosUsoWebFunctionalitiesProse(stripped);
+}
+
+/**
  * Normalizes serviceDescription and serviceFunctionalities by stripping redundant leading verbs/phrases
  * (e.g. "El sitio web ofrece...", "pueden...", "poder...") to maintain clean and grammatical integration
  * in the final document:
@@ -213,7 +233,7 @@ export function enforceTerminosUsoWebServicesCoherence(
 
     if (typeof out.serviceDescription === 'string') {
         const val = out.serviceDescription.trim();
-        const newVal = stripLeadingPhraseLoop(val, SERVICE_DESCRIPTION_PREFIX);
+        const newVal = formatTerminosUsoWebServiceDescriptionFragment(val);
         if (newVal !== val) {
             out.serviceDescription = newVal;
             changed = true;
@@ -222,8 +242,7 @@ export function enforceTerminosUsoWebServicesCoherence(
 
     if (typeof out.serviceFunctionalities === 'string') {
         const val = out.serviceFunctionalities.trim();
-        let newVal = stripLeadingPhraseLoop(val, SERVICE_FUNCTIONALITIES_PREFIX);
-        newVal = normalizeTerminosUsoWebFunctionalitiesProse(newVal);
+        const newVal = formatTerminosUsoWebServiceFunctionalitiesFragment(val);
         if (newVal !== val) {
             out.serviceFunctionalities = newVal;
             changed = true;

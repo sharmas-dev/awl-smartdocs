@@ -92,6 +92,42 @@ export function propuestaAdditionalBenefitsUpdatePatch(
     return null;
 }
 
+/** Capitalize the first alphabetic character; leave the rest unchanged. */
+export function capitalizeFirstAlpha(raw: string): string {
+    const m = raw.match(/^([^\p{L}]*)(\p{L})(.*)$/su);
+    if (!m) return raw;
+    const [, lead, first, rest] = m;
+    return `${lead}${first!.toLocaleUpperCase('es')}${rest}`;
+}
+
+/**
+ * Standalone heading: first letter capital (e.g. «encargada de Compras» → «Encargada de Compras»).
+ * Returns null when unchanged or empty.
+ */
+export function normalizePropuestaPositionTitle(raw: unknown): string | null {
+    const s = String(raw ?? '').trim().replace(/\s+/g, ' ');
+    if (!s) return null;
+    const next = capitalizeFirstAlpha(s);
+    return next === s ? null : next;
+}
+
+/**
+ * Each «;»-separated function starts with a capital letter (schema / <li> style).
+ * Returns null when unchanged or empty.
+ */
+export function normalizePropuestaFunctionsList(raw: unknown): string | null {
+    const s = String(raw ?? '').trim();
+    if (!s) return null;
+    const parts = s
+        .split(';')
+        .map((p) => p.trim())
+        .filter(Boolean)
+        .map((p) => capitalizeFirstAlpha(p));
+    if (parts.length === 0) return null;
+    const next = parts.join('; ');
+    return next === s ? null : next;
+}
+
 export function applyPropuestaDeTrabajoNormalizations(
     out: Record<string, string | number>,
 ): boolean {
@@ -100,6 +136,18 @@ export function applyPropuestaDeTrabajoNormalizations(
     const payroll = normalizePropuestaPayrollDays(out.payrollDays);
     if (payroll != null && String(out.payrollDays ?? '') !== payroll) {
         out.payrollDays = payroll;
+        changed = true;
+    }
+
+    const position = normalizePropuestaPositionTitle(out.positionTitle);
+    if (position != null) {
+        out.positionTitle = position;
+        changed = true;
+    }
+
+    const functions = normalizePropuestaFunctionsList(out.functionsList);
+    if (functions != null) {
+        out.functionsList = functions;
         changed = true;
     }
 

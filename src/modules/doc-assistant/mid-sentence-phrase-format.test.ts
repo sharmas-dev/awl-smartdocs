@@ -8,6 +8,14 @@ describe('isMidSentencePhraseKey', () => {
         assert.equal(isMidSentencePhraseKey('commercialLicenseScope'), true);
         assert.equal(isMidSentencePhraseKey('userContentLicenseScope'), true);
     });
+
+    it('excludes job titles and semicolon-list keys from mid-sentence lowercasing', () => {
+        assert.equal(isMidSentencePhraseKey('positionTitle'), false);
+        assert.equal(isMidSentencePhraseKey('supervisorPositionTitle'), false);
+        assert.equal(isMidSentencePhraseKey('functionsList'), false);
+        assert.equal(isMidSentencePhraseKey('servicesList'), false);
+        assert.equal(isMidSentencePhraseKey('additionalBenefitsList'), false);
+    });
 });
 
 describe('normalizeMidSentencePhrase', () => {

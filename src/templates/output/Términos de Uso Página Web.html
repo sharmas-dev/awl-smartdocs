@@ -1,10 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: letter; margin: 1in 1.18in; }
+    body { font-family: 'Poppins', sans-serif; font-size: 10pt; font-weight: 400; line-height: 1.25; color: #222; max-width: 680px; margin: 0 auto; padding: 24px; text-align: justify; }
+    p { margin: 0 0 6pt 0; text-align: justify; }
+    strong { font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; text-align: left; font-size: 10pt; }
+    th { background: #f5f5f5; font-weight: 600; }
+    ul, ol { margin: 0.4em 0; padding-left: 1.5em; }
+    ol[type="a"] { list-style-type: none; counter-reset: alpha-counter; }
+    ol[type="a"] li::before { counter-increment: alpha-counter; content: counter(alpha-counter, lower-alpha) ") "; }
+    li { margin-bottom: 2px; }
+    ol[type="a"] li { margin-bottom: 0; padding-bottom: 0; }
+    .text-center { text-align: center !important; }
+    .signature-block { text-align: center; margin-top: 2em; }
+    .signature-block p { text-align: center; }
+  </style>
+</head>
+<body>
 <p style="text-align:center"><strong>TÉRMINOS Y CONDICIONES DE USO DEL SITIO WEB</strong></p>
 
-<p style="text-align:justify"><strong>Fecha de última actualización:</strong> {{updateDate}}</p>
+<p style="text-align:justify"><strong>Fecha de última actualización:</strong> 31 de marzo de 2026</p>
 
 <p style="text-align:center"><strong>INTRODUCCIÓN Y ACEPTACIÓN DE LOS TÉRMINOS</strong></p>
 
-<p style="text-align:justify">Bienvenido al sitio web <strong>{{websiteName}}</strong> (en adelante, el "<strong>Sitio Web</strong>"), operado por <strong>{{companyLegalName}}</strong>, sociedad comercial constituida de conformidad con las leyes de la República Dominicana, con Registro Nacional de Contribuyentes (RNC) No. <strong>{{companyRnc}}</strong>, domiciliada en <strong>{{companyAddress}}</strong>, República Dominicana (en adelante, "<strong>la Empresa</strong>", "<strong>Nosotros</strong>" o "<strong>Nuestro</strong>").</p>
+<p style="text-align:justify">Bienvenido al sitio web <strong>TechNova Solutions</strong> (en adelante, el "<strong>Sitio Web</strong>"), operado por <strong>TechNova Solutions, S.R.L.</strong>, sociedad comercial constituida de conformidad con las leyes de la República Dominicana, con Registro Nacional de Contribuyentes (RNC) No. <strong>131-12345-6</strong>, domiciliada en <strong>Av. Winston Churchill No. 123, Santo Domingo, Distrito Nacional</strong>, República Dominicana (en adelante, "<strong>la Empresa</strong>", "<strong>Nosotros</strong>" o "<strong>Nuestro</strong>").</p>
 
 <p style="text-align:justify">Los presentes Términos y Condiciones de Uso (en adelante, los "<strong>Términos</strong>") constituyen un acuerdo legal vinculante entre usted (en adelante, "<strong>Usuario</strong>", "<strong>Usted</strong>" o "<strong>Su</strong>") y la Empresa, y regulan su acceso y uso del Sitio Web, así como de todos los servicios, funcionalidades, contenidos, productos e información disponibles a través del mismo (en adelante, colectivamente los "<strong>Servicios</strong>").</p>
 
@@ -16,7 +43,7 @@
 
 <p style="text-align:justify">Para efectos de los presentes Términos, las siguientes expresiones tendrán el significado que se indica a continuación:</p>
 
-<p style="text-align:justify"><strong>1.1. "Sitio Web"</strong> se refiere al sitio web operado por la Empresa, accesible a través de la URL <strong>{{websiteUrl}}</strong> y cualquier subdominio asociado, así como sus versiones para dispositivos móviles.</p>
+<p style="text-align:justify"><strong>1.1. "Sitio Web"</strong> se refiere al sitio web operado por la Empresa, accesible a través de la URL <strong>https://www.technovasolutions.com</strong> y cualquier subdominio asociado, así como sus versiones para dispositivos móviles.</p>
 
 <p style="text-align:justify"><strong>1.2. "Servicios"</strong> se refiere a todas las funcionalidades, herramientas, contenidos, información, productos o servicios ofrecidos a través del Sitio Web.</p>
 
@@ -30,9 +57,6 @@
 
 <p style="text-align:justify"><strong>1.7. "Terceros"</strong> se refiere a cualquier persona natural o jurídica distinta del Usuario y la Empresa, incluyendo proveedores de servicios, socios comerciales y otros sitios web vinculados.</p>
 
-{{#neq hasRegistration "No"}}
-<p style="text-align:justify"><strong>1.8. "Cuenta de Usuario"</strong> se refiere al perfil personal creado por el Usuario mediante registro en el Sitio Web, que permite acceder a funcionalidades adicionales.</p>
-{{/neq}}
 
 <p style="text-align:center"><strong>ARTÍCULO 2: OBJETO Y ALCANCE</strong></p>
 
@@ -42,17 +66,13 @@
 
 <p style="text-align:justify"><strong>2.2. Descripción de los Servicios</strong></p>
 
-<p style="text-align:justify">El Sitio Web ofrece {{terminosServiceDescription serviceDescription}}, permitiendo a los Usuarios {{terminosServiceFunctionalities serviceFunctionalities}}.</p>
+<p style="text-align:justify">El Sitio Web ofrece información sobre los productos y servicios tecnológicos de TechNova Solutions, incluyendo desarrollo de software, consultoría tecnológica, soluciones en la nube y soporte técnico, permitiendo a los Usuarios consultar información sobre productos y servicios, crear y administrar una cuenta de usuario y solicitar cotizaciones.</p>
 
-{{#eq hasSpecificServices "Sí"}}
 <p style="text-align:justify">Los Servicios incluyen, de manera enunciativa y no limitativa:</p>
 
-{{#eachSplit ";" servicesList}}
-<p style="text-align:justify"><strong>{{@letter}})</strong> {{this}}{{#unless @last}};{{else}}.{{/unless}}</p>
-{{else}}
-<p style="text-align:justify">{{servicesList}}</p>
-{{/eachSplit}}
-{{/eq}}
+<p style="text-align:justify"><strong>a)</strong> Desarrollo de software a medida;</p>
+<p style="text-align:justify"><strong>b)</strong> Consultoría tecnológica;</p>
+<p style="text-align:justify"><strong>c)</strong> Soluciones en la nube.</p>
 
 <p style="text-align:justify"><strong>2.3. Modificación de los Servicios</strong></p>
 
@@ -62,73 +82,20 @@
 
 <p style="text-align:justify">Para acceder y utilizar el Sitio Web, el Usuario debe:</p>
 
-<p style="text-align:justify"><strong>a)</strong> Ser mayor de <strong>{{minimumAge}}</strong> años de edad o contar con la autorización de sus padres o tutores legales;</p>
+<p style="text-align:justify"><strong>a)</strong> Ser mayor de <strong>dieciocho (18)</strong> años de edad o contar con la autorización de sus padres o tutores legales;</p>
 <p style="text-align:justify"><strong>b)</strong> Contar con acceso a internet y un dispositivo compatible (computadora, tablet, teléfono inteligente);</p>
 <p style="text-align:justify"><strong>c)</strong> Utilizar un navegador web actualizado y compatible;</p>
-<p style="text-align:justify"><strong>d)</strong> {{#neq hasRegistration "No"}}Completar el proceso de registro proporcionando información veraz y actualizada{{else}}No se requiere registro para acceder a las funcionalidades básicas del Sitio Web{{/neq}};</p>
+<p style="text-align:justify"><strong>d)</strong> No se requiere registro para acceder a las funcionalidades básicas del Sitio Web;</p>
 <p style="text-align:justify"><strong>e)</strong> Aceptar los presentes Términos y la Política de Privacidad.</p>
 
 <p style="text-align:center"><strong>ARTÍCULO 3: REGISTRO Y CUENTA DE USUARIO</strong></p>
 
-{{#neq hasRegistration "No"}}
-<p style="text-align:justify"><strong>3.1. Creación de Cuenta</strong></p>
-
-<p style="text-align:justify">Para acceder a ciertas funcionalidades del Sitio Web, el Usuario deberá crear una Cuenta de Usuario proporcionando la información requerida en el formulario de registro, que puede incluir:</p>
-
-<ul>
-<li>Nombre completo</li>
-<li>Dirección de correo electrónico</li>
-<li>Contraseña segura</li>
-{{#if additionalRegistrationFields}}
-<li>{{additionalRegistrationFields}}</li>
-{{/if}}
-</ul>
-
-<p style="text-align:justify"><strong>3.2. Veracidad de la Información</strong></p>
-
-<p style="text-align:justify">El Usuario declara y garantiza que toda la información proporcionada durante el proceso de registro es veraz, completa, precisa y actualizada. El Usuario se compromete a mantener actualizada su información de registro y a notificar inmediatamente a la Empresa cualquier cambio.</p>
-
-<p style="text-align:justify">La Empresa se reserva el derecho de verificar la veracidad de la información proporcionada y de suspender o cancelar cualquier Cuenta que contenga información falsa, inexacta o desactualizada.</p>
-
-<p style="text-align:justify"><strong>3.3. Responsabilidad sobre Credenciales de Acceso</strong></p>
-
-<p style="text-align:justify">El Usuario es el único responsable de mantener la confidencialidad de su nombre de usuario y contraseña, y de todas las actividades realizadas bajo su Cuenta.</p>
-
-<p style="text-align:justify">El Usuario se compromete a:</p>
-
-<ul>
-<li>No compartir sus credenciales de acceso con terceros</li>
-<li>Notificar inmediatamente a la Empresa sobre cualquier uso no autorizado de su Cuenta</li>
-<li>Cerrar sesión al finalizar cada sesión de uso del Sitio Web</li>
-<li>Utilizar contraseñas seguras y cambiarlas periódicamente</li>
-</ul>
-
-<p style="text-align:justify"><strong>3.4. Uso Personal e Intransferible</strong></p>
-
-<p style="text-align:justify">La Cuenta de Usuario es personal e intransferible. El Usuario no podrá ceder, transferir, vender o compartir su Cuenta con terceros.</p>
-
-<p style="text-align:justify"><strong>3.5. Suspensión y Cancelación de Cuenta</strong></p>
-
-<p style="text-align:justify">La Empresa se reserva el derecho de suspender o cancelar, temporal o permanentemente, cualquier Cuenta de Usuario que:</p>
-
-<ul>
-<li>Viole los presentes Términos</li>
-<li>Realice actividades fraudulentas o ilícitas</li>
-<li>Incurra en conductas abusivas o inapropiadas</li>
-<li>Permanezca inactiva por un período prolongado</li>
-</ul>
-
-<p style="text-align:justify">El Usuario podrá solicitar la cancelación de su Cuenta en cualquier momento contactando a la Empresa a través de {{contactMethod}}.</p>
-{{else}}
 
 <p style="text-align:justify"><strong>3.1. No Requerimiento de Registro</strong></p>
 
 <p style="text-align:justify">El Sitio Web no requiere creación de cuenta o registro para acceder a sus funcionalidades básicas. Los Usuarios pueden navegar y utilizar los Servicios de manera anónima.</p>
 
-{{#eq hasOptionalContactForms "Sí"}}
 <p style="text-align:justify">No obstante, ciertas funcionalidades opcionales pueden requerir que el Usuario proporcione información de contacto (nombre, correo electrónico) a través de formularios específicos.</p>
-{{/eq}}
-{{/neq}}
 
 <p style="text-align:center"><strong>ARTÍCULO 4: OBLIGACIONES Y CONDUCTA DEL USUARIO</strong></p>
 
@@ -157,19 +124,8 @@
 <li>Crear obras derivadas basadas en el Contenido del Sitio Web</li>
 </ul>
 
-{{#neq hasUserContent "No"}}
-<p style="text-align:justify"><strong>c) En relación con la interacción en el Sitio Web:</strong></p>
 
-<ul>
-<li>Publicar, transmitir o compartir Contenido del Usuario que sea ilegal, ofensivo, difamatorio, obsceno, amenazante, abusivo, acosador, discriminatorio o que viole derechos de terceros</li>
-<li>Hacerse pasar por otra persona o entidad o falsear su identidad o afiliación</li>
-<li>Transmitir virus, malware, código malicioso o cualquier otro elemento dañino</li>
-<li>Recopilar información personal de otros Usuarios sin su consentimiento</li>
-<li>Realizar spam, publicidad no solicitada o cualquier forma de comunicación comercial no autorizada</li>
-</ul>
-{{/neq}}
-
-<p style="text-align:justify"><strong>{{#neq hasUserContent "No"}}d{{else}}c{{/neq}}) En relación con actividades ilegales:</strong></p>
+<p style="text-align:justify"><strong>c) En relación con actividades ilegales:</strong></p>
 
 <ul>
 <li>Utilizar el Sitio Web para fines ilegales, fraudulentos o que violen derechos de terceros</li>
@@ -200,7 +156,7 @@
 
 <p style="text-align:justify"><strong>5.2. Licencia de Uso Limitada</strong></p>
 
-<p style="text-align:justify">La Empresa otorga al Usuario una licencia limitada, no exclusiva, intransferible, revocable y no sublicenciable para acceder y utilizar el Sitio Web y su Contenido únicamente para fines personales{{#eq hasCommercialLicense "Sí"}} y/o comerciales legítimos relacionados con {{commercialLicenseScope}}{{/eq}}, conforme a estos Términos.</p>
+<p style="text-align:justify">La Empresa otorga al Usuario una licencia limitada, no exclusiva, intransferible, revocable y no sublicenciable para acceder y utilizar el Sitio Web y su Contenido únicamente para fines personales, conforme a estos Términos.</p>
 
 <p style="text-align:justify">Esta licencia no incluye el derecho de:</p>
 
@@ -217,27 +173,10 @@
 
 <p style="text-align:justify">El uso no autorizado de estas marcas está estrictamente prohibido y puede constituir una violación de las leyes de marcas comerciales aplicables.</p>
 
-{{#neq hasUserContent "No"}}
-<p style="text-align:justify"><strong>5.4. Contenido del Usuario</strong></p>
-
-<p style="text-align:justify"><strong>5.4.1. Titularidad:</strong> El Usuario conserva todos los derechos de propiedad sobre el Contenido del Usuario que publique o comparta a través del Sitio Web.</p>
-
-<p style="text-align:justify"><strong>5.4.2. Licencia Otorgada a la Empresa:</strong> Al publicar Contenido del Usuario en el Sitio Web, el Usuario otorga a la Empresa una licencia {{userContentLicenseScope}} para usar, reproducir, distribuir, modificar, adaptar, publicar, traducir, crear obras derivadas y mostrar dicho Contenido en conexión con la operación y promoción del Sitio Web y los Servicios.</p>
-
-<p style="text-align:justify"><strong>5.4.3. Declaraciones del Usuario:</strong> Al publicar Contenido del Usuario, el Usuario declara y garantiza que:</p>
-
-<ul>
-<li>Es el titular de todos los derechos sobre dicho Contenido o cuenta con las autorizaciones necesarias</li>
-<li>El Contenido no infringe derechos de propiedad intelectual, privacidad u otros derechos de terceros</li>
-<li>El Contenido no es ilegal, ofensivo ni viola estos Términos</li>
-</ul>
-
-<p style="text-align:justify"><strong>5.4.4. Responsabilidad:</strong> El Usuario es el único responsable del Contenido del Usuario que publique y de las consecuencias de su publicación. La Empresa no se hace responsable por el Contenido del Usuario ni está obligada a monitorear o revisar dicho Contenido.</p>
-{{/neq}}
 
 <p style="text-align:justify"><strong>5.5. Reporte de Infracciones</strong></p>
 
-<p style="text-align:justify">Si usted considera que algún Contenido del Sitio Web infringe sus derechos de propiedad intelectual, puede notificarlo a la Empresa a través de <strong>{{contactEmail}}</strong>, proporcionando:</p>
+<p style="text-align:justify">Si usted considera que algún Contenido del Sitio Web infringe sus derechos de propiedad intelectual, puede notificarlo a la Empresa a través de <strong>soporte@technovasolutions.com</strong>, proporcionando:</p>
 
 <ul>
 <li>Identificación del material infractor</li>
@@ -250,7 +189,7 @@
 
 <p style="text-align:justify"><strong>6.1. Política de Privacidad</strong></p>
 
-<p style="text-align:justify">El tratamiento de datos personales recopilados a través del Sitio Web se rige por nuestra Política de Privacidad, disponible en <strong>{{privacyPolicyUrl}}</strong>, la cual forma parte integral de estos Términos.</p>
+<p style="text-align:justify">El tratamiento de datos personales recopilados a través del Sitio Web se rige por nuestra Política de Privacidad, disponible en <strong>https://www.technovasolutions.com/politica-de-privacidad</strong>, la cual forma parte integral de estos Términos.</p>
 
 <p style="text-align:justify">Al utilizar el Sitio Web, el Usuario acepta el tratamiento de sus datos personales conforme a lo establecido en dicha Política de Privacidad.</p>
 
@@ -265,9 +204,6 @@
 <ul>
 <li>Datos de navegación y cookies</li>
 <li>Información proporcionada voluntariamente en formularios</li>
-{{#neq hasRegistration "No"}}
-<li>Datos de registro y perfil de usuario</li>
-{{/neq}}
 <li>Información necesaria para la prestación de los Servicios</li>
 </ul>
 
@@ -284,7 +220,7 @@
 <li>Portabilidad de datos</li>
 </ul>
 
-<p style="text-align:justify">Para ejercer estos derechos, el Usuario puede contactar a la Empresa a través de <strong>{{contactEmail}}</strong>.</p>
+<p style="text-align:justify">Para ejercer estos derechos, el Usuario puede contactar a la Empresa a través de <strong>soporte@technovasolutions.com</strong>.</p>
 
 <p style="text-align:justify"><strong>6.5. Cookies y Tecnologías de Rastreo</strong></p>
 
@@ -483,7 +419,7 @@
 
 <p style="text-align:justify"><strong>12.1. Terminación por el Usuario</strong></p>
 
-<p style="text-align:justify">El Usuario puede cesar el uso del Sitio Web en cualquier momento{{#neq hasRegistration "No"}}, y puede solicitar la cancelación de su Cuenta contactando a la Empresa a través de {{contactMethod}}{{/neq}}.</p>
+<p style="text-align:justify">El Usuario puede cesar el uso del Sitio Web en cualquier momento.</p>
 
 <p style="text-align:justify"><strong>12.2. Terminación o Suspensión por la Empresa</strong></p>
 
@@ -503,9 +439,6 @@
 <li>Incurra en conductas fraudulentas, abusivas o ilegales</li>
 <li>Ponga en riesgo la seguridad o integridad del Sitio Web</li>
 <li>Genere responsabilidad legal para la Empresa</li>
-{{#if additionalTerminationGrounds}}
-<li>{{additionalTerminationGrounds}}</li>
-{{/if}}
 </ul>
 
 <p style="text-align:justify"><strong>12.3. Efectos de la Terminación</strong></p>
@@ -514,12 +447,6 @@
 
 <ul>
 <li>Cesarán todos los derechos otorgados al Usuario bajo estos Términos</li>
-{{#neq hasRegistration "No"}}
-<li>La Cuenta del Usuario será deshabilitada permanentemente</li>
-{{/neq}}
-{{#neq hasUserContent "No"}}
-<li>El Contenido del Usuario podrá ser eliminado a discreción de la Empresa</li>
-{{/neq}}
 <li>Las obligaciones del Usuario que por su naturaleza deban sobrevivir a la terminación (indemnización, limitación de responsabilidad, ley aplicable) continuarán vigentes</li>
 </ul>
 
@@ -600,13 +527,13 @@
 
 <p style="text-align:justify">Para cualquier pregunta, comentario, queja o solicitud relacionada con estos Términos o con el Sitio Web, el Usuario puede contactar a la Empresa a través de:</p>
 
-<p style="text-align:justify"><strong>Nombre Legal:</strong> {{companyLegalName}}<br /><strong>RNC:</strong> {{companyRnc}}<br /><strong>Dirección:</strong> {{companyAddress}}, República Dominicana<br /><strong>Correo electrónico:</strong> {{contactEmail}}<br /><strong>Teléfono:</strong> {{contactPhone}}<br /><strong>Horario de atención:</strong> {{businessHours}}</p>
+<p style="text-align:justify"><strong>Nombre Legal:</strong> TechNova Solutions, S.R.L.<br /><strong>RNC:</strong> 131-12345-6<br /><strong>Dirección:</strong> Av. Winston Churchill No. 123, Santo Domingo, Distrito Nacional, República Dominicana<br /><strong>Correo electrónico:</strong> soporte@technovasolutions.com<br /><strong>Teléfono:</strong> +1 809-555-1234<br /><strong>Horario de atención:</strong> </p>
 
 <p style="text-align:justify"><strong>15.2. Notificaciones</strong></p>
 
 <p style="text-align:justify">Todas las notificaciones dirigidas a la Empresa bajo estos Términos deberán ser enviadas por escrito a la dirección indicada anteriormente.</p>
 
-<p style="text-align:justify">Las notificaciones de la Empresa al Usuario serán enviadas {{notificationMethod}}.</p>
+<p style="text-align:justify">Las notificaciones de la Empresa al Usuario serán enviadas mediante publicación en el Sitio Web.</p>
 
 <p style="text-align:justify"><strong>15.3. Atención al Usuario</strong></p>
 
@@ -618,6 +545,9 @@
 
 <p style="text-align:justify"><strong>SI NO ESTÁ DE ACUERDO CON ESTOS TÉRMINOS, DEBE ABSTENERSE DE UTILIZAR EL SITIO WEB INMEDIATAMENTE.</strong></p>
 
-<p style="text-align:justify"><strong>FECHA DE ÚLTIMA ACTUALIZACIÓN:</strong> {{updateDate}}</p>
+<p style="text-align:justify"><strong>FECHA DE ÚLTIMA ACTUALIZACIÓN:</strong> 31 de marzo de 2026</p>
 
-<p style="text-align:justify"><strong>{{companyLegalName}}</strong><br />República Dominicana</p>
+<p style="text-align:justify"><strong>TechNova Solutions, S.R.L.</strong><br />República Dominicana</p>
+
+</body>
+</html>

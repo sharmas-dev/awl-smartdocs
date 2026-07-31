@@ -88,6 +88,8 @@ import { isPhoneNumberVariableKey, normalizePhoneNumber } from './phone-number-f
 import {
     enforceTerminosUsoWebNotificationCoherence,
     enforceTerminosUsoWebServicesCoherence,
+    formatTerminosUsoWebServiceDescriptionFragment,
+    formatTerminosUsoWebServiceFunctionalitiesFragment,
     normalizeTerminosUsoWebSiNoFlags,
     scrubTerminosUsoWebDoubleOfreceHtml,
 } from './terminos-uso-web-enrichment.js';
@@ -229,6 +231,19 @@ Handlebars.registerHelper('formatIdTypeLabel', (idType: unknown) => {
     if (/rnc|registro\s+nacional\s+de\s+contribuyentes/i.test(typeStr)) return 'RNC no.';
     return 'Cédula de Identidad y Electoral no.';
 });
+
+/**
+ * Términos de Uso Página Web — render-time strip of a duplicated
+ * "El sitio web ofrece…" prefix / semicolon checklist in functionalities.
+ * Mirrors storage-time coherence so the PDF stays clean even if a session
+ * bypassed normalizeFieldValuesForStorage.
+ */
+Handlebars.registerHelper('terminosServiceDescription', (value: unknown) =>
+    formatTerminosUsoWebServiceDescriptionFragment(value),
+);
+Handlebars.registerHelper('terminosServiceFunctionalities', (value: unknown) =>
+    formatTerminosUsoWebServiceFunctionalitiesFragment(value),
+);
 
 /**
  * Contrato de Compraventa Vehículo: schema keeps choice literals *casado(a)* / *soltero(a)* for

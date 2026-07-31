@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import {
     applyPropuestaDeTrabajoNormalizations,
     isPropuestaDeTrabajoTemplate,
+    normalizePropuestaFunctionsList,
     normalizePropuestaPayrollDays,
+    normalizePropuestaPositionTitle,
     normalizePropuestaSiNo,
     propuestaAdditionalBenefitsUpdatePatch,
     syncPropuestaAdditionalBenefitsGate,
@@ -28,6 +30,38 @@ describe('normalizePropuestaPayrollDays', () => {
         assert.equal(normalizePropuestaPayrollDays('15 y 30'), null);
         assert.equal(normalizePropuestaPayrollDays('15 y último'), null);
         assert.equal(normalizePropuestaPayrollDays(''), null);
+    });
+});
+
+describe('normalizePropuestaPositionTitle', () => {
+    it('capitalizes the first letter only', () => {
+        assert.equal(normalizePropuestaPositionTitle('encargada de Compras'), 'Encargada de Compras');
+        assert.equal(normalizePropuestaPositionTitle('gerente de Proyectos TI'), 'Gerente de Proyectos TI');
+    });
+
+    it('no-ops when already capitalized or empty', () => {
+        assert.equal(normalizePropuestaPositionTitle('Encargada de Compras'), null);
+        assert.equal(normalizePropuestaPositionTitle(''), null);
+    });
+});
+
+describe('normalizePropuestaFunctionsList', () => {
+    it('capitalizes the first letter of each semicolon item', () => {
+        assert.equal(
+            normalizePropuestaFunctionsList(
+                'gestionar el inventario; Solicitar cotizaciones; Verificar entregas',
+            ),
+            'Gestionar el inventario; Solicitar cotizaciones; Verificar entregas',
+        );
+    });
+
+    it('no-ops when every item already starts with a capital', () => {
+        assert.equal(
+            normalizePropuestaFunctionsList(
+                'Gestionar proyectos; Liderar equipos; Implementar sistemas',
+            ),
+            null,
+        );
     });
 });
 
@@ -121,8 +155,26 @@ describe('applyPropuestaDeTrabajoNormalizations', () => {
         assert.equal(out.hasAdditionalBenefits, 'Sí');
     });
 
+    it('capitalizes positionTitle and each functionsList item', () => {
+        const out: Record<string, string | number> = {
+            positionTitle: 'encargada de Compras',
+            functionsList: 'gestionar el inventario; Solicitar cotizaciones; Verificar entregas',
+            payrollDays: '15 y 30',
+            hasAdditionalBenefits: 'Sí',
+            additionalBenefitsList: 'Seguro médico',
+        };
+        assert.equal(applyPropuestaDeTrabajoNormalizations(out), true);
+        assert.equal(out.positionTitle, 'Encargada de Compras');
+        assert.equal(
+            out.functionsList,
+            'Gestionar el inventario; Solicitar cotizaciones; Verificar entregas',
+        );
+    });
+
     it('no-ops when already clean', () => {
         const out: Record<string, string | number> = {
+            positionTitle: 'Encargada de Compras',
+            functionsList: 'Gestionar el inventario; Solicitar cotizaciones',
             payrollDays: '15 y 30',
             hasAdditionalBenefits: 'Sí',
             additionalBenefitsList: 'Seguro médico',

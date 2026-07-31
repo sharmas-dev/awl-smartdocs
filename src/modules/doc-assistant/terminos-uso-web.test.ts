@@ -10,6 +10,8 @@ import { normalizeMidSentencePhrase } from './mid-sentence-phrase-format.js';
 import {
     enforceTerminosUsoWebNotificationCoherence,
     enforceTerminosUsoWebServicesCoherence,
+    formatTerminosUsoWebServiceDescriptionFragment,
+    formatTerminosUsoWebServiceFunctionalitiesFragment,
     normalizeTerminosUsoWebFunctionalitiesProse,
     normalizeTerminosUsoWebSiNo,
     normalizeTerminosUsoWebSiNoFlags,
@@ -19,7 +21,7 @@ import {
 const SCHEMA_PATH = join(process.cwd(), 'src/templates/schemas/Términos de Uso Página Web.json');
 const HBS_PATH = join(process.cwd(), 'src/templates/hbs/Términos de Uso Página Web.hbs');
 
-/** Local copies of the two helpers the template relies on (mirrors doc-assistant.service.ts). */
+/** Local copies of the helpers the template relies on (mirrors doc-assistant.service.ts). */
 function registerHelpers() {
     Handlebars.registerHelper('eq', function (this: unknown, a: unknown, b: unknown, options: Handlebars.HelperOptions) {
         return String(a).toLowerCase() === String(b).toLowerCase() ? options.fn(this) : options.inverse(this);
@@ -45,6 +47,12 @@ function registerHelpers() {
         }
         return out;
     });
+    Handlebars.registerHelper('terminosServiceDescription', (value: unknown) =>
+        formatTerminosUsoWebServiceDescriptionFragment(value),
+    );
+    Handlebars.registerHelper('terminosServiceFunctionalities', (value: unknown) =>
+        formatTerminosUsoWebServiceFunctionalitiesFragment(value),
+    );
 }
 
 describe('Términos de Uso Página Web — phone normalization (Rule 3)', () => {
@@ -332,9 +340,8 @@ describe('Términos de Uso Página Web — services normalization', () => {
             notificationMethod: 'mediante publicación en el Sitio Web',
             updateDate: '31 de marzo de 2026',
         };
-        enforceTerminosUsoWebServicesCoherence(out);
-        let html = Handlebars.compile(readFileSync(HBS_PATH, 'utf8'))(out);
-        html = scrubTerminosUsoWebDoubleOfreceHtml(html);
+        // Intentionally skip storage-time enrichment — helpers alone must fix render.
+        const html = Handlebars.compile(readFileSync(HBS_PATH, 'utf8'))(out);
         assert.match(html, /El Sitio Web ofrece información sobre los productos y servicios tecnológicos de TechNova Solutions/);
         assert.equal(/El Sitio Web ofrece\s+el sitio web ofrece/i.test(html), false);
         assert.match(html, /permitiendo a los Usuarios consultar información sobre productos y servicios,/);

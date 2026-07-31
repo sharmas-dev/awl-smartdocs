@@ -56,7 +56,10 @@ function isExcludedFromMidSentenceNormalization(key: string): boolean {
         k.includes('percent') ||
         k.includes('number') ||
         k.includes('words') ||
-        k.includes('registry')
+        k.includes('registry') ||
+        // Job titles and "; "-joined lists keep a capital start (standalone headings / <li> items).
+        k.includes('title') ||
+        k.includes('list')
     );
 }
 
@@ -138,6 +141,7 @@ function getMidSentenceKeys(): Set<string> {
 
 export function isMidSentencePhraseKey(key: string): boolean {
     const k = key.toLowerCase();
+    if (isExcludedFromMidSentenceNormalization(k)) return false;
     if (ORIGINAL_MID_SENTENCE_PHRASE_KEYS.has(k)) return true;
     return getMidSentenceKeys().has(k);
 }

@@ -427,7 +427,7 @@ Variables with **type "choice"** have a fixed list of allowed strings in **optio
 
 2. You MUST actually call this tool. Do NOT just say "I will submit" without calling it. Answers are NOT saved unless you call this tool.
 
-3. Do NOT output any introductory text, filler, or thoughts (such as "I'll start the document fill-out process for you." or "Let me save that") when calling this tool. The text content of the message that triggers a tool call must be completely empty. Once the tool returns, you must write the full Spanish text (opening script + questions, next group, error explanation, or completion prompt) so that the final user-visible response is never empty.
+3. When calling this tool, the text content of that message MUST be completely empty. **FORBIDDEN**: English filler, process narration, or thinking-aloud (including announcing that you are "starting" the fill-out / document process, or "saving" answers). Do not write English in chat. Once the tool returns, you must write the full Spanish text (opening script + questions, next group, error explanation, or completion prompt) so that the final user-visible response is never empty.
 
 4. After the tool returns, present the next group questions (or the AWL opening on first success) IN THE SAME ASSISTANT TURN. Do not wait for the user to say "next".
 
@@ -1493,7 +1493,14 @@ You may ask a group's questions across multiple conversational turns, with at mo
         }
 
         const previewFingerprint = computePdfPreviewFingerprint(varsForPdf);
-        const isDuplicate = isPdfPreviewDuplicate(varsForPdf, previewFingerprint);
+        /**
+         * Términos de Uso: never serve a cached duplicate preview. Enrichment /
+         * HBS helper fixes (e.g. stripping doubled "El Sitio Web ofrece") must
+         * always re-render into a fresh PDF even when session vars are unchanged.
+         */
+        const isDuplicate =
+            !isTerminosUsoPaginaWebTemplate(templateName) &&
+            isPdfPreviewDuplicate(varsForPdf, previewFingerprint);
         if (isDuplicate) {
             const pdfPath = join(this.docService.getOutputDir(), templateName + '.pdf');
             let existingPreviewUrl =
@@ -2014,6 +2021,30 @@ Do NOT show the raw S3 signed URL except inside the markdown link label.`,
 
         const purchaseArg = args.userDocumentId?.trim();
         const purchaseResolved = purchaseArg && isValidObjectId(purchaseArg) ? purchaseArg : '';
+
+        /**
+         * Términos de Uso: rebuild the PDF before upload so download cannot ship
+         * a stale preview that still contains "El Sitio Web ofrece el sitio web ofrece".
+         */
+        if (isTerminosUsoPaginaWebTemplate(templateName)) {
+            const vars =
+                purchaseResolved
+                    ? await this.docService.getSessionVariablesByPurchaseId(purchaseResolved, userId)
+                    : await this.docService.getSessionVariables(templateName, userId);
+            if (Object.keys(vars).length > 0) {
+                const rebuilt = await this.docService.fillAndExportPdf(templateName, vars, true);
+                if (!rebuilt.success) {
+                    toolLog('confirm_document', 'TERMINOS REBUILD FAILED', { error: rebuilt.error });
+                    return {
+                        success: false,
+                        pdfPath: '',
+                        htmlContent: '',
+                        templateName,
+                        message: rebuilt.error || 'Failed to regenerate PDF before download.',
+                    };
+                }
+            }
+        }
 
         const uploadResult = await this.docService.uploadExistingPdf(templateName);
         if (uploadResult.error) {
