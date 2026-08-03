@@ -12,7 +12,7 @@ export function isPurchaseObjectId(id: string): boolean {
 }
 
 /**
- * Nitro Chat URL: ?prompt=Fill%20out%20the%20document%20for%20<24hex>
+ * Nitro Chat URL: ?prompt=Completa%20el%20documento%20<24hex>… (legacy: Fill out the document for <24hex>)
  * Also matches the same phrase in the first user message body.
  */
 export function extractPurchaseIdFromText(text: string): string | null {
@@ -20,6 +20,10 @@ export function extractPurchaseIdFromText(text: string): string | null {
     if (!trimmed) return null;
     const forMatch = trimmed.match(/\bfor\s+([a-f0-9]{24})\b/i);
     if (forMatch?.[1] && isPurchaseObjectId(forMatch[1])) return forMatch[1].toLowerCase();
+    const completaMatch = trimmed.match(/\bcompleta\s+el\s+documento\s+([a-f0-9]{24})\b/i);
+    if (completaMatch?.[1] && isPurchaseObjectId(completaMatch[1])) {
+        return completaMatch[1].toLowerCase();
+    }
     const tokens = trimmed.match(/\b([a-f0-9]{24})\b/gi);
     if (!tokens?.length) return null;
     for (const token of tokens) {
@@ -60,13 +64,13 @@ export function messageForDocumentationExamplePurchaseId(mistakenId: string): {
         message:
             `El userDocumentId "${mistakenId}" es solo un ejemplo de la documentación del servidor, no un id de compra real.`,
         instruction:
-            'NO uses ids de ejemplos en las descripciones de herramientas (p. ej. 507f1f77bcf86cd799439011). Usa ÚNICAMENTE el id de 24 caracteres hex del enlace/URL del usuario ("Fill out the document for <id>") o el campo userDocumentId de tu última respuesta exitosa de submit_group_answers. Reintenta la herramienta en el mismo turno con el id correcto. NO pidas al usuario que verifique o reenvíe el id si el flujo ya empezó.',
+            'NO uses ids de ejemplos en las descripciones de herramientas (p. ej. 507f1f77bcf86cd799439011). Usa ÚNICAMENTE el id de 24 caracteres hex del enlace/URL del usuario ("Completa el documento <id>…" o el legacy "Fill out the document for <id>") o el campo userDocumentId de tu última respuesta exitosa de submit_group_answers. Reintenta la herramienta en el mismo turno con el id correcto. NO pidas al usuario que verifique o reenvíe el id si el flujo ya empezó.',
     };
 }
 
 /**
  * True when userMessage is only the Nitro purchase-link bootstrap phrase (not field answers).
- * Clear Chat + refresh often re-sends "Fill out the document for <id>" as userMessage.
+ * Clear Chat + refresh often re-sends "Completa el documento <id>…" (or legacy English) as userMessage.
  */
 export function isPurchaseBootstrapPromptOnly(userMessage: string, purchaseId: string): boolean {
     const t = userMessage.trim();
@@ -75,9 +79,22 @@ export function isPurchaseBootstrapPromptOnly(userMessage: string, purchaseId: s
     if (!isPurchaseObjectId(id)) return false;
     const extracted = extractPurchaseIdFromText(t);
     if (!extracted || extracted !== id) return false;
+    // Canonical Spanish seed from ecommerce Continue Document.
+    if (
+        /^\s*completa\s+el\s+documento\s+[a-f0-9]{24}\s*(?:\.\s*responde\s+solo\s+en\s+espa[nñ]ol\.?)?\s*$/i.test(
+            t,
+        )
+    ) {
+        return true;
+    }
+    // Legacy English seed (old links / in-flight sessions).
     if (/^\s*fill\s+out\s+the\s+document\s+for\s+[a-f0-9]{24}\s*$/i.test(t)) return true;
     const withoutHex = t.replace(/\b[a-f0-9]{24}\b/gi, '').replace(/\s+/g, ' ').trim();
-    return withoutHex.length <= 48 && /(?:fill|document|completar|rellenar)/i.test(withoutHex);
+    // Allow short bootstrap variants; "Responde solo en español." pushes length past 48.
+    return (
+        withoutHex.length <= 64 &&
+        /(?:fill|document|completa|completar|rellenar)/i.test(withoutHex)
+    );
 }
 
 export function purchaseNotFoundInstruction(purchaseId: string, flowLikelyStarted: boolean): string {

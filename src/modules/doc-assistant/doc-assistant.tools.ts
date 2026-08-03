@@ -413,7 +413,9 @@ export class DocAssistantTools {
 
 FIRST CALL — pass ONLY userDocumentId (24-char hex user_documents row _id). No groupId or answers. This always starts a **fresh** server session (page refresh, Clear Chat, or reopening the purchase link) and returns **openingChatMessage** when the document has no saved answers yet.
 
-The user may write: "Fill out the document for 507f1f77bcf86cd799439011" (English or Spanish) — the long hex string is **always** this userDocumentId, **not** a template name. **Never** pass that hex string as templateName to generate_pdf, analyze_template, confirm_document, or update_variable; those tools will fail. **Only** submit_group_answers accepts it, as userDocumentId.
+The user may write: **"Completa el documento <24hex>. Responde solo en español."** (canonical) or legacy **"Fill out the document for <24hex>"** — the long hex string is **always** this userDocumentId, **not** a template name. **Never** pass that hex string as templateName to generate_pdf, analyze_template, confirm_document, or update_variable; those tools will fail. **Only** submit_group_answers accepts it, as userDocumentId.
+
+On this first call: assistant message content MUST be empty (no English, no Spanish narration). After the tool returns openingChatMessage, that Spanish text is the **only** user-visible bubble for the turn — copy it verbatim, no prefix.
 
 EVERY LATER CALL — pass the SAME userDocumentId + groupId (from the tool response) + answers { key: value }. Do NOT pass templateName (the tool resolves the session from the purchase id).
 
@@ -427,7 +429,7 @@ Variables with **type "choice"** have a fixed list of allowed strings in **optio
 
 2. You MUST actually call this tool. Do NOT just say "I will submit" without calling it. Answers are NOT saved unless you call this tool.
 
-3. When calling this tool, the text content of that message MUST be completely empty. **FORBIDDEN**: English filler, process narration, or thinking-aloud (including announcing that you are "starting" the fill-out / document process, or "saving" answers). Do not write English in chat. Once the tool returns, you must write the full Spanish text (opening script + questions, next group, error explanation, or completion prompt) so that the final user-visible response is never empty.
+3. When calling this tool, the text content of that message MUST be completely empty. **FORBIDDEN**: English filler, process narration, or thinking-aloud (including announcing that you are "starting" the fill-out / document process, or "saving" answers). Do not write English in chat. Once the tool returns, you must write the full Spanish text (opening script + questions, next group, error explanation, or completion prompt) so that the final user-visible response is never empty. On first success with openingChatMessage: that string alone is the entire user-visible reply.
 
 4. After the tool returns, present the next group questions (or the AWL opening on first success) IN THE SAME ASSISTANT TURN. Do not wait for the user to say "next".
 
