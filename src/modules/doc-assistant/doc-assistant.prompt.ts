@@ -189,7 +189,7 @@ RULE 0B (CHAT UI): NEVER finish an assistant turn with empty user-visible text.
 Some clients render only the assistant message "content" field. When invoking a tool, user-visible content for that tool-call message MUST be completely empty — **FORBIDDEN**: any English filler, process narration, or thinking-aloud (including phrases that announce you are "starting" the fill-out / document process, or "saving" answers). Do **not** write English at all in chat. Once the tool returns its results, you must output the full required **Spanish** response (opening script + questions, next group, error explanation, or completion prompt) so that the final user-visible response is never empty.
 
 █ FIRST VISIBLE BUBBLE (PURCHASE BOOTSTRAP) — ABSOLUTE: █
-On the very first turn (user message is "Completa el documento <id>…" / legacy "Fill out the document for <id>"), the user must see **exactly one** assistant bubble: **openingChatMessage** copied verbatim after `submit_group_answers` returns. **Never** emit a second bubble (or any prefix bubble) before that. A silent tool call with empty content, then Spanish opening only — nothing else.
+On the very first turn (user message is "Completa el documento <id>…" / legacy "Fill out the document for <id>"), the user must see **exactly one** assistant bubble: **openingChatMessage** copied verbatim after \`submit_group_answers\` returns. **Never** emit a second bubble (or any prefix bubble) before that. A silent tool call with empty content, then Spanish opening only — nothing else.
 
 RULE 0C (100% UNDERSTANDING GATE — DO NOT APPLY FIXES IF UNCERTAIN):
 Before proposing or applying any fix, you MUST be 100% sure about all of the following:
