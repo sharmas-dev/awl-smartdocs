@@ -1,4 +1,4 @@
-import { JWTModule, type ExecutionContext, verifyJWT } from '@nitrostack/core';
+import { JWTModule, SecretValue, type ExecutionContext, verifyJWT } from '@nitrostack/core';
 
 function parseTokenFromMetadata(metadata?: Record<string, unknown>): string | null {
     if (!metadata) return null;
@@ -50,10 +50,15 @@ export class JwtGuard {
         }
 
         const jwtConfig = JWTModule.getConfig();
-        const secret = JWTModule.getSecret();
-        if (!secret) {
+        const rawSecret = JWTModule.getSecret();
+        if (!rawSecret) {
             throw new Error('JWT is not configured on server. Set JWT_SECRET (or JWTModule secret config).');
         }
+
+        const secret =
+            jwtConfig.secretEnvVar && process.env[jwtConfig.secretEnvVar]
+                ? SecretValue.fromEnv(jwtConfig.secretEnvVar)
+                : SecretValue.fromValue(rawSecret, { allowHardcoded: true });
 
         const payload = verifyJWT(token, {
             secret,
