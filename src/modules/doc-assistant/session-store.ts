@@ -22,6 +22,7 @@ export interface SessionStore {
     get(sessionId: string): Promise<SessionData | null>;
     save(session: SessionData): Promise<void>;
     delete(sessionId: string): Promise<void>;
+    getByUserAndTemplate?(userId: string, templateName: string): Promise<SessionData | null>;
     dump(): {
         size: number;
         sessions: Array<{
@@ -76,6 +77,15 @@ export class LruSessionStore implements SessionStore {
     async delete(sessionId: string): Promise<void> {
         this.cache.delete(sessionId);
         console.log(`[lru-cache] DEL "${sessionId}" | cache size: ${this.cache.size}`);
+    }
+
+    async getByUserAndTemplate(userId: string, templateName: string): Promise<SessionData | null> {
+        for (const value of this.cache.values()) {
+            if (value.userId === userId && value.templateName === templateName) {
+                return structuredClone(value);
+            }
+        }
+        return null;
     }
 
     dump(): {
@@ -165,6 +175,15 @@ export class FileSessionStore implements SessionStore {
     async delete(sessionId: string): Promise<void> {
         this.cache.delete(sessionId);
         this.persist();
+    }
+
+    async getByUserAndTemplate(userId: string, templateName: string): Promise<SessionData | null> {
+        for (const value of this.cache.values()) {
+            if (value.userId === userId && value.templateName === templateName) {
+                return structuredClone(value);
+            }
+        }
+        return null;
     }
 
     dump(): {
@@ -294,6 +313,29 @@ export class MongoSessionStore implements SessionStore {
         }
     }
 
+    async getByUserAndTemplate(userId: string, templateName: string): Promise<SessionData | null> {
+        try {
+            const col = await this.getCollection();
+            const doc = await col.findOne({ userId, templateName }, { sort: { updatedAt: -1 } });
+            if (!doc) return null;
+            return {
+                sessionId: doc._id,
+                userId: doc.userId,
+                documentId: doc.documentId,
+                userDocumentId: doc.userDocumentId,
+                templateName: doc.templateName,
+                variables: doc.variables ?? {},
+                completedGroups: doc.completedGroups ?? [],
+                previewHtmlS3Key: doc.previewHtmlS3Key,
+                createdAt: doc.createdAt,
+                updatedAt: doc.updatedAt,
+            };
+        } catch (err) {
+            console.error(`[doc-assistant] MongoSessionStore.getByUserAndTemplate failed for "${userId}" / "${templateName}"`, err);
+            return null;
+        }
+    }
+
     dump(): {
         size: number;
         sessions: Array<{
@@ -385,14 +427,21 @@ export class SessionManager {
     async getSession(templateName: string, userId: string): Promise<SessionData | null> {
         const indexKey = SessionManager.buildTemplateIndexKey(templateName, userId);
         const sessionKey = this.templateIndex.get(indexKey);
-        if (!sessionKey) return null;
-
-        const session = await this.store.get(sessionKey);
-        if (!session) {
+        if (sessionKey) {
+            const session = await this.store.get(sessionKey);
+            if (session) return session;
             this.templateIndex.delete(indexKey);
-            return null;
         }
-        return session;
+
+        // Fallback: recover session from store if templateIndex cache was cleared (e.g. server restart)
+        if (typeof this.store.getByUserAndTemplate === 'function') {
+            const recovered = await this.store.getByUserAndTemplate(userId, templateName);
+            if (recovered) {
+                this.templateIndex.set(indexKey, recovered.sessionId);
+                return recovered;
+            }
+        }
+        return null;
     }
 
     /** Load session by user_documents purchase row _id + user (same key as start()). */
