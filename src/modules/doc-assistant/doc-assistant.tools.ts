@@ -2,6 +2,7 @@ import { ToolDecorator as Tool, Widget, ExecutionContext, Injectable, UseGuards,
 import { DocAssistantService, TemplateSchema } from './doc-assistant.service.js';
 import { MongoService, isValidObjectId, type UserDocumentRecord } from './mongo.service.js';
 import { JwtGuard } from './guards/jwt.guard.js';
+import { resolvePurchaseIdWithMetadata } from './purchase-id.js';
 import {
     ALL_COMPLETE_CHAT_MESSAGE,
     PREVIEW_READY_CHAT_MESSAGE,
@@ -522,7 +523,23 @@ You may ask a group's questions across multiple conversational turns, with at mo
         let verifiedPurchase: UserDocumentRecord | null = null;
         const groupIdTrimmed = groupId?.trim() ?? '';
         const isFirstCall = groupIdTrimmed.length === 0;
-        const purchaseId = userDocumentId?.trim() ?? '';
+        const purchaseIdArg = userDocumentId?.trim() ?? '';
+
+        // Fallback anchor: when the model omits or malforms userDocumentId (e.g. after
+        // chat history trimming on the client), recover it from MCP `_meta` — the chat
+        // client forwards the standalone prompt / page URL on every tool call.
+        const { purchaseId, recoveredFromMetadata } = resolvePurchaseIdWithMetadata(
+            userDocumentId,
+            ctx.metadata as Record<string, unknown> | undefined,
+        );
+
+        if (recoveredFromMetadata) {
+            toolLog('submit_group_answers', 'PURCHASE ID RECOVERED FROM METADATA', {
+                recovered: purchaseId,
+                argProvided: purchaseIdArg || '(empty)',
+                userId,
+            });
+        }
 
         if (!purchaseId) {
             return {
