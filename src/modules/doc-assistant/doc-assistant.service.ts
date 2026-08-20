@@ -494,32 +494,45 @@ export class DocAssistantService {
             await this.deleteS3Object(prevKey);
         }
 
-        await s3.send(
-            new PutObjectCommand({
-                Bucket: bucket,
-                Key: key,
-                Body: Buffer.from(fullHtml, 'utf8'),
-                ContentType: 'text/html; charset=utf-8',
-                CacheControl: 'private, max-age=60',
-            }),
-        );
+        const uploadTask = async (): Promise<{ previewHtmlUrl: string }> => {
+            await s3.send(
+                new PutObjectCommand({
+                    Bucket: bucket,
+                    Key: key,
+                    Body: Buffer.from(fullHtml, 'utf8'),
+                    ContentType: 'text/html; charset=utf-8',
+                    CacheControl: 'private, max-age=60',
+                }),
+            );
 
-        if (userDocumentPurchaseId?.trim()) {
-            await this.session.updatePreviewHtmlKeyByPurchaseId(userDocumentPurchaseId.trim(), userId, key);
-        } else {
-            await this.session.updatePreviewHtmlKey(templateName, userId, key);
+            if (userDocumentPurchaseId?.trim()) {
+                await this.session.updatePreviewHtmlKeyByPurchaseId(userDocumentPurchaseId.trim(), userId, key);
+            } else {
+                await this.session.updatePreviewHtmlKey(templateName, userId, key);
+            }
+
+            const previewHtmlUrl = await getSignedUrl(
+                s3,
+                new GetObjectCommand({
+                    Bucket: bucket,
+                    Key: key,
+                }),
+                { expiresIn: 86400 },
+            );
+
+            return { previewHtmlUrl };
+        };
+
+        const timeoutPromise = new Promise<{ previewHtmlUrl: string } | undefined>((_, reject) => {
+            setTimeout(() => reject(new Error('S3 preview upload timed out after 8s')), 8000);
+        });
+
+        try {
+            return await Promise.race([uploadTask(), timeoutPromise]);
+        } catch (err) {
+            console.warn('[DocAssistantService] uploadEphemeralPreviewHtml failed or timed out, falling back to inline HTML:', err);
+            return undefined;
         }
-
-        const previewHtmlUrl = await getSignedUrl(
-            s3,
-            new GetObjectCommand({
-                Bucket: bucket,
-                Key: key,
-            }),
-            { expiresIn: 86400 },
-        );
-
-        return { previewHtmlUrl };
     }
 
     /** Signed GET URL for the session's last ephemeral preview HTML (if uploaded to S3). */
