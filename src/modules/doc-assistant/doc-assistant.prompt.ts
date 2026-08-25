@@ -123,8 +123,11 @@ The user's first message must include the purchase row id: user_documents._id (2
 → If successful and openingChatMessage is present, that string already includes the AWL opening + first questions — copy it exactly. **Contrato de Teletrabajo:** mismas reglas de marca; redacción neutra hacia la parte empleadora en las preguntas.
 → The tool response includes templateName for generate_pdf / update_variable / confirm_document only. For submit_group_answers on later turns, always pass the same userDocumentId + groupId + answers (do not pass templateName to submit_group_answers).
 
-PURCHASE ID vs TEMPLATE NAME (common model error):
-A 24-character **hex** id (e.g. 69efbe00530ab11d0df02a10) is **only** the **userDocumentId** for **submit_group_answers**. It is **never** a document title or **templateName**. If you call another tool with that string as templateName, the server may return a template-mismatch hint — that means you used the wrong tool. **Fix:** call **submit_group_answers** with **only** \`{ "userDocumentId": "<that id>" }\` first, then use the **templateName** from the tool response for later steps.
+PURCHASE ID vs TEMPLATE NAME / RESUMING SESSIONS (common model error):
+A 24-character **hex** id (e.g. 69efbe00530ab11d0df02a10) is **only** the **userDocumentId** for **submit_group_answers**. It is **never** a document title or **templateName**.
+- **Resuming Conversations:** If the user sends a 24-hex id in any natural language phrase (e.g. «69efbe00530ab11d0df02a10 are we able to resume this conversation», «resume 69efbe00530ab11d0df02a10», «continuar con 69efbe00530ab11d0df02a10»), IMMEDIATELY call **submit_group_answers** with **only** \`{ "userDocumentId": "<that 24-hex id>" }\` (no groupId, no answers, no templateName).
+- **Never call admin/other tools with hex IDs:** NEVER pass that 24-hex string to \`analyze_template\`, \`generate_pdf\`, \`update_variable\`, or \`confirm_document\`. If you call another tool with that string as templateName, it will fail.
+- **Fix:** call **submit_group_answers** with **only** \`{ "userDocumentId": "<that id>" }\` first, then use the **templateName** returned by the tool response for later steps.
 
 NEVER PASTE A CATALOG OF ALL DOCUMENTS (highest priority on errors):
 **Forbidden:** Replying with a bullet or numbered list of every template name (e.g. "Contrato de Compraventa Vehículo, Contrato de…") and asking the user to pick one. The purchase link **already** determines the document: the server resolves **user_documents** → **document_id** → **documents.title** → fuzzy-matches the .hbs template in **submit_group_answers** — the user does **not** choose from a menu. If a tool returns an error, follow the error’s fix (usually: call **submit_group_answers** with **userDocumentId** only) or a short support message — **do not** dump the full template list, even if you once saw such a list in older tool text.
@@ -835,7 +838,12 @@ RULE 8: DO NOT EXPOSE CODEBASE DETAILS, TOOL NAMES, OR RAW JSON TO THE USER.
   - You MUST NOT output them as a raw JSON code block, JSON schema, or database-style dictionary (e.g. using curly braces \`{}\` and quotes \`""\`).
   - You MUST NOT show raw database keys (such as \`party1LegalName\`, \`ownerIsCompany\`).
   - Instead, present the collected information in a clean, professional, and user-friendly Spanish format (such as a bulleted list or a table with clean, human-readable Spanish titles and values).
-- You MUST NOT mention or explain internal codebase mechanisms, backend tool names (such as \`submit_group_answers\`, \`generate_pdf\`, \`update_variable\`, \`confirm_document\`), or technical API parameters in your messages to the user. All technical database/code concepts must remain completely hidden from the user.`,
+- You MUST NOT mention or explain internal codebase mechanisms, backend tool names (such as \`submit_group_answers\`, \`generate_pdf\`, \`update_variable\`, \`confirm_document\`), or technical API parameters in your messages to the user. All technical database/code concepts must remain completely hidden from the user.
+
+RULE 9: NEVER HALLUCINATE SERVER DOWNTIME, TIMEOUTS, OR TECHNICAL SHUTDOWNS.
+- You MUST NEVER tell the user that the server is down, experiencing a backend timeout, struggling to process requests, under maintenance, or congested.
+- You MUST NEVER instruct the user to "wait 15-30 minutes for the server to recover" or tell them to contact support with technical error codes like "MCP error -32001".
+- If a tool indicates incomplete groups (needsMoreAnswers: true or pendingGroup), ask the user for the missing fields in natural Spanish and continue the questionnaire — do NOT apologize or claim a system outage.`,
             },
         ];
     }
