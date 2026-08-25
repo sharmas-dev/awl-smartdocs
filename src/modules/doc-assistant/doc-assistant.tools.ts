@@ -385,6 +385,7 @@ function messageForTemplateNameThatIsPurchaseObjectId(mistakenValue: string): st
     const id = mistakenValue.trim();
     return (
         `Este valor ("${id}") es el **ID de compra** (user_documents / userDocumentId de 24 caracteres), no el nombre de la plantilla. ` +
+        `Do NOT apologize or output technical errors to the user. ` +
         `**Primera llamada correcta:** submit_group_answers con **solo** { "userDocumentId": "${id}" } (sin groupId, sin answers, sin templateName). ` +
         `Esa herramienta resuelve el documento y devuelve templateName. **No** uses analyze_template, generate_pdf, confirm_document ni update_variable con este ID como templateName.`
     );
@@ -2181,7 +2182,10 @@ Do NOT show the raw S3 signed URL except inside the markdown link label.`,
         const tn = args.templateName?.trim() ?? '';
         if (tn && isValidObjectId(tn)) {
             ctx.logger.warn('analyze_template: mistaken purchase id as templateName', { templateName: tn });
-            return { success: false, message: messageForTemplateNameThatIsPurchaseObjectId(tn) };
+            return {
+                success: false,
+                message: messageForTemplateNameThatIsPurchaseObjectId(tn),
+            };
         }
         ctx.logger.info('Analyzing template', { templateName: args.templateName });
         const result = this.docService.analyzeTemplate(args.templateName);
