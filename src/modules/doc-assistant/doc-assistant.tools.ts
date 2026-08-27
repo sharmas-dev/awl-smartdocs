@@ -137,6 +137,13 @@ const PROPUESTA_TRABAJO_SUBMIT_QUALITY_HINT =
     'When the user lists custom benefits, submit BOTH keys in the same answers object: hasAdditionalBenefits="Sí" and additionalBenefitsList as one "; "-joined string. ' +
     'Never leave hasAdditionalBenefits as No/empty/Si(without accent)/yes if a list was provided — server also opens the gate, but correct tool payload is required.';
 
+/**
+ * Appended to every MCP tool description so the model never leaks internals into user-facing chat.
+ * System prompt RULE 8 alone is not enough — tool descriptions are re-read on every call.
+ */
+const USER_FACING_HIDE_INTERNALS =
+    '\n\nUSER-FACING CHAT (ABSOLUTE — last rule for this tool): You MUST NOT mention or explain internal codebase mechanisms, backend tool names (such as `submit_group_answers`, `generate_pdf`, `update_variable`, `confirm_document`), or technical API parameters in your messages to the user. All technical database/code concepts must remain completely hidden from the user.';
+
 /** Recibo de Descargo Laboral — LLM-facing rules (tool descriptions / groupHints are the effective contract). */
 const RECIBO_LABORAL_SUBMIT_QUALITY_HINT =
     ' RECIBO DE DESCARGO LABORAL (STRICT tool payload): ' +
@@ -512,7 +519,7 @@ If the user says "I want to change X", "update X to Y", "X is wrong, it should b
 Present each group as a FLOWING PARAGRAPH in Spanish — NEVER use bullet points, numbered lists, or label: format. NEVER reveal section letters (A, B, C), group IDs, or "sección X de Y" to the user. Combine field names into natural sentences separated by commas. Where the schema defines fixed choices, weave them **conversationally** — NEVER say "dropdown", "Opciones:", or UI-style menus. Skip variables whose condition is not met.
 
 MULTI-TURN QUESTIONING (max 4 fields per message):
-You may ask a group's questions across multiple conversational turns, with at most 4 fields per turn. Collect all answers from the user first, then call this tool ONCE with all the answers for the group. Do NOT call this tool after each partial turn — wait until you have all answers for the group.`,
+You may ask a group's questions across multiple conversational turns, with at most 4 fields per turn. Collect all answers from the user first, then call this tool ONCE with all the answers for the group. Do NOT call this tool after each partial turn — wait until you have all answers for the group.${USER_FACING_HIDE_INTERNALS}`,
         inputSchema: SubmitGroupSchema,
     })
     @UseGuards(JwtGuard)
@@ -1660,7 +1667,7 @@ GUARD 2 — Required fields: if any required variable is empty it returns { succ
 
 Call generate_pdf at most ONCE per preview round (same session data). If the tool returns duplicatePreviewBlocked, do NOT retry — tell the user the preview above is current.
 
-Never show "PDF generated" or show the widget if success is false.`,
+Never show "PDF generated" or show the widget if success is false.${USER_FACING_HIDE_INTERNALS}`,
         inputSchema: GeneratePdfSchema,
     })
     @UseGuards(JwtGuard)
@@ -1797,7 +1804,7 @@ STEP 2 — Update + Regenerate (provide newValue):
 
 variableLabel: pass it exactly as the user typed (e.g. "Ciudad de firma"). It is fuzzy-matched against all variable labels in the schema — typos and partial matches are handled.
 
-Do NOT call submit_group_answers or generate_pdf for this flow. This tool handles everything.`,
+Do NOT call submit_group_answers or generate_pdf for this flow. This tool handles everything.${USER_FACING_HIDE_INTERNALS}`,
         inputSchema: UpdateVariableSchema,
     })
     @UseGuards(JwtGuard)
@@ -2003,7 +2010,7 @@ After this tool succeeds, the document is FINAL — no more changes allowed.
 PREREQUISITE: generate_pdf must have been called successfully first (the PDF must already exist locally).
 
 After this tool returns successfully, reply IN SPANISH using ONLY the downloadChatMessage field from this tool (markdown link + closing text). Do NOT attach or update the pdf-preview widget for download — the link is chat-only.
-Do NOT show the raw S3 signed URL except inside the markdown link label.`,
+Do NOT show the raw S3 signed URL except inside the markdown link label.${USER_FACING_HIDE_INTERNALS}`,
         inputSchema: ConfirmDocumentSchema,
     })
     @UseGuards(JwtGuard)
@@ -2173,7 +2180,7 @@ Do NOT show the raw S3 signed URL except inside the markdown link label.`,
 
     @Tool({
         name: 'analyze_template',
-        description: 'Admin tool — Analyze an HBS template to extract variable names and conditional blocks.',
+        description: 'Admin tool — Analyze an HBS template to extract variable names and conditional blocks.' + USER_FACING_HIDE_INTERNALS,
         inputSchema: AnalyzeTemplateSchema,
     })
     @UseGuards(JwtGuard)
@@ -2191,7 +2198,7 @@ Do NOT show the raw S3 signed URL except inside the markdown link label.`,
 
     @Tool({
         name: 'save_template_schema',
-        description: 'Admin tool — Save the structured variable schema for a template.',
+        description: 'Admin tool — Save the structured variable schema for a template.' + USER_FACING_HIDE_INTERNALS,
         inputSchema: SaveTemplateSchemaSchema,
     })
     @UseGuards(JwtGuard)
@@ -2211,7 +2218,7 @@ Use this tool to verify that the PDF generation pipeline (Puppeteer / Chromium) 
 
 Call this when the user says "generate sample pdf", "test pdf", "sample pdf", "test puppeteer", or similar.
 
-Takes no input. Returns the generated PDF preview on success or an error message on failure.`,
+Takes no input. Returns the generated PDF preview on success or an error message on failure.${USER_FACING_HIDE_INTERNALS}`,
         inputSchema: z.object({}),
     })
     @UseGuards(JwtGuard)
