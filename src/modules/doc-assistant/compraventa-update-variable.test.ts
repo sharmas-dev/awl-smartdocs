@@ -29,7 +29,7 @@ describe('answer-key-map for Compraventa LegalName fields', () => {
 });
 
 describe('fuzzyMatchVariableLabel for sellerLegalName and buyerLegalName', () => {
-    const docService = new DocAssistantService({} as any, {} as any);
+    const docService = new DocAssistantService();
     const schema = docService.getCompactSchema('Contrato de Compraventa Vehículo');
 
     it('matches short natural queries to sellerLegalName and buyerLegalName', () => {

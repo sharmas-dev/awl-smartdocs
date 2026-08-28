@@ -11,6 +11,7 @@ import { JSDOM } from 'jsdom';
 import htmlToPdfmake from 'html-to-pdfmake';
 import { getSessionStore, SessionManager, type SessionData } from './session-store.js';
 import { mapAnswersToGroupVariables } from './answer-key-map.js';
+import { enrichGroupAnswers } from './group-answers-enrich.js';
 import {
     formatSpanishLegalDateDual,
     normalizeNaturalDateInput,
@@ -134,7 +135,6 @@ import {
     isIdNumberVariableKey,
     pairedIdTypeKey,
 } from './cedula-validation.js';
-import { enrichGroupAnswers } from './group-answers-enrich.js';
 import {
     RECIBO_DESCARGO_LABORAL,
     clearReciboLaboralAdditionalConceptFieldsWhenDisabled,
