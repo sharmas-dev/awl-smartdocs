@@ -52,6 +52,28 @@ export function purchaseIdFromChatMetadata(metadata?: Record<string, unknown>): 
     return null;
 }
 
+/**
+ * Resolve the effective purchase id for a tool call. The model-supplied argument
+ * wins when well-formed; otherwise fall back to chat metadata (`_meta` prompt /
+ * page URL forwarded by the Nitro Chat client on every tool call). When neither
+ * source yields a valid id, the trimmed arg is returned unchanged so callers keep
+ * their existing validation/error path.
+ */
+export function resolvePurchaseIdWithMetadata(
+    arg: string | undefined,
+    metadata?: Record<string, unknown>,
+): { purchaseId: string; recoveredFromMetadata: boolean } {
+    const trimmed = arg?.trim() ?? '';
+    if (isPurchaseObjectId(trimmed)) {
+        return { purchaseId: trimmed, recoveredFromMetadata: false };
+    }
+    const fromMetadata = purchaseIdFromChatMetadata(metadata);
+    if (fromMetadata) {
+        return { purchaseId: fromMetadata, recoveredFromMetadata: true };
+    }
+    return { purchaseId: trimmed, recoveredFromMetadata: false };
+}
+
 export function isDocumentationExamplePurchaseId(id: string): boolean {
     return DOCUMENTATION_EXAMPLE_PURCHASE_IDS.has(id.trim().toLowerCase());
 }
