@@ -1836,19 +1836,62 @@ Do NOT call submit_group_answers or generate_pdf for this flow. This tool handle
         if ('error' in schema) {
             return { success: false, step: 'error', message: schema.error };
         }
-        const match = fuzzyMatchVariableLabel(args.variableLabel, schema);
-        if (!match) {
-            const allLabels = schema.groups.flatMap(g => g.variables.map(v => `"${v.label}"`));
-            toolLog('update_variable', 'VARIABLE NOT FOUND', { variableLabel: args.variableLabel });
-            return {
-                success: false, step: 'error',
-                message: `Could not find a variable matching "${args.variableLabel}". Available variables: ${allLabels.join(', ')}`,
-            };
-        }
-        toolLog('update_variable', 'VARIABLE MATCHED', { input: args.variableLabel, matched: match.label, key: match.key, groupId: match.groupId, score: match.score });
 
         const purchaseOpt = args.userDocumentId?.trim();
         const usePurchase = Boolean(purchaseOpt && isValidObjectId(purchaseOpt));
+
+        let match = fuzzyMatchVariableLabel(args.variableLabel, schema);
+
+        // ── Value-based fallback: if label match fails, search stored values ──
+        if (!match) {
+            const sessionVars = usePurchase
+                ? await this.docService.getSessionVariablesByPurchaseId(purchaseOpt!, userId)
+                : await this.docService.getSessionVariables(matchedTemplate, userId);
+
+            const inputLower = args.variableLabel.toLowerCase().trim();
+            const valueMatches: Array<{ groupId: string; groupLabel: string; key: string; label: string }> = [];
+
+            for (const group of schema.groups) {
+                for (const variable of group.variables) {
+                    const storedValue = String(sessionVars[variable.key] ?? '').toLowerCase();
+                    if (storedValue && storedValue.includes(inputLower)) {
+                        valueMatches.push({
+                            groupId: group.id,
+                            groupLabel: group.label,
+                            key: variable.key,
+                            label: variable.label,
+                        });
+                    }
+                }
+            }
+
+            if (valueMatches.length === 1) {
+                match = { ...valueMatches[0], score: 0.5 };
+                toolLog('update_variable', 'VALUE-BASED FALLBACK MATCH', {
+                    input: args.variableLabel,
+                    matchedKey: match.key,
+                    matchedLabel: match.label,
+                });
+            } else if (valueMatches.length > 1) {
+                const candidates = valueMatches.map(v => `"${v.label}" (key: ${v.key})`).join(', ');
+                toolLog('update_variable', 'VALUE-BASED FALLBACK AMBIGUOUS', {
+                    variableLabel: args.variableLabel,
+                    candidates: valueMatches.map(v => v.key),
+                });
+                return {
+                    success: false, step: 'error',
+                    message: `"${args.variableLabel}" appears to be a value, not a variable label. Multiple variables contain this value: ${candidates}. Please use the exact variable label instead of the value.`,
+                };
+            } else {
+                const allLabels = schema.groups.flatMap(g => g.variables.map(v => `"${v.label}"`));
+                toolLog('update_variable', 'VARIABLE NOT FOUND', { variableLabel: args.variableLabel });
+                return {
+                    success: false, step: 'error',
+                    message: `Could not find a variable matching "${args.variableLabel}". NOTE: variableLabel must be a schema LABEL (e.g. "Dirección completa del agente"), not a value from the document. Available variables: ${allLabels.join(', ')}`,
+                };
+            }
+        }
+        toolLog('update_variable', 'VARIABLE MATCHED', { input: args.variableLabel, matched: match.label, key: match.key, groupId: match.groupId, score: match.score });
 
         // ── STEP 1: no newValue — return current value and ask user ───────────
         if (args.newValue === undefined || args.newValue === null || args.newValue === '') {
