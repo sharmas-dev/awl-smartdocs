@@ -1930,14 +1930,17 @@ Do NOT call submit_group_answers or generate_pdf for this flow. This tool handle
             (!match || match.key === pendingUpdate.key) &&
             (resolvedNewValue !== undefined || looksLikeStandaloneReplacementValue(args.variableLabel))
         ) {
-            match = { ...pendingUpdate, score: 0.9 };
+            const groupLabel = schema.groups.find((g) => g.id === pendingUpdate.groupId)?.label ?? pendingUpdate.groupId;
+            match = { ...pendingUpdate, groupLabel, score: 0.9 };
             if (resolvedNewValue === undefined) {
                 resolvedNewValue = args.variableLabel.trim();
             }
-            toolLog('update_variable', 'PENDING LOOKUP FALLBACK', {
-                key: match.key,
-                newValue: resolvedNewValue,
-            });
+            if (match) {
+                toolLog('update_variable', 'PENDING LOOKUP FALLBACK', {
+                    key: match.key,
+                    newValue: resolvedNewValue,
+                });
+            }
         }
 
         // ── Value-based fallback: if label match fails, search stored values ──

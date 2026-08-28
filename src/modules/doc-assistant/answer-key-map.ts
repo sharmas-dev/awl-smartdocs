@@ -48,22 +48,6 @@ function buildAliasIndex(variables: Array<{ key: string; label: string }>): Map<
             for (const a of ['nationality', 'nacionalidad', 'nacionalidadtrabajador', 'nacionalidadtrabajadora']) {
                 index.set(a, v.key);
             }
-            const prefix = v.key.replace(/nationality$/i, '').toLowerCase();
-            if (prefix.length > 2) {
-                index.set(`${prefix}nacionalidad`, v.key);
-                index.set(`nacionalidad${prefix}`, v.key);
-            }
-        }
-        if (/(address|fulladdress)/i.test(v.key)) {
-            for (const a of ['address', 'fulladdress', 'direccion', 'direccioncompleta', 'ubicacion', 'domicilio']) {
-                index.set(a, v.key);
-            }
-            const prefix = v.key.replace(/(fulladdress|address)$/i, '').toLowerCase();
-            if (prefix.length > 2) {
-                index.set(`${prefix}direccion`, v.key);
-                index.set(`direccion${prefix}`, v.key);
-                index.set(`${prefix}domicilio`, v.key);
-            }
         }
         if (/(fullname|legalname|name)/i.test(v.key)) {
             for (const a of [
@@ -89,14 +73,9 @@ function buildAliasIndex(variables: Array<{ key: string; label: string }>): Map<
                 index.set(`${prefix}nombrecompleto`, v.key);
             }
         }
-        if (/idtype/i.test(v.key)) {
-            for (const a of ['idtype', 'tipodocumento', 'tipodedocumento', 'documentotype', 'tipocedula', 'tipoid']) {
+        if (/declarantidtype/i.test(v.key)) {
+            for (const a of ['idtype', 'tipodocumento', 'tipodedocumento', 'documentotype']) {
                 index.set(a, v.key);
-            }
-            const prefix = v.key.replace(/idtype$/i, '').toLowerCase();
-            if (prefix.length > 2) {
-                index.set(`${prefix}tipodocumento`, v.key);
-                index.set(`tipodocumento${prefix}`, v.key);
             }
         }
         if (/idnumber/i.test(v.key) && !/block/i.test(v.key)) {
@@ -117,44 +96,14 @@ function buildAliasIndex(variables: Array<{ key: string; label: string }>): Map<
                 index.set(`${prefix}numerocedula`, v.key);
             }
         }
-        if (/rnc$/i.test(v.key) && !/hasdominicanrnc$|includernc/i.test(v.key)) {
-            for (const a of ['rnc', 'numerornc', 'rncnumber']) {
+        if (/declarantnationality/i.test(v.key)) {
+            for (const a of ['nationality', 'nacionalidad', 'nacionalidadtrabajador', 'nacionalidadtrabajadora']) {
                 index.set(a, v.key);
-            }
-            const prefix = v.key.replace(/rnc$/i, '').toLowerCase();
-            if (prefix.length > 2) {
-                index.set(`${prefix}rnc`, v.key);
-                index.set(`rnc${prefix}`, v.key);
-            }
-        }
-        if (/gender$/i.test(v.key)) {
-            for (const a of ['gender', 'genero', 'sexo']) {
-                index.set(a, v.key);
-            }
-            const prefix = v.key.replace(/gender$/i, '').toLowerCase();
-            if (prefix.length > 2) {
-                index.set(`${prefix}genero`, v.key);
-                index.set(`genero${prefix}`, v.key);
-            }
-        }
-        if (/iscompany$/i.test(v.key)) {
-            for (const a of ['iscompany', 'tipopersona', 'personaofirma', 'empresaopersona', 'personajuridicaofisica']) {
-                index.set(a, v.key);
-            }
-            const prefix = v.key.replace(/iscompany$/i, '').toLowerCase();
-            if (prefix.length > 2) {
-                index.set(`${prefix}iscompany`, v.key);
-                index.set(`${prefix}tipopersona`, v.key);
             }
         }
         if (/maritalstatus/i.test(v.key)) {
             for (const a of ['maritalstatus', 'estadocivil']) {
                 index.set(a, v.key);
-            }
-            const prefix = v.key.replace(/maritalstatus$/i, '').toLowerCase();
-            if (prefix.length > 2) {
-                index.set(`${prefix}estadocivil`, v.key);
-                index.set(`estadocivil${prefix}`, v.key);
             }
         }
         if (/hasadditionalconcept1/i.test(v.key)) {
