@@ -110,7 +110,7 @@ import {
     isDomesticContractSigningFragmentKey,
     syncDomesticAdditionalBenefitsGate,
 } from './domestic-contract-enrichment.js';
-import { enrichGroupAnswers } from './group-answers-enrich.js';
+import { isInvalidPersonNameValue } from './person-name-sanitize.js';
 import { applyCompraventaCompanyRncFlags } from './compraventa-company-rnc.js';
 import {
     applyCompraventaPartyBranchNormalization,
@@ -134,6 +134,7 @@ import {
     isIdNumberVariableKey,
     pairedIdTypeKey,
 } from './cedula-validation.js';
+import { enrichGroupAnswers } from './group-answers-enrich.js';
 import {
     RECIBO_DESCARGO_LABORAL,
     clearReciboLaboralAdditionalConceptFieldsWhenDisabled,
@@ -1668,6 +1669,10 @@ export class DocAssistantService {
                         continue;
                     }
                 }
+                missing.push({ key: variable.key, label: variable.label });
+                continue;
+            }
+            if (isPersonNameLikeKey(variable.key) && isInvalidPersonNameValue(String(value))) {
                 missing.push({ key: variable.key, label: variable.label });
                 continue;
             }

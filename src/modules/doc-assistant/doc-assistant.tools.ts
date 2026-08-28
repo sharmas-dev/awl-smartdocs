@@ -45,6 +45,14 @@ import {
 } from './domestic-auto-preview-on-complete.js';
 import { buildCompraventaPartyGroupHint } from './compraventa-party-branch.js';
 import {
+    matchCompraventaPartyLegalNameLabel,
+    looksLikeStandaloneReplacementValue,
+    parseNewValueFromChangePhrase,
+    parsePendingUpdateVariable,
+    PENDING_UPDATE_VARIABLE_KEY,
+    serializePendingUpdateVariable,
+} from './update-variable-intent.js';
+import {
     formatCompraventaAddressMissingPrompt,
     missingCompraventaAddressComponents,
 } from './compraventa-address-complete.js';
@@ -335,23 +343,83 @@ function fuzzyMatchVariableLabel(
     input: string,
     schema: { groups: Array<{ id: string; label: string; variables: Array<{ key: string; label: string }> }> }
 ): { groupId: string; groupLabel: string; key: string; label: string; score: number } | null {
-    const inputLower = input.toLowerCase().replace(/[{}]/g, '').trim();
+    const inputClean = input.toLowerCase().replace(/[{}]/g, '').trim();
+    const inputNorm = inputClean.normalize('NFD').replace(/\p{M}/gu, '').replace(/[^a-z0-9]/g, '');
+    if (!inputNorm) return null;
+
+    const stopWords = new Set(['el', 'la', 'los', 'las', 'de', 'del', 'un', 'una', 'para', 'su', 'con', 'of', 'the', 'to', 'for', 'in', 'is']);
+    const inputTokens = inputClean
+        .normalize('NFD')
+        .replace(/\p{M}/gu, '')
+        .split(/[^a-z0-9]+/)
+        .filter((t) => t.length > 1 && !stopWords.has(t));
+
     let best: { groupId: string; groupLabel: string; key: string; label: string; score: number } | null = null;
+
     for (const group of schema.groups) {
         for (const variable of group.variables) {
             const varLower = variable.label.toLowerCase();
-            // exact match first
-            if (varLower === inputLower) {
-                return { groupId: group.id, groupLabel: group.label, key: variable.key, label: variable.label, score: 1 };
-            }
-            // also try matching against the key name
             const keyLower = variable.key.toLowerCase();
-            const score = Math.max(similarity(inputLower, varLower), similarity(inputLower, keyLower));
+
+            // 1. Exact match
+            if (varLower === inputClean || keyLower === inputClean) {
+                return { groupId: group.id, groupLabel: group.label, key: variable.key, label: variable.label, score: 1.0 };
+            }
+
+            const cleanLabel = varLower.replace(/\s*\([^)]*\)/g, '').trim();
+            const cleanLabelNorm = cleanLabel.normalize('NFD').replace(/\p{M}/gu, '').replace(/[^a-z0-9]/g, '');
+            const keyNorm = keyLower.replace(/[^a-z0-9]/g, '');
+
+            if (cleanLabelNorm === inputNorm || keyNorm === inputNorm) {
+                return { groupId: group.id, groupLabel: group.label, key: variable.key, label: variable.label, score: 1.0 };
+            }
+
+            let score = 0;
+
+            // 2. Substring matching on clean label / key
+            if (cleanLabelNorm.length > 0 && inputNorm.length > 0) {
+                if (cleanLabelNorm.includes(inputNorm)) {
+                    const ratio = inputNorm.length / cleanLabelNorm.length;
+                    score = Math.max(score, 0.7 + 0.25 * ratio);
+                } else if (inputNorm.includes(cleanLabelNorm)) {
+                    const ratio = cleanLabelNorm.length / inputNorm.length;
+                    score = Math.max(score, 0.7 + 0.25 * ratio);
+                }
+            }
+
+            // 3. Token overlap match
+            if (inputTokens.length > 0) {
+                const varTokens = cleanLabel
+                    .normalize('NFD')
+                    .replace(/\p{M}/gu, '')
+                    .split(/[^a-z0-9]+/)
+                    .concat(variable.key.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().split(/[^a-z0-9]+/))
+                    .filter((t) => t.length > 1);
+
+                const varTokenSet = new Set(varTokens);
+                const matchedTokens = inputTokens.filter((t) => varTokenSet.has(t));
+                if (matchedTokens.length > 0) {
+                    const overlapRatio = matchedTokens.length / inputTokens.length;
+                    if (overlapRatio === 1) {
+                        score = Math.max(score, 0.85);
+                    } else if (overlapRatio >= 0.5) {
+                        score = Math.max(score, 0.6 * overlapRatio);
+                    }
+                }
+            }
+
+            // 4. Levenshtein fallback
+            const simClean = similarity(inputClean, cleanLabel);
+            const simKey = similarity(inputClean, keyLower);
+            const simRaw = similarity(inputClean, varLower);
+            score = Math.max(score, simClean, simKey, simRaw);
+
             if (!best || score > best.score) {
                 best = { groupId: group.id, groupLabel: group.label, key: variable.key, label: variable.label, score };
             }
         }
     }
+
     return best && best.score >= 0.4 ? best : null;
 }
 
@@ -1776,13 +1844,15 @@ WHEN TO CALL:
 
 TWO-STEP FLOW — CRITICAL RULES:
 STEP 1 — Lookup (omit newValue):
-  - Call with templateName + variableLabel only (no newValue).
+  - Call with templateName + variableLabel only (no newValue) **only when the user has not yet said the new value**.
   - The tool returns the matched variable label and its CURRENT value from the session.
   - You MUST then ask the user in Spanish using **tú**: «El valor actual de "[label]" es "[currentValue]". ¿En qué quieres cambiarlo?» (never usted).
-  - Do NOT guess or assume the new value.
+  - Do NOT guess or assume the new value **if they have not provided it**.
 
 STEP 2 — Update + Regenerate (provide newValue):
-  - Once the user provides the new value, call again with templateName + variableLabel + newValue.
+  - Once the user provides the new value, call again with templateName + **the matched schema label from STEP 1** (e.g. "Nombre completo del vendedor…") + newValue.
+  - If the user already stated the new value in the same request (e.g. "change to prem weken", "cámbialo a Morales", "i want to change to X"), skip asking again: call STEP 2 immediately with that text as newValue. NEVER pass the new name as variableLabel without newValue.
+  - After STEP 1, the next user message **is** the newValue — call STEP 2 with newValue set. Do not look up again.
   - Apply correct Spanish spelling/accents for free-text values when saving (RULE 5g); do not change numeric IDs or forced choice literals.
   - The tool updates the session and regenerates the PDF automatically.
   - Show the new PDF preview to the user.
@@ -1840,14 +1910,39 @@ Do NOT call submit_group_answers or generate_pdf for this flow. This tool handle
         const purchaseOpt = args.userDocumentId?.trim();
         const usePurchase = Boolean(purchaseOpt && isValidObjectId(purchaseOpt));
 
-        let match = fuzzyMatchVariableLabel(args.variableLabel, schema);
+        let match =
+            matchCompraventaPartyLegalNameLabel(args.variableLabel, schema) ??
+            fuzzyMatchVariableLabel(args.variableLabel, schema);
+
+        const parsedNewFromLabel = parseNewValueFromChangePhrase(args.variableLabel);
+        let resolvedNewValue: string | number | undefined =
+            args.newValue !== undefined && args.newValue !== null && String(args.newValue).trim() !== ''
+                ? args.newValue
+                : parsedNewFromLabel;
+
+        const sessionVarsEarly = usePurchase
+            ? await this.docService.getSessionVariablesByPurchaseId(purchaseOpt!, userId)
+            : await this.docService.getSessionVariables(matchedTemplate, userId);
+        const pendingUpdate = parsePendingUpdateVariable(sessionVarsEarly[PENDING_UPDATE_VARIABLE_KEY]);
+
+        if (
+            pendingUpdate &&
+            (!match || match.key === pendingUpdate.key) &&
+            (resolvedNewValue !== undefined || looksLikeStandaloneReplacementValue(args.variableLabel))
+        ) {
+            match = { ...pendingUpdate, score: 0.9 };
+            if (resolvedNewValue === undefined) {
+                resolvedNewValue = args.variableLabel.trim();
+            }
+            toolLog('update_variable', 'PENDING LOOKUP FALLBACK', {
+                key: match.key,
+                newValue: resolvedNewValue,
+            });
+        }
 
         // ── Value-based fallback: if label match fails, search stored values ──
         if (!match) {
-            const sessionVars = usePurchase
-                ? await this.docService.getSessionVariablesByPurchaseId(purchaseOpt!, userId)
-                : await this.docService.getSessionVariables(matchedTemplate, userId);
-
+            const sessionVars = sessionVarsEarly;
             const inputLower = args.variableLabel.toLowerCase().trim();
             const valueMatches: Array<{ groupId: string; groupLabel: string; key: string; label: string }> = [];
 
@@ -1894,12 +1989,19 @@ Do NOT call submit_group_answers or generate_pdf for this flow. This tool handle
         toolLog('update_variable', 'VARIABLE MATCHED', { input: args.variableLabel, matched: match.label, key: match.key, groupId: match.groupId, score: match.score });
 
         // ── STEP 1: no newValue — return current value and ask user ───────────
-        if (args.newValue === undefined || args.newValue === null || args.newValue === '') {
-            const sessionVars = usePurchase
-                ? await this.docService.getSessionVariablesByPurchaseId(purchaseOpt!, userId)
-                : await this.docService.getSessionVariables(matchedTemplate, userId);
+        if (resolvedNewValue === undefined || resolvedNewValue === null || String(resolvedNewValue).trim() === '') {
+            const sessionVars = sessionVarsEarly;
             const currentValue = sessionVars[match.key] ?? '(not set)';
             toolLog('update_variable', 'STEP1 LOOKUP', { key: match.key, currentValue });
+            if (usePurchase && purchaseOpt) {
+                await this.docService.patchSessionVariablesByPurchaseId(purchaseOpt, userId, {
+                    [PENDING_UPDATE_VARIABLE_KEY]: serializePendingUpdateVariable({
+                        groupId: match.groupId,
+                        key: match.key,
+                        label: match.label,
+                    }),
+                });
+            }
             const lookupResult = {
                 success: true,
                 step: 'lookup',
@@ -1926,11 +2028,9 @@ Do NOT call submit_group_answers or generate_pdf for this flow. This tool handle
             return lookupResult;
         }
 
-        const sessionVarsForValidation = usePurchase
-            ? await this.docService.getSessionVariablesByPurchaseId(purchaseOpt!, userId)
-            : await this.docService.getSessionVariables(matchedTemplate, userId);
+        const sessionVarsForValidation = sessionVarsEarly;
 
-        const mergedForValidation = { ...sessionVarsForValidation, [match.key]: args.newValue };
+        const mergedForValidation = { ...sessionVarsForValidation, [match.key]: resolvedNewValue };
         const validationErrors = getInvalidCedulaFieldsInVariables(mergedForValidation);
         if (validationErrors.length > 0) {
             return {
@@ -1952,19 +2052,22 @@ Do NOT call submit_group_answers or generate_pdf for this flow. This tool handle
 
         // ── STEP 2: newValue provided — update session and regenerate preview ──
         const benefitsPairPatch = isDomesticContractTemplate(matchedTemplate)
-            ? domesticAdditionalBenefitsUpdatePatch(match.key, String(args.newValue))
+            ? domesticAdditionalBenefitsUpdatePatch(match.key, String(resolvedNewValue))
             : isPropuestaDeTrabajoTemplate(matchedTemplate)
-              ? propuestaAdditionalBenefitsUpdatePatch(match.key, String(args.newValue))
+              ? propuestaAdditionalBenefitsUpdatePatch(match.key, String(resolvedNewValue))
               : null;
         const updatePayload: Record<string, string | number> = benefitsPairPatch ?? {
-            [match.key]: args.newValue,
+            [match.key]: resolvedNewValue,
         };
         if (usePurchase) {
             await this.docService.storeGroupVariablesByPurchaseId(purchaseOpt!, userId, match.groupId, updatePayload);
+            await this.docService.patchSessionVariablesByPurchaseId(purchaseOpt!, userId, {
+                [PENDING_UPDATE_VARIABLE_KEY]: '',
+            });
         } else {
             await this.docService.storeGroupVariables(match.groupId, updatePayload, matchedTemplate, userId);
         }
-        toolLog('update_variable', 'VARIABLE UPDATED', { key: match.key, groupId: match.groupId, newValue: args.newValue, usePurchase });
+        toolLog('update_variable', 'VARIABLE UPDATED', { key: match.key, groupId: match.groupId, newValue: resolvedNewValue, usePurchase });
 
         const variables = usePurchase
             ? await this.docService.getSessionVariablesByPurchaseId(purchaseOpt!, userId)
@@ -2009,8 +2112,8 @@ Do NOT call submit_group_answers or generate_pdf for this flow. This tool handle
             pdfPath: result.pdfPath,
             templateName: matchedTemplate,
             ...htmlPayload,
-            updatedVariable: { label: match.label, key: match.key, groupId: match.groupId, newValue: args.newValue },
-            message: `Updated "${match.label}" to "${args.newValue}". Preview regenerated.`,
+            updatedVariable: { label: match.label, key: match.key, groupId: match.groupId, newValue: resolvedNewValue },
+            message: `Updated "${match.label}" to "${resolvedNewValue}". Preview regenerated.`,
             instruction: usePurchase
                 ? `Reply IN SPANISH with ONLY the short preview follow-up (same as after generate_pdf; no HTML, no document text):\n\n${PREVIEW_READY_CHAT_MESSAGE}\n\nIf the user wants more changes, use update_variable again with userDocumentId="${purchaseOpt}". On download confirmation, call confirm_document and reply with downloadChatMessage in Spanish only (system prompt STEP 5).`
                 : `Reply IN SPANISH with ONLY the short preview follow-up (same as after generate_pdf):\n\n${PREVIEW_READY_CHAT_MESSAGE}\n\nIf the user wants more changes, use update_variable again. On download confirmation, call confirm_document and reply with downloadChatMessage only (chat link), per STEP 5.`,

@@ -17,7 +17,7 @@ import {
     enrichReciboDomesticaGroupDates,
     extractSpanishFullDatesFromText,
 } from './recibo-domestica-date-parse.js';
-import { isInvalidPersonNameValue } from './person-name-sanitize.js';
+import { isInvalidPersonNameValue, parseGenderChoiceFromNameLikePhrase } from './person-name-sanitize.js';
 import { extractSiNoChoiceFromNarrative } from './recibo-descargo-pending-toggles.js';
 
 type GroupVariable = {
@@ -158,7 +158,7 @@ function extractValueForVariable(
     if (/fullname|legalname/i.test(key) && !/company|empresa|employeridblock/i.test(key)) {
         const m =
             t.match(/(?:se\s+llama|llamad[oa]|nombre(?:\s+completo)?(?:\s+es)?)\s+([^,]+?)(?=,\s*(?:es\b|y\s+se\b|con\s+))/i) ??
-            t.match(/(?:trabajador(?:a)?|vendedor|comprador|empleador(?:a)?)\s+(?:se\s+llama\s+)?([^,]+)/i);
+            t.match(/(?:trabajador(?:a)?|vendedor|comprador|empleador(?:a)?)\s+se\s+llama\s+([^,]+)/i);
         if (m?.[1]) {
             const candidate = m[1].trim().replace(/\s+/g, ' ');
             if (!isInvalidPersonNameValue(candidate)) return candidate;
@@ -231,6 +231,24 @@ function extractValueForVariable(
     }
 
     return undefined;
+}
+
+/** Stop gender replies ("es hombre") from being saved as seller/buyer legal names. */
+function reclaimGenderPhrasesStoredAsPartyLegalName(
+    groupId: string,
+    variables: GroupVariable[],
+    mapped: Record<string, string | number>,
+): void {
+    if (groupId !== 'seller' && groupId !== 'buyer') return;
+    const nameKey = `${groupId}LegalName`;
+    const genderKey = `${groupId}Gender`;
+    const parsed = parseGenderChoiceFromNameLikePhrase(String(mapped[nameKey] ?? ''));
+    if (!parsed) return;
+    if (!String(mapped[genderKey] ?? '').trim()) {
+        const genderVar = variables.find((v) => v.key === genderKey);
+        mapped[genderKey] = genderVar ? normalizeChoiceValue(parsed, genderVar.options) : parsed;
+    }
+    mapped[nameKey] = '';
 }
 
 /**
@@ -335,6 +353,8 @@ export function enrichGroupAnswers(
             parsedFromNarrative = true;
         }
     }
+
+    reclaimGenderPhrasesStoredAsPartyLegalName(groupId, variables, mapped);
 
     const stillUnrecognized = first.unrecognizedKeys.filter((k) => !(k in mapped));
     return {

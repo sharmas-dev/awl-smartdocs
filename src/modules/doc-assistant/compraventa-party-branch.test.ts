@@ -27,6 +27,17 @@ describe('applyCompraventaPartyBranchNormalization', () => {
         assert.equal(out.sellerIsCompany, 'Empresa');
     });
 
+    it('clears es hombre stored as sellerLegalName and sets Gender', () => {
+        const out: Record<string, string | number> = {
+            sellerIsCompany: 'Persona física',
+            sellerLegalName: 'es hombre',
+        };
+        assert.equal(applyCompraventaPartyBranchNormalization(out), true);
+        assert.equal(out.sellerLegalName, '');
+        assert.equal(out.sellerGender, 'Hombre');
+        assert.equal(out.sellerTypeLabel, 'el señor');
+    });
+
     it('infers Persona física from el señor type label', () => {
         const out: Record<string, string | number> = {
             sellerTypeLabel: 'el señor',
@@ -107,6 +118,22 @@ describe('applyCompraventaTypeLabelFromChoice', () => {
         applyCompraventaTypeLabelFromChoice('seller', out);
         assert.equal(out.sellerTypeLabel, 'el señor');
         assert.equal(isCompraventaTypeLabelAutoFilled('seller', out), true);
+    });
+
+    it('infers el señor / la señora from LegalName when Gender is missing', () => {
+        const outMale: Record<string, string | number> = {
+            sellerIsCompany: 'Persona física',
+            sellerLegalName: 'Prem Wekan',
+        };
+        applyCompraventaTypeLabelFromChoice('seller', outMale);
+        assert.equal(outMale.sellerTypeLabel, 'el señor');
+
+        const outFemale: Record<string, string | number> = {
+            buyerIsCompany: 'Persona física',
+            buyerLegalName: 'Laura Isabel Fernández Morales',
+        };
+        applyCompraventaTypeLabelFromChoice('buyer', outFemale);
+        assert.equal(outFemale.buyerTypeLabel, 'la señora');
     });
 });
 
