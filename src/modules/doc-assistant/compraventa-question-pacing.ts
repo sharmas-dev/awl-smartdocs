@@ -96,12 +96,26 @@ export const COMPRAVENTA_EMPRESA_WAVE_SUFFIXES: readonly (readonly string[])[] =
     ['RepFullAddress'],
 ] as const;
 
+function pickLegalNameWaveIfMissing(
+    prefix: CompraventaPartyPrefix,
+    missingKeys: Iterable<string>,
+): { waveIndex: number; keys: string[] } | null {
+    const nameKey = partyKey(prefix, 'LegalName');
+    if (new Set(missingKeys).has(nameKey)) {
+        return { waveIndex: 0, keys: [nameKey] };
+    }
+    return null;
+}
+
 export function pickCompraventaEmpresaWave(
     prefix: CompraventaPartyPrefix,
     missingKeys: Iterable<string>,
     vars: Record<string, string | number> = {},
 ): CompraventaEmpresaWave | null {
-    return pickWaveFromPlan(prefix, buildEmpresaWavePlan(prefix, vars), missingKeys);
+    return (
+        pickLegalNameWaveIfMissing(prefix, missingKeys) ??
+        pickWaveFromPlan(prefix, buildEmpresaWavePlan(prefix, vars), missingKeys)
+    );
 }
 
 export function pickCompraventaPersonaWave(
@@ -109,7 +123,10 @@ export function pickCompraventaPersonaWave(
     missingKeys: Iterable<string>,
     vars: Record<string, string | number>,
 ): CompraventaPersonaWave | null {
-    return pickWaveFromPlan(prefix, buildPersonaWavePlan(prefix, vars), missingKeys);
+    return (
+        pickLegalNameWaveIfMissing(prefix, missingKeys) ??
+        pickWaveFromPlan(prefix, buildPersonaWavePlan(prefix, vars), missingKeys)
+    );
 }
 
 export function sliceCompraventaPendingVariables<
@@ -152,6 +169,10 @@ export function inferCompraventaEmpresaWaveFromPendingKeys(
     if (pendingKeys.length === 0) {
         return null;
     }
+    const legalNameKey = partyKey(prefix, 'LegalName');
+    if (pendingKeys.includes(legalNameKey)) {
+        return { waveIndex: 0, keys: [legalNameKey] };
+    }
     const plan = buildEmpresaWavePlan(prefix, vars);
     const firstKey = pendingKeys[0];
     const suffix = firstKey.startsWith(prefix) ? firstKey.slice(prefix.length) : '';
@@ -170,6 +191,10 @@ export function inferCompraventaPersonaWaveFromPendingKeys(
 ): CompraventaPersonaWave | null {
     if (pendingKeys.length === 0) {
         return null;
+    }
+    const legalNameKey = partyKey(prefix, 'LegalName');
+    if (pendingKeys.includes(legalNameKey)) {
+        return { waveIndex: 0, keys: [legalNameKey] };
     }
     const plan = buildPersonaWavePlan(prefix, vars);
     const firstKey = pendingKeys[0];
@@ -194,6 +219,13 @@ export function buildCompraventaEmpresaFollowUpMessage(
     }
 
     const partyLabel = groupId === 'seller' ? 'vendedor' : 'comprador';
+
+    if (wave.keys.some((k) => k === 'sellerLegalName' || k === 'buyerLegalName')) {
+        return (
+            `Gracias. Recibido. Por favor indícame el nombre completo del ${partyLabel} (nombre y apellidos, o razón social).\n\n` +
+            FOLLOW_UP_CLOSER
+        );
+    }
 
     let body: string;
     switch (wave.waveIndex) {
@@ -242,10 +274,17 @@ export function buildCompraventaPersonaFollowUpMessage(
 
     const partyLabel = groupId === 'seller' ? 'vendedor' : 'comprador';
 
+    if (wave.keys.some((k) => k === 'sellerLegalName' || k === 'buyerLegalName')) {
+        return (
+            `Gracias. Recibido. Por favor indícame el nombre completo del ${partyLabel} (nombre y apellidos).\n\n` +
+            FOLLOW_UP_CLOSER
+        );
+    }
+
     let body: string;
     switch (wave.waveIndex) {
         case 0:
-            body = `Gracias. Recibido. Para el ${partyLabel}, ¿es hombre o mujer?`;
+            body = `Gracias. Recibido. Indícame el género del ${partyLabel}: hombre o mujer.`;
             break;
         case 1:
             body = `Gracias. Recibido. Por favor indícame la nacionalidad del ${partyLabel}.`;

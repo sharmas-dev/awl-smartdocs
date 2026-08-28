@@ -3,6 +3,8 @@
  */
 
 import { normalizePartyCompanyChoice } from './party-company-choice-format.js';
+import { parseGenderChoiceFromNameLikePhrase } from './person-name-sanitize.js';
+import { inferGenderFromName } from './gender-choice-format.js';
 
 export type CompraventaPartyPrefix = 'seller' | 'buyer';
 
@@ -220,7 +222,13 @@ export function applyCompraventaTypeLabelFromChoice(
         return changed;
     }
 
-    const gender = String(out[cfg.genderKey] ?? '').trim();
+    let gender = String(out[cfg.genderKey] ?? '').trim();
+    if (!gender) {
+        const legalName = String(out[partyKey(prefix, 'LegalName')] ?? '').trim();
+        if (legalName) {
+            gender = inferGenderFromName(legalName);
+        }
+    }
     let label: string | undefined;
     if (gender === 'Hombre') label = 'el señor';
     else if (gender === 'Mujer') label = 'la señora';
@@ -288,9 +296,26 @@ export function applyCompraventaPartyBranchNormalization(
         }
 
         if (applyCompraventaTypeLabelFromChoice(party, out)) changed = true;
+        if (scrubGenderPhraseFromPartyLegalName(party, out)) changed = true;
     }
 
     return changed;
+}
+
+/** "es hombre" is a gender answer, not a legal name — clear it so the name is asked again. */
+export function scrubGenderPhraseFromPartyLegalName(
+    prefix: CompraventaPartyPrefix,
+    out: Record<string, string | number>,
+): boolean {
+    const cfg = PARTY_CONFIG[prefix];
+    const nameKey = partyKey(prefix, 'LegalName');
+    const parsed = parseGenderChoiceFromNameLikePhrase(String(out[nameKey] ?? ''));
+    if (!parsed) return false;
+    if (!String(out[cfg.genderKey] ?? '').trim()) {
+        out[cfg.genderKey] = parsed;
+    }
+    out[nameKey] = '';
+    return true;
 }
 
 export function inferCompraventaPartyFromGroupSubmit(

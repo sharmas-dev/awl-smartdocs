@@ -57,7 +57,7 @@ describe('pickCompraventaEmpresaWave', () => {
 });
 
 describe('pickCompraventaPersonaWave', () => {
-    it('wave 0 is gender when persona without gender', () => {
+    it('wave 0 is gender when persona without gender and name already set', () => {
         const wave = pickCompraventaPersonaWave(
             'seller',
             ['sellerGender', 'sellerNationality'],
@@ -65,6 +65,15 @@ describe('pickCompraventaPersonaWave', () => {
         );
         assert.deepEqual(wave?.keys, ['sellerGender']);
         assert.equal(wave?.waveIndex, 0);
+    });
+
+    it('asks for legal name before gender when name is still missing', () => {
+        const wave = pickCompraventaPersonaWave(
+            'seller',
+            ['sellerLegalName', 'sellerGender', 'sellerNationality'],
+            { sellerIsCompany: 'Persona física' },
+        );
+        assert.deepEqual(wave?.keys, ['sellerLegalName']);
     });
 });
 
@@ -120,6 +129,15 @@ describe('buildCompraventaEmpresaFollowUpMessage', () => {
 });
 
 describe('buildCompraventaPersonaFollowUpMessage', () => {
+    it('asks género as hombre o mujer without the phrase es hombre', () => {
+        const msg = buildCompraventaPersonaFollowUpMessage('seller', {
+            waveIndex: 0,
+            keys: ['sellerGender'],
+        });
+        assert.match(msg!, /género del vendedor/i);
+        assert.doesNotMatch(msg!, /¿es hombre o mujer\?/i);
+    });
+
     it('asks comunidad de bienes on wave 3', () => {
         const msg = buildCompraventaPersonaFollowUpMessage('seller', {
             waveIndex: 3,
