@@ -438,6 +438,7 @@ const TEMPLATE_ALIASES: Record<string, string> = {
     [normalizeTemplateAliasKey('Contrato de Representación Agente de Bienes Raíces')]: 'Contrato de Representación Agente de Bienes Raíces',
     [normalizeTemplateAliasKey('Contrato de Representacion Agente de Bienes Raices')]: 'Contrato de Representación Agente de Bienes Raíces',
     [normalizeTemplateAliasKey('Contrato de Intermediación y Corretaje Inmobiliario')]: 'Contrato de Representación Agente de Bienes Raíces',
+    [normalizeTemplateAliasKey('Poder para Registrar Signo Distintivo')]: 'Poder de Representación Signos Distintivos',
 };
 
 function fuzzyMatchTemplate(input: string, validNames: string[]): string | null {
