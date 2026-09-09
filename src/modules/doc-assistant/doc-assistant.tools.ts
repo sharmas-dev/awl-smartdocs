@@ -2425,24 +2425,44 @@ Takes no input. Returns the generated PDF preview on success or an error message
         const userDocumentId = args.userDocumentId?.trim() ?? '';
         toolLog('reset_document_session', 'CALLED', { userDocumentId, userId });
 
+        if (userId === 'anonymous') {
+            return { success: false, message: 'Se requiere iniciar sesión para reiniciar este documento.' };
+        }
+
         if (!userDocumentId || !isValidObjectId(userDocumentId)) {
             return { success: false, message: 'Invalid userDocumentId: must be a 24-character hex ObjectId.' };
         }
 
         const verifiedPurchase = await this.mongoService.findUserDocumentByIdForUser(userDocumentId, userId);
-        const templateName = args.templateName?.trim() || '';
+        if (!verifiedPurchase) {
+            toolLog('reset_document_session', 'USER_DOCUMENT_NOT_FOUND', { userDocumentId, userId });
+            return { success: false, message: 'No se encontró la compra indicada o no coincide con tu usuario.' };
+        }
+
+        if (verifiedPurchase.status === 'DELIVERED') {
+            toolLog('reset_document_session', 'CANNOT_RESET_DELIVERED', { userDocumentId, status: verifiedPurchase.status });
+            return { success: false, message: 'El documento ya ha sido finalizado y entregado; no se puede reiniciar.' };
+        }
+
+        const existingSession = await this.docService.getPurchaseSession(userDocumentId, userId);
+        let templateName = args.templateName?.trim() || existingSession?.templateName || '';
+        if (!templateName && verifiedPurchase.document_id) {
+            const doc = await this.mongoService.findDocumentById(verifiedPurchase.document_id.toString());
+            if (doc?.title) {
+                const validNames = this.docService.listTemplates();
+                templateName = fuzzyMatchTemplate(doc.title, validNames) || '';
+            }
+        }
 
         await this.docService.clearSessionByPurchaseId(userDocumentId, userId, templateName);
         if (templateName) {
             await this.docService.clearSession(templateName, userId);
         }
 
-        if (verifiedPurchase && verifiedPurchase.status !== 'DELIVERED') {
-            await this.mongoService.updateUserDocumentStatusByPurchaseId(userDocumentId, userId, 'IN_PROGRESS');
-        }
+        await this.mongoService.updateUserDocumentStatusByPurchaseId(userDocumentId, userId, 'IN_PROGRESS');
 
-        toolLog('reset_document_session', 'SESSION_RESET_SUCCESS', { userDocumentId, userId });
-        ctx.logger.info('reset_document_session completed', { userDocumentId, userId });
+        toolLog('reset_document_session', 'SESSION_RESET_SUCCESS', { userDocumentId, userId, templateName });
+        ctx.logger.info('reset_document_session completed', { userDocumentId, userId, templateName });
 
         return {
             success: true,
