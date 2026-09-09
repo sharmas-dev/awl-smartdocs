@@ -285,6 +285,11 @@ const ConfirmDocumentSchema = z.object({
     userDocumentId: optionalPurchaseRowId,
 });
 
+const ResetDocumentSessionSchema = z.object({
+    userDocumentId: z.string().describe('The user_documents row _id (24-char hex) to reset session answers for.'),
+    templateName: z.string().optional().describe('Optional template name to clear index for.'),
+});
+
 const UpdateVariableSchema = z.object({
     templateName: z.string().describe('Template name'),
     userDocumentId: optionalPurchaseRowId,
@@ -2405,6 +2410,49 @@ Takes no input. Returns the generated PDF preview on success or an error message
         const msg = safeErrorMessage(err);
         toolLog('generate_sample_pdf', 'UNHANDLED ERROR', { error: msg });
         return { success: false, pdfPath: '', htmlContent: '', templateName: '', message: msg };
+      }
+    }
+
+    @Tool({
+        name: 'reset_document_session',
+        description: 'Resets and wipes all saved answers for a user document session in the database, allowing the document flow to restart from Step 1.' + USER_FACING_HIDE_INTERNALS,
+        inputSchema: ResetDocumentSessionSchema,
+    })
+    @UseGuards(JwtGuard)
+    async resetDocumentSession(args: z.infer<typeof ResetDocumentSessionSchema>, ctx: ExecutionContext) {
+      try {
+        const userId = getUserIdFromContext(ctx);
+        const userDocumentId = args.userDocumentId?.trim() ?? '';
+        toolLog('reset_document_session', 'CALLED', { userDocumentId, userId });
+
+        if (!userDocumentId || !isValidObjectId(userDocumentId)) {
+            return { success: false, message: 'Invalid userDocumentId: must be a 24-character hex ObjectId.' };
+        }
+
+        const verifiedPurchase = await this.mongoService.findUserDocumentByIdForUser(userDocumentId, userId);
+        const templateName = args.templateName?.trim() || '';
+
+        await this.docService.clearSessionByPurchaseId(userDocumentId, userId, templateName);
+        if (templateName) {
+            await this.docService.clearSession(templateName, userId);
+        }
+
+        if (verifiedPurchase && verifiedPurchase.status !== 'DELIVERED') {
+            await this.mongoService.updateUserDocumentStatusByPurchaseId(userDocumentId, userId, 'IN_PROGRESS');
+        }
+
+        toolLog('reset_document_session', 'SESSION_RESET_SUCCESS', { userDocumentId, userId });
+        ctx.logger.info('reset_document_session completed', { userDocumentId, userId });
+
+        return {
+            success: true,
+            userDocumentId,
+            message: 'Document session has been completely reset. The flow will restart from Step 1.',
+        };
+      } catch (err) {
+        const msg = safeErrorMessage(err);
+        toolLog('reset_document_session', 'UNHANDLED_ERROR', { error: msg });
+        return { success: false, message: msg };
       }
     }
 
